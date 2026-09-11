@@ -1,0 +1,43 @@
+{
+  "command": "agentforce:introspect",
+  "responseShape": {
+    "description": "What the External Client App credentials are permitted to do",
+    "fields": {
+      "introspectedAt": {
+        "type": "string",
+        "description": "ISO timestamp"
+      },
+      "myDomainUrl": {
+        "type": "string",
+        "description": "My Domain URL of the org"
+      },
+      "orgApiHost": {
+        "type": "string",
+        "description": "host answering org API calls"
+      },
+      "agentApiHost": {
+        "type": "string",
+        "description": "host answering Agent API calls"
+      },
+      "defaultAgentId": {
+        "type": "string",
+        "description": "agent id from credentials, or null"
+      },
+      "systemPermissions": {
+        "type": "object",
+        "description": "{agentApiAccess, clientCredentialsFlow, ...}"
+      }
+    },
+    "example": {
+      "introspectedAt": "2026-09-11T00:00:00.000Z",
+      "myDomainUrl": "https://example.my.salesforce.com",
+      "orgApiHost": "example.my.salesforce.com",
+      "agentApiHost": "api.salesforce.com",
+      "defaultAgentId": null,
+      "systemPermissions": {
+        "agentApiAccess": true,
+        "clientCredentialsFlow": true
+      }
+    }
+  }
+}

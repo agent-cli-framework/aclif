@@ -1,0 +1,37 @@
+{
+  "command": "servicenow:data:aggregate",
+  "responseShape": {
+    "description": "Aggregate statistics grouped by specified fields, normalized to flat records",
+    "fields": {
+      "table": {
+        "type": "string",
+        "description": "Table queried"
+      },
+      "query": {
+        "type": "string",
+        "nullable": true,
+        "description": "Encoded query filter used"
+      },
+      "groupBy": {
+        "type": "string",
+        "nullable": true,
+        "description": "Group-by field"
+      },
+      "records": {
+        "type": "array",
+        "description": "Flat records with group-by fields and stats as columns"
+      }
+    },
+    "example": {
+      "table": "incident",
+      "query": null,
+      "groupBy": "priority",
+      "records": [
+        {
+          "priority": "1",
+          "count": 12
+        }
+      ]
+    }
+  }
+}

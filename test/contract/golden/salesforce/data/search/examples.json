@@ -1,0 +1,25 @@
+{
+  "command": "salesforce:data:search",
+  "examples": [
+    {
+      "description": "Search across Account and Contact",
+      "command": "aclif salesforce data search --query \"FIND {Acme} IN ALL FIELDS RETURNING Account(Id, Name), Contact(Id, Name)\"",
+      "responseShape": {
+        "searchRecords": [
+          {
+            "attributes": {
+              "type": "Account"
+            },
+            "Id": "001xx...",
+            "Name": "Acme Corp"
+          }
+        ],
+        "totalResults": 3
+      }
+    },
+    {
+      "description": "Wildcard search in name fields",
+      "command": "aclif salesforce data search --query \"FIND {test*} IN NAME FIELDS RETURNING Account(Id, Name, Industry)\""
+    }
+  ]
+}

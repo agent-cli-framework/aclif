@@ -1,0 +1,44 @@
+{
+  "command": "salesforce:data:query",
+  "examples": [
+    {
+      "description": "List 10 accounts",
+      "command": "aclif salesforce data query --query \"SELECT Id, Name FROM Account LIMIT 10\"",
+      "responseShape": {
+        "totalSize": 10,
+        "done": true,
+        "records": [
+          {
+            "Id": "001xx...",
+            "Name": "Acme Corp"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Filter by industry with limit",
+      "command": "aclif salesforce data query --query \"SELECT Id, Name, Industry FROM Account WHERE Industry = 'Technology'\" --limit 5"
+    },
+    {
+      "description": "Query with related fields",
+      "command": "aclif salesforce data query --query \"SELECT Id, Name, Account.Name FROM Contact LIMIT 5\""
+    },
+    {
+      "description": "Top-N rows by aggregate count. Notes: (a) ORDER BY COUNT(Id), NOT the alias; (b) GROUP BY relationship fields come back flattened — Account.Name arrives as row.Name, not row.Account.Name.",
+      "command": "aclif salesforce data query --query \"SELECT Account.Name, COUNT(Id) Cases FROM Case WHERE Type = 'Warranty' GROUP BY Account.Name ORDER BY COUNT(Id) DESC LIMIT 10\"",
+      "responseShape": {
+        "totalSize": 10,
+        "done": true,
+        "records": [
+          {
+            "attributes": {
+              "type": "AggregateResult"
+            },
+            "Name": "Acme Corp",
+            "Cases": 42
+          }
+        ]
+      }
+    }
+  ]
+}

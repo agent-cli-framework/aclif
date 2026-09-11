@@ -1,0 +1,22 @@
+{
+  "command": "agentforce:agents:list",
+  "examples": [
+    {
+      "description": "List up to 50 agents in the org",
+      "command": "aclif agentforce agents list --json",
+      "responseShape": {
+        "agents": [
+          {
+            "id": "0XxAB000000XXXXAB1",
+            "developerName": "Sales_Coach",
+            "label": "Sales Coach"
+          }
+        ]
+      }
+    },
+    {
+      "description": "List up to 10 agents (smaller LLM context)",
+      "command": "aclif agentforce agents list --limit 10 --json"
+    }
+  ]
+}

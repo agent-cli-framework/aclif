@@ -1,0 +1,9 @@
+{
+  "command": "agentforce:discover",
+  "examples": [
+    {
+      "description": "No examples defined yet",
+      "command": "aclif agentforce discover --help"
+    }
+  ]
+}

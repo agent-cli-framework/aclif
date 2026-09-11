@@ -1,0 +1,4 @@
+{"totalSize": 2, "done": true, "records": [
+  {"attributes": {"type": "BotDefinition"}, "Id": "0XxAB000000AAAAAB1", "DeveloperName": "Service_Agent", "MasterLabel": "Service Agent", "Type": "ExternalCopilot"},
+  {"attributes": {"type": "BotDefinition"}, "Id": "0XxAB000000BBBBBB1", "DeveloperName": "Default_Copilot", "MasterLabel": "Agentforce (Default)", "Type": "InternalCopilot"}
+]}

@@ -1,0 +1,52 @@
+{
+  "command": "docusign:discover",
+  "category": "auth",
+  "flags": {
+    "profile": {
+      "type": "option",
+      "description": "Named profile from the config file",
+      "required": false
+    },
+    "instance": {
+      "type": "option",
+      "description": "Named instance within the profile, for providers with more than one; embedding hosts pass it through",
+      "required": false
+    },
+    "identity-token": {
+      "type": "option",
+      "description": "Identity token verified by the configured identity provider",
+      "required": false
+    },
+    "integration-key": {
+      "type": "option",
+      "description": "DocuSign Integration Key (OAuth client_id)",
+      "required": false
+    },
+    "user-id": {
+      "type": "option",
+      "description": "Impersonated DocuSign user GUID (API Username)",
+      "required": false
+    },
+    "account-id": {
+      "type": "option",
+      "description": "DocuSign API Account GUID",
+      "required": false
+    },
+    "private-key": {
+      "type": "option",
+      "description": "RSA private key PEM — inline value or @/path/to/key.pem",
+      "required": false
+    },
+    "base-uri": {
+      "type": "option",
+      "description": "DocuSign API base URI (default: https://demo.docusign.net, auto-discovered on first call)",
+      "required": false
+    },
+    "auth-server": {
+      "type": "option",
+      "description": "OAuth auth server host (account-d.docusign.com | account.docusign.com)",
+      "required": false,
+      "default": "account-d.docusign.com"
+    }
+  }
+}

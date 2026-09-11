@@ -1,0 +1,9 @@
+{
+  "command": "google:discover",
+  "examples": [
+    {
+      "description": "No examples defined yet",
+      "command": "aclif google discover --help"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "command": "google:gmail:profile",
+  "responseShape": {
+    "description": "Mailbox profile",
+    "fields": {
+      "emailAddress": {
+        "type": "string",
+        "description": "Owner email address (the canonical \"me\" identity for this Gmail token)"
+      },
+      "messagesTotal": {
+        "type": "number",
+        "description": "Total messages in the mailbox"
+      },
+      "threadsTotal": {
+        "type": "number",
+        "description": "Total threads in the mailbox"
+      },
+      "historyId": {
+        "type": "string",
+        "description": "Most recent history record ID — opaque token for the history.list endpoint"
+      }
+    },
+    "example": {
+      "emailAddress": "demo@example.com",
+      "messagesTotal": 12345,
+      "threadsTotal": 4321,
+      "historyId": "987654"
+    }
+  }
+}

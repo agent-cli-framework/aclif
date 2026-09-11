@@ -1,0 +1,9 @@
+{
+  "command": "auth:logout",
+  "examples": [
+    {
+      "description": "No examples defined yet",
+      "command": "aclif auth logout --help"
+    }
+  ]
+}

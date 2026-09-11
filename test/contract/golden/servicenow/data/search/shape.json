@@ -1,0 +1,43 @@
+{
+  "command": "servicenow:data:search",
+  "responseShape": {
+    "description": "Text search results using LIKE query across specified fields",
+    "fields": {
+      "table": {
+        "type": "string",
+        "description": "Table searched"
+      },
+      "searchText": {
+        "type": "string",
+        "description": "Text searched for"
+      },
+      "searchFields": {
+        "type": "array",
+        "description": "Fields searched in"
+      },
+      "encodedQuery": {
+        "type": "string",
+        "description": "Generated encoded query"
+      },
+      "totalCount": {
+        "type": "integer",
+        "nullable": true,
+        "description": "Total matching records"
+      },
+      "records": {
+        "type": "array",
+        "description": "Matching records"
+      }
+    },
+    "example": {
+      "table": "incident",
+      "searchText": "outage",
+      "totalCount": 3,
+      "records": [
+        {
+          "sys_id": "abc123"
+        }
+      ]
+    }
+  }
+}

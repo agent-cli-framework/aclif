@@ -1,0 +1,9 @@
+{
+  "command": "salesforce:metadata:field",
+  "examples": [
+    {
+      "description": "No examples defined yet",
+      "command": "aclif salesforce metadata field --help"
+    }
+  ]
+}

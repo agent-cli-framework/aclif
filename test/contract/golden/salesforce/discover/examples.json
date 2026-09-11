@@ -1,0 +1,9 @@
+{
+  "command": "salesforce:discover",
+  "examples": [
+    {
+      "description": "No examples defined yet",
+      "command": "aclif salesforce discover --help"
+    }
+  ]
+}

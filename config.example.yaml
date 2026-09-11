@@ -1,0 +1,60 @@
+# aclif configuration file
+# Location: <configDir>/config.yaml, where configDir is the XDG config
+# directory for the binary (for example ~/.config/aclif/config.yaml).
+#
+# Credential precedence: flags, then environment variables, then the
+# selected profile. Select a profile with --profile <name> or ACLIF_PROFILE;
+# default_profile applies when neither is given.
+
+default_profile: dev
+
+profiles:
+  dev:
+    salesforce:
+      instance_url: https://example-dev-ed.develop.my.salesforce.com
+      username: user@example.com
+      password: changeme
+      security_token: ""
+    servicenow:
+      instance_url: https://dev00000.service-now.com
+      username: api
+      password: changeme
+
+  staging:
+    salesforce:
+      instance_url: https://example--staging.sandbox.my.salesforce.com
+      access_token: ""     # or set SF_ACCESS_TOKEN in the environment
+    servicenow:
+      instance_url: https://example-staging.service-now.com
+      access_token: ""
+
+# Canonical alias sets, in precedence order; the built-in starter vocabulary
+# is appended last (set aliases_starter: false to drop it). Files imported
+# with `aclif aliases import` land in ./aliases/ and load automatically.
+aliases:
+  - ./aliases/crm.json
+
+# Declarative command manifests per profile and provider, relative to this
+# directory. Each becomes a command with the manifest's aciMetadata.
+manifests:
+  dev:
+    salesforce:
+      - ./manifests/apex-quote-summary.json
+
+# Execution policy for the standalone binary. Every key is optional.
+policy:
+  # Refuse commands with no resolved identity (exit 3). Off by default.
+  require_identity: false
+  # Require --confirm by mutability (create, update, delete), blast radius
+  # (single_record, filtered_set, all_records), or capability (code_exec,
+  # metadata_change, bulk). Commands that declare requiresConfirmation
+  # always require it.
+  require_confirm_for: []
+  # Warn when a delete without --dry-run targets one of these.
+  dry_run_warning_for: [filtered_set, all_records]
+
+# How identity is resolved. anonymous (default) never resolves one;
+# static-jwt verifies --identity-token / ACLIF_IDENTITY_TOKEN as an HS256
+# token against ACLIF_IDENTITY_SECRET.
+identity:
+  provider: anonymous

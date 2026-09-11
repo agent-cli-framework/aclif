@@ -1,0 +1,18 @@
+{
+  "command": "docusign:envelopes:delete",
+  "examples": [
+    {
+      "description": "Delete a draft envelope",
+      "command": "aclif docusign envelopes delete --envelope-id abc-123 --confirm --json",
+      "responseShape": {
+        "envelopeId": "abc-123",
+        "folderId": "recyclebin",
+        "deleted": true
+      }
+    },
+    {
+      "description": "Move an envelope to a specific folder (not recyclebin)",
+      "command": "aclif docusign envelopes delete --envelope-id abc-123 --folder-id draft --confirm --json"
+    }
+  ]
+}

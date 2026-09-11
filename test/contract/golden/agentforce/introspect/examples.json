@@ -1,0 +1,9 @@
+{
+  "command": "agentforce:introspect",
+  "examples": [
+    {
+      "description": "No examples defined yet",
+      "command": "aclif agentforce introspect --help"
+    }
+  ]
+}

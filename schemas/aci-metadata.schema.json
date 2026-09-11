@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aclif.dev/schemas/aci-metadata.schema.json",
+  "title": "aciMetadata",
+  "description": "Static safety metadata every command declares; read by --schema, --discover, the policy layer, and capability gates.",
+  "type": "object",
+  "required": ["mutability", "idempotent", "reversible", "blastRadius", "apiCallsConsumed", "requiresConfirmation", "prerequisites"],
+  "properties": {
+    "mutability": {"enum": ["read", "create", "update", "delete"]},
+    "idempotent": {"type": "boolean"},
+    "reversible": {"type": "boolean"},
+    "blastRadius": {"enum": ["single_record", "filtered_set", "all_records"]},
+    "apiCallsConsumed": {"type": "integer", "minimum": 0},
+    "requiresConfirmation": {"type": "boolean"},
+    "prerequisites": {"type": "array", "items": {"type": "string"}},
+    "capabilities": {"type": "array", "items": {"enum": ["code_exec", "metadata_change", "bulk"]}, "uniqueItems": true}
+  },
+  "additionalProperties": false
+}

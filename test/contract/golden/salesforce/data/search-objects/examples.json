@@ -1,0 +1,23 @@
+{
+  "command": "salesforce:data:search-objects",
+  "examples": [
+    {
+      "description": "List all custom objects",
+      "command": "aclif salesforce data search-objects --pattern \"*__c\" --custom-only",
+      "responseShape": {
+        "totalMatched": 5,
+        "objects": [
+          {
+            "name": "Merchandise__c",
+            "label": "Merchandise",
+            "custom": true
+          }
+        ]
+      }
+    },
+    {
+      "description": "Find objects matching a pattern",
+      "command": "aclif salesforce data search-objects --pattern \"Account*\" --queryable-only"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "command": "salesforce:data:describe",
+  "examples": [
+    {
+      "description": "Describe Account object",
+      "command": "aclif salesforce data describe Account",
+      "responseShape": {
+        "name": "Account",
+        "fieldCount": 72,
+        "fields": [
+          {
+            "name": "Id",
+            "type": "id"
+          },
+          {
+            "name": "Name",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Describe a custom object",
+      "command": "aclif salesforce data describe Merchandise__c"
+    }
+  ]
+}

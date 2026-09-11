@@ -1,0 +1,47 @@
+name: Bug report
+description: A command, the framework, or the embedded runtime does something the contract does not promise
+labels: [bug]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Output of `$BIN version --json`
+      placeholder: '{"bin":"aclif","version":"1.0.0","contract":"1.0.0",...}'
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - core (framework, base command, hooks, runtime)
+        - salesforce (native)
+        - servicenow (native)
+        - docusign (native)
+        - agentforce (native)
+        - google (contributed)
+        - a CLI built with defineCli()
+        - docs
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Command and output
+      description: The command line (secrets removed) and the full stdout and stderr, including the audit line
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+      description: Cite docs/CONTRACT.md or the command's `--schema` or `--examples` output where it applies
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Environment
+      description: OS, Node version, standalone binary or embedded runtime, profile or environment credentials

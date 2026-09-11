@@ -1,0 +1,30 @@
+{
+  "id": "salesforce:apex:quote-summary",
+  "description": "Summarise a quote through the QuoteSummary Apex REST class",
+  "aciMetadata": {
+    "mutability": "read",
+    "idempotent": true,
+    "reversible": false,
+    "blastRadius": "single_record",
+    "apiCallsConsumed": 1,
+    "requiresConfirmation": false,
+    "prerequisites": []
+  },
+  "request": {
+    "method": "GET",
+    "path": "/services/apexrest/quotes/{quote-id}/summary",
+    "query": {"currency": "{currency}"}
+  },
+  "flags": {
+    "quote-id": {"type": "string", "description": "Quote record id", "required": true},
+    "currency": {"type": "string", "description": "ISO currency code for the totals", "options": ["USD", "EUR", "GBP"]}
+  },
+  "responseShape": {
+    "description": "Quote totals",
+    "fields": {"quoteId": {"type": "string"}, "total": {"type": "number"}},
+    "example": {"quoteId": "0Q0xx", "total": 1200.5}
+  },
+  "aciExamples": [
+    {"description": "Summarise one quote in euros", "command": "$BIN salesforce apex quote-summary --quote-id 0Q0xx --currency EUR --json"}
+  ]
+}

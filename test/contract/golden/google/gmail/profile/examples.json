@@ -1,0 +1,15 @@
+{
+  "command": "google:gmail:profile",
+  "examples": [
+    {
+      "description": "Resolve the current mailbox address",
+      "command": "aclif google gmail profile --json",
+      "responseShape": {
+        "emailAddress": "demo@example.com",
+        "messagesTotal": 12345,
+        "threadsTotal": 4321,
+        "historyId": "987654"
+      }
+    }
+  ]
+}

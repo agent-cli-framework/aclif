@@ -1,0 +1,43 @@
+{
+  "currentCommand": "auth:status",
+  "topic": "auth",
+  "siblingCommands": [
+    {
+      "command": "auth:logout",
+      "description": "Remove cached sessions for one provider, or all providers",
+      "aciMetadata": {
+        "mutability": "delete",
+        "idempotent": true,
+        "reversible": false,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 0,
+        "requiresConfirmation": false,
+        "prerequisites": []
+      }
+    },
+    {
+      "command": "auth:status",
+      "description": "Show the resolved identity, config file, profile, and cached sessions (never secrets)",
+      "aciMetadata": {
+        "mutability": "read",
+        "idempotent": true,
+        "reversible": false,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 0,
+        "requiresConfirmation": false,
+        "prerequisites": []
+      }
+    }
+  ],
+  "childTopics": [
+    {
+      "topic": "auth:logout",
+      "description": "Remove cached sessions for one provider, or all providers"
+    },
+    {
+      "topic": "auth:status",
+      "description": "Show the resolved identity, config file, profile, and cached sessions (never secrets)"
+    }
+  ],
+  "suggestedStart": "aclif auth logout --schema --json"
+}

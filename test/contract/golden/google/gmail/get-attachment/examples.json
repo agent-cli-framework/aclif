@@ -1,0 +1,29 @@
+{
+  "command": "google:gmail:get-attachment",
+  "examples": [
+    {
+      "description": "Fetch an attachment as base64 (for in-snippet processing)",
+      "command": "aclif google gmail get-attachment --message-id 18f0abc --attachment-id ANGjdJ... --json",
+      "responseShape": {
+        "message_id": "18f0abc",
+        "attachment_id": "ANGjdJ...",
+        "filename": "resume.pdf",
+        "content_type": "application/pdf",
+        "size": 84012,
+        "base64": "JVBERi0xLjQK..."
+      }
+    },
+    {
+      "description": "Save an attachment to disk",
+      "command": "aclif google gmail get-attachment --message-id 18f0abc --attachment-id ANGjdJ... --output ./resume.pdf",
+      "responseShape": {
+        "message_id": "18f0abc",
+        "attachment_id": "ANGjdJ...",
+        "filename": "resume.pdf",
+        "content_type": "application/pdf",
+        "size": 84012,
+        "output": "./resume.pdf"
+      }
+    }
+  ]
+}

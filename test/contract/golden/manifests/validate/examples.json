@@ -1,0 +1,9 @@
+{
+  "command": "manifests:validate",
+  "examples": [
+    {
+      "description": "No examples defined yet",
+      "command": "aclif manifests validate --help"
+    }
+  ]
+}

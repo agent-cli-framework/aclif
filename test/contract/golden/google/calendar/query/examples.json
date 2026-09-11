@@ -1,0 +1,27 @@
+{
+  "command": "google:calendar:query",
+  "examples": [
+    {
+      "description": "List events this week",
+      "command": "aclif google calendar query --time-min 2026-04-10T00:00:00Z --time-max 2026-04-17T00:00:00Z",
+      "responseShape": {
+        "events": [
+          {
+            "id": "evt123",
+            "summary": "Standup",
+            "start": "2026-04-10T09:00:00Z",
+            "end": "2026-04-10T09:30:00Z"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Search events by text",
+      "command": "aclif google calendar query --query \"standup\" --limit 10"
+    },
+    {
+      "description": "List events from a specific calendar",
+      "command": "aclif google calendar query --calendar-id \"team@group.calendar.google.com\" --time-min 2026-04-01T00:00:00Z"
+    }
+  ]
+}

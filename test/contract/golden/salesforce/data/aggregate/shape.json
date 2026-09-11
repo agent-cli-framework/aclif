@@ -1,0 +1,30 @@
+{
+  "command": "salesforce:data:aggregate",
+  "responseShape": {
+    "description": "Aggregate query results with grouped records",
+    "fields": {
+      "query": {
+        "type": "string",
+        "description": "The generated SOQL aggregate query"
+      },
+      "totalSize": {
+        "type": "integer",
+        "description": "Number of grouped result rows"
+      },
+      "records": {
+        "type": "array",
+        "description": "Grouped aggregate results"
+      }
+    },
+    "example": {
+      "query": "SELECT StageName,COUNT(Id) FROM Opportunity GROUP BY StageName",
+      "totalSize": 5,
+      "records": [
+        {
+          "StageName": "Closed Won",
+          "expr0": 120
+        }
+      ]
+    }
+  }
+}

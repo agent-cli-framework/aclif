@@ -1,0 +1,15 @@
+{
+  "command": "docusign:envelopes:get",
+  "examples": [
+    {
+      "description": "Get envelope status",
+      "command": "aclif docusign envelopes get --envelope-id abc-123-def --json",
+      "responseShape": {
+        "envelopeId": "abc-123-def",
+        "status": "completed",
+        "emailSubject": "NDA",
+        "completedDateTime": "2025-10-01T12:00:00Z"
+      }
+    }
+  ]
+}

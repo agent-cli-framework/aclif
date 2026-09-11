@@ -1,0 +1,76 @@
+name: release
+
+# A push to main that contains a releasable Conventional Commit creates a
+# tagged GitHub release; publishing that release triggers publish.yml.
+# Pushes to prerelease/<tag> branches release <version>-<tag>.N on every
+# commit and publish under that dist-tag.
+on:
+  push:
+    branches: [main, 'prerelease/**']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: ${{ !startsWith(github.event.head_commit.message, 'chore(release):') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: compute the next version
+        id: version
+        run: |
+          if [[ "$GITHUB_REF_NAME" == prerelease/* ]]; then
+            node scripts/release-version.mjs "${GITHUB_REF_NAME#prerelease/}" >> "$GITHUB_OUTPUT"
+          else
+            node scripts/release-version.mjs >> "$GITHUB_OUTPUT"
+          fi
+      - name: nothing to release
+        if: steps.version.outputs.version == ''
+        run: echo "No feat, fix, perf, or breaking commit since ${GITHUB_REF_NAME}'s last tag; nothing to release."
+      - name: verify
+        if: steps.version.outputs.version != ''
+        run: npm run build && npm run typecheck && npm test
+      - name: version, changelog, tag
+        if: steps.version.outputs.version != ''
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+          PREVIOUS: ${{ steps.version.outputs.previous }}
+          PRERELEASE: ${{ steps.version.outputs.prerelease }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          npm version "$VERSION" --no-git-tag-version
+          node scripts/release-notes.mjs "$VERSION" "$PREVIOUS"
+          if [[ "$PRERELEASE" == "true" ]]; then
+            git checkout -- CHANGELOG.md
+            git tag "v$VERSION"
+            git push origin "v$VERSION"
+          else
+            git add package.json package-lock.json CHANGELOG.md
+            git commit -m "chore(release): v$VERSION"
+            git tag "v$VERSION"
+            git push --follow-tags
+          fi
+      - name: create the GitHub release
+        if: steps.version.outputs.version != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.version }}
+          PRERELEASE: ${{ steps.version.outputs.prerelease }}
+        run: |
+          extra=""
+          [[ "$PRERELEASE" == "true" ]] && extra="--prerelease"
+          gh release create "v$VERSION" --title "v$VERSION" --notes-file RELEASE_NOTES.md $extra

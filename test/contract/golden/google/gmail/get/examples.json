@@ -1,0 +1,37 @@
+{
+  "command": "google:gmail:get",
+  "examples": [
+    {
+      "description": "Get a message by ID",
+      "command": "aclif google gmail get --message-id 18f0abc123",
+      "responseShape": {
+        "id": "18f0abc123",
+        "threadId": "18f0abc123",
+        "from": "sender@example.com",
+        "subject": "Hello",
+        "body": "Message body...",
+        "attachments": []
+      }
+    },
+    {
+      "description": "Get message metadata only (no body, no attachments)",
+      "command": "aclif google gmail get --message-id 18f0abc123 --metadata-only"
+    },
+    {
+      "description": "Get a message with attachments — pair with `gmail get-attachment` to fetch bytes",
+      "command": "aclif google gmail get --message-id 18f0abc123 --json",
+      "responseShape": {
+        "id": "18f0abc123",
+        "body": "Please find resume attached",
+        "attachments": [
+          {
+            "id": "ANGjdJ...",
+            "filename": "resume.pdf",
+            "mime_type": "application/pdf",
+            "size": 84012
+          }
+        ]
+      }
+    }
+  ]
+}

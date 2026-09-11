@@ -1,0 +1,56 @@
+{
+  "command": "agentforce:discover",
+  "responseShape": {
+    "description": "Agentforce reachability and the command topics available",
+    "fields": {
+      "discoveredAt": {
+        "type": "string",
+        "description": "ISO timestamp"
+      },
+      "myDomainUrl": {
+        "type": "string",
+        "description": "My Domain URL of the org"
+      },
+      "orgApiHost": {
+        "type": "string",
+        "description": "host answering org API calls"
+      },
+      "agentApiHost": {
+        "type": "string",
+        "description": "host answering Agent API calls"
+      },
+      "defaultAgentId": {
+        "type": "string",
+        "description": "agent id from credentials, or null"
+      },
+      "topics": {
+        "type": "array",
+        "description": "array of {name, description, commands, keyFields}"
+      },
+      "reachable": {
+        "type": "boolean",
+        "description": "the Agent API answered the probe"
+      }
+    },
+    "example": {
+      "discoveredAt": "2026-09-11T00:00:00.000Z",
+      "myDomainUrl": "https://example.my.salesforce.com",
+      "orgApiHost": "example.my.salesforce.com",
+      "agentApiHost": "api.salesforce.com",
+      "defaultAgentId": null,
+      "topics": [
+        {
+          "name": "agents",
+          "description": "Agents",
+          "commands": [
+            "list"
+          ],
+          "keyFields": [
+            "id"
+          ]
+        }
+      ],
+      "reachable": true
+    }
+  }
+}

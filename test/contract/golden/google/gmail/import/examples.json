@@ -1,0 +1,38 @@
+{
+  "command": "google:gmail:import",
+  "examples": [
+    {
+      "description": "Import a seeded fixture message attributed to an external sender",
+      "command": "aclif google gmail import --from \"aisha.patel@example.com\" --to \"demo@example.com\" --subject \"Q2 review followup\" --body \"Looking forward to it.\"",
+      "responseShape": {
+        "id": "18f0abc123",
+        "threadId": "18f0abc123",
+        "labelIds": [
+          "INBOX",
+          "UNREAD"
+        ]
+      }
+    },
+    {
+      "description": "Import a backdated message with a pre-set Message-ID for deterministic threading",
+      "command": "aclif google gmail import --from \"ben.rivera@example.com\" --to \"demo@example.com\" --subject \"Renewal timing\" --body \"...\" --date \"Mon, 03 Mar 2026 09:00:00 +0000\" --message-id \"story6.001@example.com\""
+    },
+    {
+      "description": "Import a reply that threads against a prior imported message",
+      "command": "aclif google gmail import --from \"aisha.patel@example.com\" --to \"demo@example.com\" --subject \"Re: Q2 review followup\" --body \"Sounds good.\" --in-reply-to \"story6.001@example.com\" --references \"story6.001@example.com\""
+    },
+    {
+      "description": "Import a fixture message with a PDF attachment and a user-visible label",
+      "command": "aclif google gmail import --from \"maria.vasquez@example.com\" --to \"hiring@example.com\" --subject \"Application for Vineyard Production Manager\" --body \"Cover letter…\" --attachment ./fixtures/resume.pdf --label-names \"candidate\"",
+      "responseShape": {
+        "id": "18f0abc123",
+        "threadId": "18f0abc123",
+        "labelIds": [
+          "INBOX",
+          "UNREAD",
+          "Label_42"
+        ]
+      }
+    }
+  ]
+}

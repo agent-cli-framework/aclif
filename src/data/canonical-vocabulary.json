@@ -1,0 +1,688 @@
+{
+  "id": "starter-vocabulary",
+  "name": "Starter canonical vocabulary",
+  "capturedAt": "2026-09-10T00:00:00.000Z",
+  "description": "Common CRM and ITSM entities mapped to their native names per provider, for any instance. Extend or replace with your own alias sets; a set listed in config.yaml takes precedence over this one.",
+  "entities": [
+    {
+      "canonical": "customer",
+      "mappings": [
+        {
+          "provider": "salesforce",
+          "instance": "*",
+          "native": "Account"
+        },
+        {
+          "provider": "servicenow",
+          "instance": "*",
+          "native": "core_company"
+        }
+      ],
+      "fields": [
+        {
+          "canonical": "name",
+          "mappings": [
+            {
+              "provider": "salesforce",
+              "instance": "*",
+              "native": "Name"
+            },
+            {
+              "provider": "servicenow",
+              "instance": "*",
+              "native": "name"
+            }
+          ],
+          "label": "company name",
+          "type": "text"
+        },
+        {
+          "canonical": "primary_domain",
+          "mappings": [
+            {
+              "provider": "salesforce",
+              "instance": "*",
+              "native": "Website"
+            },
+            {
+              "provider": "servicenow",
+              "instance": "*",
+              "native": "website"
+            }
+          ],
+          "label": "primary domain",
+          "type": "text",
+          "description": "Website / email domain; component of the Customer natural key."
+        },
+        {
+          "canonical": "industry",
+          "mappings": [
+            {
+              "provider": "salesforce",
+              "instance": "*",
+              "native": "Industry"
+            },
+            {
+              "provider": "servicenow",
+              "instance": "*",
+              "native": "industry"
+            },
+            {
+              "provider": "salesforce",
+              "instance": "*",
+              "native": "Industry_Vertical__c"
+            }
+          ],
+          "label": "industry",
+          "type": "text"
+        },
+        {
+          "canonical": "owner_id",
+          "mappings": [
+            {
+              "provider": "salesforce",
+              "instance": "*",
+              "native": "OwnerId"
+            },
+            {
+              "provider": "servicenow",
+              "instance": "*",
+              "native": "manager"
+            }
+          ],
+          "label": "account owner",
+          "type": "canonical_ref"
+        }
+      ],
+      "label": "customer / company / account",
+      "description": "Business entity that buys, uses, or is otherwise tracked. Serves as the spine for cross-system joins between CRM, ITSM, and HR.",
+      "naturalKey": [
+        "name",
+        "primary_domain"
+      ]
+    },
+    {
+      "canonical": "contact",
+      "mappings": [
+        {
+          "provider": "salesforce",
+          "instance": "*",
+          "native": "Contact"
+        },
+        {
+          "provider": "servicenow",
+          "instance": "*",
+          "native": "sys_user"
+        }
+      ],
+      "fields": [
+        {
+          "canonical": "email",
+          "mappings": [
+            {
+              "provider": "salesforce",
+              "instance": "*",
+              "native": "Email"
+            },
+            {
+              "provider": "servicenow",
+              "instance": "*",
+              "native": "email"
+            }
+          ],
+          "label": "email address",
+          "type": "text",
+          "description": "Primary email; universal natural key for Contact across providers."
+        },
+        {
+          "canonical": "name",
+          "mappings": [
+            {
+              "provider": "salesforce",
+              "instance": "*",
+              "native": "Name"
+            },
+            {
+              "provider": "servicenow",
+              "instance": "*",
+              "native": "name"
+            }
+          ],
+          "label": "full name",
+          "type": "text"
+        },
+        {
+          "canonical": "customer_id",
+          "mappings": [
+            {
+              "provider": "salesforce",
+              "instance": "*",
+              "native": "AccountId"
+            },
+            {
+              "provider": "servicenow",
+              "instance": "*",
+              "native": "company"
+            }
+          ],
+          "label": "associated customer",
+          "type": "canonical_ref"
+        }
+      ],
+      "label": "contact person",
+      "description": "Person attached to a Customer; the join point for emails, calendar events, and outreach.",
+      "naturalKey": [
+        "email"
+      ]
+    },
+    {
+      "canonical": "person",
+      "mappings": [
+        {
+          "provider": "salesforce",
+          "instance": "*",
+          "native": "User"
+        },
+        {
+          "provider": "servicenow",
+          "instance": "*",
+          "native": "sys_user"
+        },
+        {
+          "provider": "google",
+          "instance": "*",
+          "native": "User"
+        }
+      ],
+      "fields": [
+        {
+          "canonical": "email",
+          "mappings": [
+            {
+              "provider": "salesforce",
+              "instance": "*",
+              "native": "Email"
+            },
+            {
+              "provider": "servicenow",
+              "instance": "*",
+              "native": "email"
+            },
+            {
+              "provider": "google",
+              "instance": "*",
+              "native": "primaryEmail"
+            }
+          ],
+          "label": "work email",
+          "type": "text"
+        },
+        {
+          "canonical": "name",
+          "mappings": [
+            {
+              "provider": "salesforce",
+              "instance": "*",
+              "native": "Name"
+            },
+            {
+              "provider": "servicenow",
+              "instance": "*",
+              "native": "name"
+            },
+            {
+              "provider": "google",
+              "instance": "*",
+              "native": "name.fullName"
+            }
+          ],
+          "label": "full name",
+          "type": "text"
+        }
+      ],
+      "label": "internal user / employee",
+      "description": "Internal user across systems. Owners, assignees, approvers all resolve to a Person.",
+      "naturalKey": [
+        "email"
+      ]
+    },
+    {
+      "canonical": "opportunity",
+      "mappings": [
+        {
+          "provider": "salesforce",
+          "instance": "*",
+          "native": "Opportunity"
+        }
+      ],
+      "fields": [
+        {
+          "canonical": "name",
+          "mappings": [
+            {
+              "provider": "salesforce",
+              "instance": "*",
+              "native": "Name"
+            }
+          ],
+          "label": "opportunity name",
+          "type": "text"
+        },
+        {
+          "canonical": "customer_id",
+          "mappings": [
+            {
+              "provider": "salesforce",
+              "instance": "*",
+              "native": "AccountId"
+            }
+          ],
+          "label": "associated customer",
+          "type": "canonical_ref"
+        },
+        {
+          "canonical": "owner_id",
+          "mappings": [
+            {
+              "provider": "salesforce",
+              "instance": "*",
+              "native": "OwnerId"
+            }
+          ],
+          "label": "opportunity owner",
+          "type": "canonical_ref"
+        },
+        {
+          "canonical": "amount",
+          "mappings": [
+            {
+              "provider": "salesforce",
+              "instance": "*",
+              "native": "Amount"
+            }
+          ],
+          "label": "deal amount",
+          "type": "number"
+        },
+        {
+          "canonical": "stage",
+          "mappings": [
+            {
+              "provider": "salesforce",
+              "instance": "*",
+              "native": "StageName"
+            }
+          ],
+          "label": "pipeline stage",
+          "type": "text",
+          "description": "Pipeline stage normalized across instances. SF Primary uses the standard 6-stage vocabulary; SF Acquired's dev org uses a divergent 5-stage label set. value_map collapses both onto a shared canonical set so Ask-chat and pie/bar widgets render one slice per concept regardless of source instance."
+        },
+        {
+          "canonical": "close_date",
+          "mappings": [
+            {
+              "provider": "salesforce",
+              "instance": "*",
+              "native": "CloseDate"
+            }
+          ],
+          "label": "expected close date",
+          "type": "date"
+        }
+      ],
+      "label": "sales opportunity",
+      "description": "Pipeline deal; the join point for forecast / revenue questions.",
+      "naturalKey": [
+        "customer_id",
+        "name",
+        "close_date"
+      ]
+    },
+    {
+      "canonical": "incident",
+      "mappings": [
+        {
+          "provider": "servicenow",
+          "instance": "*",
+          "native": "incident"
+        },
+        {
+          "provider": "salesforce",
+          "instance": "*",
+          "native": "Case"
+        }
+      ],
+      "fields": [
+        {
+          "canonical": "number",
+          "mappings": [
+            {
+              "provider": "servicenow",
+              "instance": "*",
+              "native": "number"
+            },
+            {
+              "provider": "salesforce",
+              "instance": "*",
+              "native": "CaseNumber"
+            }
+          ],
+          "label": "ticket number",
+          "type": "text"
+        },
+        {
+          "canonical": "title",
+          "mappings": [
+            {
+              "provider": "servicenow",
+              "instance": "*",
+              "native": "short_description"
+            },
+            {
+              "provider": "salesforce",
+              "instance": "*",
+              "native": "Subject"
+            }
+          ],
+          "label": "summary",
+          "type": "text"
+        },
+        {
+          "canonical": "customer_id",
+          "mappings": [
+            {
+              "provider": "servicenow",
+              "instance": "*",
+              "native": "company"
+            },
+            {
+              "provider": "salesforce",
+              "instance": "*",
+              "native": "AccountId"
+            }
+          ],
+          "label": "affected customer",
+          "type": "canonical_ref"
+        },
+        {
+          "canonical": "status",
+          "mappings": [
+            {
+              "provider": "servicenow",
+              "instance": "*",
+              "native": "state"
+            },
+            {
+              "provider": "salesforce",
+              "instance": "*",
+              "native": "Status"
+            }
+          ],
+          "label": "incident state",
+          "type": "text"
+        },
+        {
+          "canonical": "priority",
+          "mappings": [
+            {
+              "provider": "servicenow",
+              "instance": "*",
+              "native": "priority"
+            },
+            {
+              "provider": "salesforce",
+              "instance": "*",
+              "native": "Priority"
+            }
+          ],
+          "label": "priority",
+          "type": "text"
+        },
+        {
+          "canonical": "assigned_to",
+          "mappings": [
+            {
+              "provider": "servicenow",
+              "instance": "*",
+              "native": "assigned_to"
+            },
+            {
+              "provider": "salesforce",
+              "instance": "*",
+              "native": "OwnerId"
+            }
+          ],
+          "label": "assignee",
+          "type": "canonical_ref",
+          "description": "Engineer or rep currently working the incident. canonical_ref translation resolves SNOW sys_user sys_id and SF User OwnerId to a single canonical Person row keyed on email."
+        }
+      ],
+      "label": "support incident",
+      "description": "Customer-reported issue tracked in ITSM. Joins to Customer for cross-system reports.",
+      "naturalKey": [
+        "number"
+      ]
+    },
+    {
+      "canonical": "email",
+      "mappings": [
+        {
+          "provider": "google",
+          "instance": "*",
+          "native": "Message"
+        }
+      ],
+      "fields": [
+        {
+          "canonical": "message_id",
+          "mappings": [
+            {
+              "provider": "google",
+              "instance": "*",
+              "native": "id"
+            }
+          ],
+          "label": "Gmail message id",
+          "type": "text"
+        },
+        {
+          "canonical": "subject",
+          "mappings": [
+            {
+              "provider": "google",
+              "instance": "*",
+              "native": "subject"
+            }
+          ],
+          "label": "subject",
+          "type": "text"
+        },
+        {
+          "canonical": "from_email",
+          "mappings": [
+            {
+              "provider": "google",
+              "instance": "*",
+              "native": "from"
+            }
+          ],
+          "label": "sender email",
+          "type": "text"
+        },
+        {
+          "canonical": "sent_at",
+          "mappings": [
+            {
+              "provider": "google",
+              "instance": "*",
+              "native": "date"
+            }
+          ],
+          "label": "sent timestamp",
+          "type": "date"
+        }
+      ],
+      "label": "email message",
+      "description": "Single email message; natural key is the provider message id.",
+      "naturalKey": [
+        "message_id"
+      ]
+    },
+    {
+      "canonical": "calendarevent",
+      "mappings": [
+        {
+          "provider": "google",
+          "instance": "*",
+          "native": "Event"
+        }
+      ],
+      "fields": [
+        {
+          "canonical": "ical_uid",
+          "mappings": [
+            {
+              "provider": "google",
+              "instance": "*",
+              "native": "iCalUID"
+            }
+          ],
+          "label": "iCalendar UID",
+          "type": "text"
+        },
+        {
+          "canonical": "summary",
+          "mappings": [
+            {
+              "provider": "google",
+              "instance": "*",
+              "native": "summary"
+            }
+          ],
+          "label": "event title",
+          "type": "text"
+        },
+        {
+          "canonical": "start_at",
+          "mappings": [
+            {
+              "provider": "google",
+              "instance": "*",
+              "native": "start.dateTime"
+            }
+          ],
+          "label": "start timestamp",
+          "type": "date"
+        },
+        {
+          "canonical": "end_at",
+          "mappings": [
+            {
+              "provider": "google",
+              "instance": "*",
+              "native": "end.dateTime"
+            }
+          ],
+          "label": "end timestamp",
+          "type": "date"
+        }
+      ],
+      "label": "calendar event",
+      "description": "Calendar entry; iCalUID is stable across calendar systems via RFC 5545.",
+      "naturalKey": [
+        "ical_uid"
+      ]
+    },
+    {
+      "canonical": "envelope",
+      "mappings": [
+        {
+          "provider": "docusign",
+          "instance": "*",
+          "native": "envelopes"
+        }
+      ],
+      "fields": [
+        {
+          "canonical": "envelope_id",
+          "mappings": [
+            {
+              "provider": "docusign",
+              "instance": "*",
+              "native": "envelopeId"
+            }
+          ],
+          "label": "envelope GUID",
+          "type": "text",
+          "description": "DocuSign envelopeId \u2014 globally-unique GUID. Component of the natural key."
+        },
+        {
+          "canonical": "subject",
+          "mappings": [
+            {
+              "provider": "docusign",
+              "instance": "*",
+              "native": "emailSubject"
+            }
+          ],
+          "label": "envelope subject",
+          "type": "text"
+        },
+        {
+          "canonical": "status",
+          "mappings": [
+            {
+              "provider": "docusign",
+              "instance": "*",
+              "native": "status"
+            }
+          ],
+          "label": "signing status",
+          "type": "text",
+          "description": "Workflow state. The native DocuSign vocabulary is collapsed onto a smaller canonical set (draft / out_for_review / signed / declined / voided) so motion filters stay portable."
+        },
+        {
+          "canonical": "sender_email",
+          "mappings": [
+            {
+              "provider": "docusign",
+              "instance": "*",
+              "native": "sender.email"
+            }
+          ],
+          "label": "sender email",
+          "type": "text"
+        },
+        {
+          "canonical": "sent_at",
+          "mappings": [
+            {
+              "provider": "docusign",
+              "instance": "*",
+              "native": "sentDateTime"
+            }
+          ],
+          "label": "sent timestamp",
+          "type": "date"
+        },
+        {
+          "canonical": "completed_at",
+          "mappings": [
+            {
+              "provider": "docusign",
+              "instance": "*",
+              "native": "completedDateTime"
+            }
+          ],
+          "label": "completed timestamp",
+          "type": "date"
+        }
+      ],
+      "label": "signable document envelope",
+      "description": "DocuSign envelope \u2014 wrapper for one or more documents in a signature workflow.",
+      "naturalKey": [
+        "envelope_id"
+      ]
+    }
+  ]
+}

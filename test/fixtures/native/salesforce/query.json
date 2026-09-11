@@ -1,0 +1,4 @@
+{"totalSize": 2, "done": true, "records": [
+  {"attributes": {"type": "Account", "url": "/services/data/v59.0/sobjects/Account/001xx000003GYRAAA4"}, "Id": "001xx000003GYRAAA4", "Name": "Acme Corp", "Industry": "Technology"},
+  {"attributes": {"type": "Account", "url": "/services/data/v59.0/sobjects/Account/001xx000003GYRBAA4"}, "Id": "001xx000003GYRBAA4", "Name": "Globex", "Industry": "Manufacturing"}
+]}

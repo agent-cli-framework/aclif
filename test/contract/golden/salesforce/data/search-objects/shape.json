@@ -1,0 +1,32 @@
+{
+  "command": "salesforce:data:search-objects",
+  "responseShape": {
+    "description": "List of Salesforce objects matching the pattern",
+    "fields": {
+      "pattern": {
+        "type": "string",
+        "description": "Search pattern used"
+      },
+      "totalMatched": {
+        "type": "integer",
+        "description": "Number of matching objects"
+      },
+      "objects": {
+        "type": "array",
+        "description": "Matching objects with name, label, custom, queryable flags"
+      }
+    },
+    "example": {
+      "pattern": "*__c",
+      "totalMatched": 3,
+      "objects": [
+        {
+          "name": "Merchandise__c",
+          "label": "Merchandise",
+          "custom": true,
+          "queryable": true
+        }
+      ]
+    }
+  }
+}

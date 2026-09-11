@@ -1,0 +1,13 @@
+{
+  "command": "google:drive:view-url",
+  "examples": [
+    {
+      "description": "Get a click-through URL for a Drive file",
+      "command": "aclif google drive view-url --file-id 1AbCdEfGhIjK --json",
+      "responseShape": {
+        "fileId": "1AbCdEfGhIjK",
+        "url": "https://drive.google.com/file/d/1AbCdEfGhIjK/view"
+      }
+    }
+  ]
+}

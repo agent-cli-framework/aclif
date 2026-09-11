@@ -1,0 +1,191 @@
+{
+  "command": "salesforce:apex:deploy-class",
+  "description": "Create or update Apex classes via Tooling API",
+  "flags": {
+    "json": {
+      "type": "boolean",
+      "description": "Output as JSON",
+      "required": false,
+      "default": true
+    },
+    "fields": {
+      "type": "option",
+      "description": "Comma-separated fields to return",
+      "required": false
+    },
+    "dry-run": {
+      "type": "boolean",
+      "description": "Preview the operation without executing",
+      "required": false,
+      "default": false
+    },
+    "estimate": {
+      "type": "boolean",
+      "description": "Estimate response size without executing",
+      "required": false,
+      "default": false
+    },
+    "diff": {
+      "type": "boolean",
+      "description": "Show only changed fields (for mutations)",
+      "required": false,
+      "default": false
+    },
+    "truncate": {
+      "type": "option",
+      "description": "Max records to return",
+      "required": false
+    },
+    "full": {
+      "type": "boolean",
+      "description": "Include sensitive values in output (passwords, tokens)",
+      "required": false,
+      "default": false
+    },
+    "pretty": {
+      "type": "boolean",
+      "description": "Colored output for human reading",
+      "required": false,
+      "default": false
+    },
+    "schema": {
+      "type": "boolean",
+      "description": "Output command schema as JSON",
+      "required": false,
+      "default": false
+    },
+    "changelog": {
+      "type": "boolean",
+      "description": "Output command version history",
+      "required": false,
+      "default": false
+    },
+    "discover": {
+      "type": "boolean",
+      "description": "List available sub-topics and commands",
+      "required": false,
+      "default": false
+    },
+    "examples": {
+      "type": "boolean",
+      "description": "Show usage examples with response shapes",
+      "required": false,
+      "default": false
+    },
+    "shape": {
+      "type": "boolean",
+      "description": "Preview response structure without executing",
+      "required": false,
+      "default": false
+    },
+    "flags-for": {
+      "type": "option",
+      "description": "Show flags for a use case: filtering, output, pagination, auth, bulk",
+      "required": false,
+      "options": [
+        "filtering",
+        "output",
+        "pagination",
+        "auth",
+        "bulk"
+      ]
+    },
+    "profile": {
+      "type": "option",
+      "description": "Named profile from the config file",
+      "required": false
+    },
+    "instance": {
+      "type": "option",
+      "description": "Named instance within the profile, for providers with more than one; embedding hosts pass it through",
+      "required": false
+    },
+    "confirm": {
+      "type": "boolean",
+      "description": "Confirm a command that requires explicit confirmation",
+      "required": false,
+      "default": false
+    },
+    "identity-token": {
+      "type": "option",
+      "description": "Identity token verified by the configured identity provider",
+      "required": false
+    },
+    "instance-url": {
+      "type": "option",
+      "description": "Salesforce instance URL",
+      "required": false
+    },
+    "access-token": {
+      "type": "option",
+      "description": "Salesforce access/session token",
+      "required": false
+    },
+    "sf-username": {
+      "type": "option",
+      "description": "Salesforce username",
+      "required": false
+    },
+    "sf-password": {
+      "type": "option",
+      "description": "Salesforce password",
+      "required": false
+    },
+    "security-token": {
+      "type": "option",
+      "description": "Salesforce security token",
+      "required": false
+    },
+    "client-id": {
+      "type": "option",
+      "description": "OAuth2 client ID",
+      "required": false
+    },
+    "client-secret": {
+      "type": "option",
+      "description": "OAuth2 client secret",
+      "required": false
+    },
+    "login-url": {
+      "type": "option",
+      "description": "Login URL for username/password auth (default https://login.salesforce.com; use https://test.salesforce.com for sandboxes or the My Domain URL)",
+      "required": false
+    },
+    "name": {
+      "type": "option",
+      "description": "Class name",
+      "required": true,
+      "char": "n"
+    },
+    "body": {
+      "type": "option",
+      "description": "Apex class source code",
+      "required": true
+    },
+    "api-version": {
+      "type": "option",
+      "description": "Apex API version",
+      "required": false,
+      "default": "59.0"
+    },
+    "update": {
+      "type": "boolean",
+      "description": "Update existing class instead of creating",
+      "required": false,
+      "default": false
+    }
+  },
+  "args": {},
+  "aciMetadata": {
+    "mutability": "create",
+    "idempotent": false,
+    "reversible": true,
+    "blastRadius": "single_record",
+    "apiCallsConsumed": 2,
+    "requiresConfirmation": false,
+    "prerequisites": [],
+    "capabilities": [
+      "metadata_change"
+    ]
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "currentCommand": "version",
+  "topic": "(root)",
+  "siblingCommands": [
+    {
+      "command": "discover",
+      "description": "List all available providers, topics, and commands",
+      "aciMetadata": {
+        "mutability": "read",
+        "idempotent": true,
+        "reversible": false,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 0,
+        "requiresConfirmation": false,
+        "prerequisites": []
+      }
+    },
+    {
+      "command": "help",
+      "description": "Display help for <%= config.bin %>.",
+      "aciMetadata": null
+    },
+    {
+      "command": "learn",
+      "description": "Compact agent briefing for a provider: overview, topics, key fields, common patterns",
+      "aciMetadata": {
+        "mutability": "read",
+        "idempotent": true,
+        "reversible": false,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 0,
+        "requiresConfirmation": false,
+        "prerequisites": []
+      }
+    },
+    {
+      "command": "plugins",
+      "description": "List installed plugins.",
+      "aciMetadata": null
+    },
+    {
+      "command": "version",
+      "description": "Package, framework, and contract versions as JSON",
+      "aciMetadata": {
+        "mutability": "read",
+        "idempotent": true,
+        "reversible": false,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 0,
+        "requiresConfirmation": false,
+        "prerequisites": []
+      }
+    }
+  ],
+  "childTopics": [
+    {
+      "topic": "agentforce",
+      "description": "Salesforce Agentforce agent sessions"
+    },
+    {
+      "topic": "aliases",
+      "description": "Canonical entity and field names across providers"
+    },
+    {
+      "topic": "auth",
+      "description": "Identity, profile, and cached sessions"
+    },
+    {
+      "topic": "discover",
+      "description": "List all available providers, topics, and commands"
+    },
+    {
+      "topic": "docusign",
+      "description": "DocuSign eSignature envelopes"
+    },
+    {
+      "topic": "google",
+      "description": "Google Workspace: Gmail, Calendar, Drive"
+    },
+    {
+      "topic": "help",
+      "description": "Display help for <%= config.bin %>."
+    },
+    {
+      "topic": "learn",
+      "description": "Compact agent briefing for a provider"
+    },
+    {
+      "topic": "manifests",
+      "description": "Validate and list declarative command manifests"
+    },
+    {
+      "topic": "plugins",
+      "description": "List installed plugins."
+    },
+    {
+      "topic": "salesforce",
+      "description": "Salesforce CRM and Platform operations"
+    },
+    {
+      "topic": "servicenow",
+      "description": "ServiceNow ITSM and Platform operations"
+    },
+    {
+      "topic": "version",
+      "description": "Package, framework, and contract versions as JSON"
+    }
+  ],
+  "suggestedStart": "aclif discover --schema --json"
+}

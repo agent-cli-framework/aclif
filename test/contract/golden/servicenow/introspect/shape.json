@@ -1,0 +1,39 @@
+{
+  "command": "servicenow:introspect",
+  "responseShape": {
+    "description": "Roles of the credentials and the CRUD they hold on each probed table",
+    "fields": {
+      "introspectedAt": {
+        "type": "string",
+        "description": "ISO timestamp"
+      },
+      "serviceAccountId": {
+        "type": "string",
+        "description": "username of the credentials"
+      },
+      "roles": {
+        "type": "array",
+        "description": "granted role names"
+      },
+      "tables": {
+        "type": "object",
+        "description": "table name to {read, create, update, delete, ...}"
+      }
+    },
+    "example": {
+      "introspectedAt": "2026-09-11T00:00:00.000Z",
+      "serviceAccountId": "api.user",
+      "roles": [
+        "itil"
+      ],
+      "tables": {
+        "incident": {
+          "read": true,
+          "create": true,
+          "update": true,
+          "delete": false
+        }
+      }
+    }
+  }
+}

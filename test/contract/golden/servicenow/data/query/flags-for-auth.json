@@ -1,0 +1,26 @@
+{
+  "command": "servicenow:data:query",
+  "category": "auth",
+  "flags": {
+    "instance-url": {
+      "type": "option",
+      "description": "ServiceNow instance URL (e.g., https://dev12345.service-now.com)",
+      "required": false
+    },
+    "access-token": {
+      "type": "option",
+      "description": "ServiceNow OAuth2 access token",
+      "required": false
+    },
+    "sn-username": {
+      "type": "option",
+      "description": "ServiceNow username",
+      "required": false
+    },
+    "sn-password": {
+      "type": "option",
+      "description": "ServiceNow password",
+      "required": false
+    }
+  }
+}

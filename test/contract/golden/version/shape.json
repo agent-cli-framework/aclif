@@ -1,0 +1,48 @@
+{
+  "command": "version",
+  "responseShape": {
+    "description": "Versions of the CLI, the framework, and the contract",
+    "fields": {
+      "bin": {
+        "type": "string",
+        "description": "binary name of this CLI"
+      },
+      "version": {
+        "type": "string",
+        "description": "version of the CLI package"
+      },
+      "contract": {
+        "type": "string",
+        "description": "contract version the envelope and schemas conform to"
+      },
+      "framework": {
+        "type": "object",
+        "description": "{name, version} of aclif"
+      },
+      "node": {
+        "type": "string",
+        "description": "Node.js version"
+      },
+      "platform": {
+        "type": "string",
+        "description": "process.platform"
+      },
+      "arch": {
+        "type": "string",
+        "description": "process.arch"
+      }
+    },
+    "example": {
+      "bin": "aclif",
+      "version": "0.1.0",
+      "contract": "1.0.0",
+      "framework": {
+        "name": "aclif",
+        "version": "0.1.0"
+      },
+      "node": "v22.0.0",
+      "platform": "linux",
+      "arch": "x64"
+    }
+  }
+}

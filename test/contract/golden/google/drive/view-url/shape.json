@@ -1,0 +1,20 @@
+{
+  "command": "google:drive:view-url",
+  "responseShape": {
+    "description": "Deterministic web-UI URL that opens the Drive file in the user's Google session. No API call is made — the URL is formatted from the supplied file id. The user must have read access in their own Drive for the link to render content.",
+    "fields": {
+      "fileId": {
+        "type": "string",
+        "description": "Echo of the Drive file id"
+      },
+      "url": {
+        "type": "string",
+        "description": "drive.google.com view URL"
+      }
+    },
+    "example": {
+      "fileId": "1AbCdEfGhIjK",
+      "url": "https://drive.google.com/file/d/1AbCdEfGhIjK/view"
+    }
+  }
+}

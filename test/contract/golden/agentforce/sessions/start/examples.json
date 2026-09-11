@@ -1,0 +1,18 @@
+{
+  "command": "agentforce:sessions:start",
+  "examples": [
+    {
+      "description": "Start a session against the configured default agent",
+      "command": "aclif agentforce sessions start --json",
+      "responseShape": {
+        "sessionId": "5e3...",
+        "agentId": "0XxAB...",
+        "messages": []
+      }
+    },
+    {
+      "description": "Start a session against a specific agent",
+      "command": "aclif agentforce sessions start --agent-id 0XxAB000000XXXXAB1 --json"
+    }
+  ]
+}

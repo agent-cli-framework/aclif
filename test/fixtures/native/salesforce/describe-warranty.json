@@ -1,0 +1,7 @@
+{"name": "Warranty__c", "label": "Warranty", "labelPlural": "Warranties", "custom": true, "keyPrefix": "a0X", "queryable": true, "createable": true, "updateable": true, "deletable": true,
+ "fields": [
+  {"name": "Id", "label": "Record ID", "type": "id", "length": 18, "nillable": false, "createable": false, "updateable": false, "defaultValue": null, "picklistValues": [], "referenceTo": [], "relationshipName": null, "externalId": false, "unique": false, "calculated": false, "custom": false},
+  {"name": "Status__c", "label": "Status", "type": "picklist", "length": 255, "nillable": true, "createable": true, "updateable": true, "defaultValue": null, "picklistValues": [{"value": "Open", "label": "Open", "active": true, "defaultValue": true}, {"value": "Closed", "label": "Closed", "active": true, "defaultValue": false}], "referenceTo": [], "relationshipName": null, "externalId": false, "unique": false, "calculated": false, "custom": true},
+  {"name": "Account__c", "label": "Account", "type": "reference", "length": 18, "nillable": true, "createable": true, "updateable": true, "defaultValue": null, "picklistValues": [], "referenceTo": ["Account"], "relationshipName": "Account__r", "externalId": false, "unique": false, "calculated": false, "custom": true}
+ ],
+ "childRelationships": []}

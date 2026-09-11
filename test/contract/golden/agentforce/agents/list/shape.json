@@ -1,0 +1,27 @@
+{
+  "command": "agentforce:agents:list",
+  "responseShape": {
+    "description": "List of agents queryable from BotDefinition",
+    "fields": {
+      "agents": {
+        "type": "array",
+        "description": "Agent records with id, developerName, label, description"
+      },
+      "defaultAgentId": {
+        "type": "string",
+        "nullable": true,
+        "description": "The default agent configured in vault, if any"
+      }
+    },
+    "example": {
+      "agents": [
+        {
+          "id": "0XxAB000000XXXXAB1",
+          "developerName": "Sales_Coach",
+          "label": "Sales Coach"
+        }
+      ],
+      "defaultAgentId": "0XxAB000000XXXXAB1"
+    }
+  }
+}

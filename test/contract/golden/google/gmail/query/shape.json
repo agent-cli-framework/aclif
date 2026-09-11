@@ -1,0 +1,34 @@
+{
+  "command": "google:gmail:query",
+  "responseShape": {
+    "description": "Gmail search results with message summaries",
+    "fields": {
+      "query": {
+        "type": "string",
+        "description": "The Gmail search query used"
+      },
+      "resultSizeEstimate": {
+        "type": "integer",
+        "description": "Estimated total matching messages"
+      },
+      "messages": {
+        "type": "array",
+        "description": "Array of message summaries (id, threadId, from, to, subject, date, snippet)"
+      }
+    },
+    "example": {
+      "query": "is:unread",
+      "resultSizeEstimate": 10,
+      "messages": [
+        {
+          "id": "18f0abc",
+          "threadId": "18f0abc",
+          "from": "sender@example.com",
+          "subject": "Hello",
+          "date": "2026-04-09T14:30:00Z",
+          "snippet": "Preview text..."
+        }
+      ]
+    }
+  }
+}

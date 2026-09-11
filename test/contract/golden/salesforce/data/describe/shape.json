@@ -1,0 +1,49 @@
+{
+  "command": "salesforce:data:describe",
+  "responseShape": {
+    "description": "Object schema with fields, relationships, and CRUD capabilities",
+    "fields": {
+      "name": {
+        "type": "string",
+        "description": "API name of the object"
+      },
+      "label": {
+        "type": "string",
+        "description": "Display label"
+      },
+      "custom": {
+        "type": "boolean",
+        "description": "Whether this is a custom object"
+      },
+      "queryable": {
+        "type": "boolean",
+        "description": "Whether the object supports SOQL queries"
+      },
+      "fieldCount": {
+        "type": "integer",
+        "description": "Total number of fields"
+      },
+      "fields": {
+        "type": "array",
+        "description": "Array of field metadata (name, label, type, picklist values)"
+      },
+      "childRelationships": {
+        "type": "array",
+        "description": "Related child objects"
+      }
+    },
+    "example": {
+      "name": "Account",
+      "label": "Account",
+      "custom": false,
+      "queryable": true,
+      "fieldCount": 72,
+      "fields": [
+        {
+          "name": "Id",
+          "type": "id"
+        }
+      ]
+    }
+  }
+}

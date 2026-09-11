@@ -1,0 +1,2 @@
+{"sub": "aaaaaaaa-0000-0000-0000-000000000000", "name": "Example User", "email": "user@example.com",
+ "accounts": [{"account_id": "acct-0000-0000-0000-000000000001", "is_default": true, "account_name": "Example Inc", "base_uri": "https://demo.docusign.net"}]}

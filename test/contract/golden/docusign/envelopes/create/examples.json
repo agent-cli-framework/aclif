@@ -1,0 +1,18 @@
+{
+  "command": "docusign:envelopes:create",
+  "examples": [
+    {
+      "description": "Create a draft envelope (no emails sent)",
+      "command": "aclif docusign envelopes create --file ./nda.md --subject \"Please sign NDA\" --signer-email alice@example.com --signer-name \"Alice Example\" --status created --json",
+      "responseShape": {
+        "envelopeId": "abc-123",
+        "status": "created",
+        "statusDateTime": "2025-10-01T12:00:00Z"
+      }
+    },
+    {
+      "description": "Send envelope immediately (emails the signer)",
+      "command": "aclif docusign envelopes create --file ./msa.md --subject \"MSA\" --signer-email signer@example.com --signer-name \"Signer Example\" --status sent --confirm --json"
+    }
+  ]
+}

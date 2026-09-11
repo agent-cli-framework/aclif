@@ -1,0 +1,17 @@
+{
+  "command": "google:calendar:delete",
+  "examples": [
+    {
+      "description": "Delete an event",
+      "command": "aclif google calendar delete --event-id evt123 --confirm",
+      "responseShape": {
+        "deleted": true,
+        "eventId": "evt123"
+      }
+    },
+    {
+      "description": "Preview deletion (dry run)",
+      "command": "aclif google calendar delete --event-id evt123 --dry-run"
+    }
+  ]
+}

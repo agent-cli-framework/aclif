@@ -1,0 +1,16 @@
+{
+  "command": "salesforce:data:search",
+  "category": "auth",
+  "flags": {
+    "instance-url": {
+      "type": "option",
+      "description": "Salesforce instance URL",
+      "required": false
+    },
+    "access-token": {
+      "type": "option",
+      "description": "Salesforce access/session token",
+      "required": false
+    }
+  }
+}

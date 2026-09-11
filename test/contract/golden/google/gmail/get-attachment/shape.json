@@ -1,0 +1,46 @@
+{
+  "command": "google:gmail:get-attachment",
+  "responseShape": {
+    "description": "Attachment metadata + bytes (base64 in JSON, or written to --output)",
+    "fields": {
+      "message_id": {
+        "type": "string",
+        "description": "Parent message id"
+      },
+      "attachment_id": {
+        "type": "string",
+        "description": "Gmail attachment id"
+      },
+      "filename": {
+        "type": "string",
+        "description": "Original filename from the part headers"
+      },
+      "content_type": {
+        "type": "string",
+        "description": "MIME type from the part headers"
+      },
+      "size": {
+        "type": "integer",
+        "description": "Byte length of the decoded payload"
+      },
+      "base64": {
+        "type": "string",
+        "nullable": true,
+        "description": "Base64-encoded bytes (only when --output is omitted)"
+      },
+      "output": {
+        "type": "string",
+        "nullable": true,
+        "description": "Path written to (only when --output is provided)"
+      }
+    },
+    "example": {
+      "message_id": "18f0abc",
+      "attachment_id": "ANGjdJ...",
+      "filename": "resume.pdf",
+      "content_type": "application/pdf",
+      "size": 84012,
+      "base64": "JVBERi0xLjQK..."
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "command": "google:gmail:import",
+  "responseShape": {
+    "description": "Imported message confirmation",
+    "fields": {
+      "id": {
+        "type": "string",
+        "description": "Gmail-assigned ID of the imported message"
+      },
+      "threadId": {
+        "type": "string",
+        "description": "Thread the message was attached to (Gmail clusters by Subject + References)"
+      },
+      "labelIds": {
+        "type": "array",
+        "description": "Labels Gmail applied (INBOX/UNREAD plus any IDs resolved from --label-names)"
+      }
+    },
+    "example": {
+      "id": "18f0abc",
+      "threadId": "18f0abc",
+      "labelIds": [
+        "INBOX",
+        "UNREAD"
+      ]
+    }
+  }
+}

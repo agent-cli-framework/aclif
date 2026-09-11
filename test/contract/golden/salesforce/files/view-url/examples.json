@@ -1,0 +1,13 @@
+{
+  "command": "salesforce:files:view-url",
+  "examples": [
+    {
+      "description": "Get a click-through URL for a Salesforce Files record",
+      "command": "aclif salesforce files view-url --content-document-id 069xxxxxxxxxx --json",
+      "responseShape": {
+        "contentDocumentId": "069xxxxxxxxxx",
+        "url": "https://example.lightning.force.com/lightning/r/ContentDocument/069xxxxxxxxxx/view"
+      }
+    }
+  ]
+}

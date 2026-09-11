@@ -1,0 +1,20 @@
+{
+  "command": "servicenow:data:attachment-view-url",
+  "responseShape": {
+    "description": "Deterministic web-UI URL that opens the attachment in the user's ServiceNow session. No API call is made — the URL is formatted from the connection's instance URL and the supplied sys_id. The user must have their own ServiceNow account with read access to the attachment for the link to render bytes.",
+    "fields": {
+      "sysId": {
+        "type": "string",
+        "description": "Echo of the attachment sys_id"
+      },
+      "url": {
+        "type": "string",
+        "description": "sys_attachment.do view URL"
+      }
+    },
+    "example": {
+      "sysId": "abc123",
+      "url": "https://dev12345.service-now.com/sys_attachment.do?sys_id=abc123&view=true"
+    }
+  }
+}

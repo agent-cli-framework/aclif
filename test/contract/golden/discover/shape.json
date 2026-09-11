@@ -1,0 +1,36 @@
+{
+  "command": "discover",
+  "responseShape": {
+    "description": "Every registered provider with tier, counts, and credential status",
+    "fields": {
+      "providers": {
+        "type": "array",
+        "description": "array of {name, displayName, description, tier, topics, commands, status, auth}"
+      },
+      "total_commands": {
+        "type": "number",
+        "description": "number"
+      },
+      "suggested_start": {
+        "type": "string",
+        "description": "string"
+      }
+    },
+    "example": {
+      "providers": [
+        {
+          "name": "salesforce",
+          "displayName": "Salesforce",
+          "description": "...",
+          "tier": "native",
+          "topics": 4,
+          "commands": 18,
+          "status": "not configured",
+          "auth": null
+        }
+      ],
+      "total_commands": 94,
+      "suggested_start": "aclif learn <provider> --json"
+    }
+  }
+}

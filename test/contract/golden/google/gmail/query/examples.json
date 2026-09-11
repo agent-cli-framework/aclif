@@ -1,0 +1,30 @@
+{
+  "command": "google:gmail:query",
+  "examples": [
+    {
+      "description": "Search unread messages",
+      "command": "aclif google gmail query --query \"is:unread\" --limit 10",
+      "responseShape": {
+        "resultSizeEstimate": 42,
+        "messages": [
+          {
+            "id": "18f...",
+            "threadId": "18f...",
+            "from": "boss@example.com",
+            "subject": "Q4 Report",
+            "snippet": "Please review...",
+            "date": "2026-04-09T14:30:00Z"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Messages from a specific sender",
+      "command": "aclif google gmail query --query \"from:alice@example.com\" --limit 5"
+    },
+    {
+      "description": "Messages with attachments after a date",
+      "command": "aclif google gmail query --query \"has:attachment after:2026/01/01\" --limit 20"
+    }
+  ]
+}

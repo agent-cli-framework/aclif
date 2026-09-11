@@ -1,0 +1,13 @@
+{
+  "command": "salesforce:apex:run",
+  "examples": [
+    {
+      "description": "Debug output",
+      "command": "aclif salesforce apex run --code \"System.debug('Hello World');\" --confirm"
+    },
+    {
+      "description": "Query in Apex",
+      "command": "aclif salesforce apex run --code \"List<Account> accts = [SELECT Id, Name FROM Account LIMIT 5]; System.debug(accts);\" --confirm"
+    }
+  ]
+}

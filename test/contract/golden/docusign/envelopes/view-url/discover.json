@@ -1,0 +1,111 @@
+{
+  "currentCommand": "docusign:envelopes:view-url",
+  "topic": "docusign:envelopes",
+  "siblingCommands": [
+    {
+      "command": "docusign:envelopes:create",
+      "description": "Create a DocuSign envelope from a local markdown file (converted inline to HTML)",
+      "aciMetadata": {
+        "mutability": "create",
+        "idempotent": false,
+        "reversible": false,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 1,
+        "requiresConfirmation": false,
+        "prerequisites": []
+      }
+    },
+    {
+      "command": "docusign:envelopes:delete",
+      "description": "Move a DocuSign envelope to the recyclebin folder (DocuSign's delete equivalent)",
+      "aciMetadata": {
+        "mutability": "delete",
+        "idempotent": true,
+        "reversible": true,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 1,
+        "requiresConfirmation": true,
+        "prerequisites": []
+      }
+    },
+    {
+      "command": "docusign:envelopes:download",
+      "description": "Download a document from a DocuSign envelope",
+      "aciMetadata": {
+        "mutability": "read",
+        "idempotent": true,
+        "reversible": false,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 1,
+        "requiresConfirmation": false,
+        "prerequisites": []
+      }
+    },
+    {
+      "command": "docusign:envelopes:get",
+      "description": "Get a DocuSign envelope by ID",
+      "aciMetadata": {
+        "mutability": "read",
+        "idempotent": true,
+        "reversible": false,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 1,
+        "requiresConfirmation": false,
+        "prerequisites": []
+      }
+    },
+    {
+      "command": "docusign:envelopes:list",
+      "description": "List DocuSign envelopes (requires --from-date; defaults to 30 days ago)",
+      "aciMetadata": {
+        "mutability": "read",
+        "idempotent": true,
+        "reversible": false,
+        "blastRadius": "filtered_set",
+        "apiCallsConsumed": 1,
+        "requiresConfirmation": false,
+        "prerequisites": []
+      }
+    },
+    {
+      "command": "docusign:envelopes:view-url",
+      "description": "Build the apps.docusign.com web-UI URL for an envelope (deterministic — no API call)",
+      "aciMetadata": {
+        "mutability": "read",
+        "idempotent": true,
+        "reversible": false,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 0,
+        "requiresConfirmation": false,
+        "prerequisites": []
+      }
+    }
+  ],
+  "childTopics": [
+    {
+      "topic": "docusign:envelopes:create",
+      "description": "Create a DocuSign envelope from a local markdown file (converted inline to HTML)"
+    },
+    {
+      "topic": "docusign:envelopes:delete",
+      "description": "Move a DocuSign envelope to the recyclebin folder (DocuSign's delete equivalent)"
+    },
+    {
+      "topic": "docusign:envelopes:download",
+      "description": "Download a document from a DocuSign envelope"
+    },
+    {
+      "topic": "docusign:envelopes:get",
+      "description": "Get a DocuSign envelope by ID"
+    },
+    {
+      "topic": "docusign:envelopes:list",
+      "description": "List DocuSign envelopes (requires --from-date; defaults to 30 days ago)"
+    },
+    {
+      "topic": "docusign:envelopes:view-url",
+      "description": "Build the apps.docusign.com web-UI URL for an envelope (deterministic — no API call)"
+    }
+  ],
+  "suggestedStart": "aclif docusign envelopes create --schema --json"
+}

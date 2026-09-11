@@ -1,0 +1,13 @@
+{
+  "command": "servicenow:data:attachment-view-url",
+  "examples": [
+    {
+      "description": "Get a click-through URL for an attachment",
+      "command": "aclif servicenow data attachment-view-url --sys-id abc123 --json",
+      "responseShape": {
+        "sysId": "abc123",
+        "url": "https://dev12345.service-now.com/sys_attachment.do?sys_id=abc123&view=true"
+      }
+    }
+  ]
+}

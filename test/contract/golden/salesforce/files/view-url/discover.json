@@ -1,0 +1,26 @@
+{
+  "currentCommand": "salesforce:files:view-url",
+  "topic": "salesforce:files",
+  "siblingCommands": [
+    {
+      "command": "salesforce:files:view-url",
+      "description": "Build the Salesforce Lightning URL for a Files (ContentDocument) record (deterministic — no API call)",
+      "aciMetadata": {
+        "mutability": "read",
+        "idempotent": true,
+        "reversible": false,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 0,
+        "requiresConfirmation": false,
+        "prerequisites": []
+      }
+    }
+  ],
+  "childTopics": [
+    {
+      "topic": "salesforce:files:view-url",
+      "description": "Build the Salesforce Lightning URL for a Files (ContentDocument) record (deterministic — no API call)"
+    }
+  ],
+  "suggestedStart": "aclif salesforce files view-url --schema --json"
+}

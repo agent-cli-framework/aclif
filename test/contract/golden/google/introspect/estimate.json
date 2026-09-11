@@ -1,0 +1,14 @@
+{
+  "command": "google:introspect",
+  "estimate": {
+    "fieldsPerRecord": 6,
+    "tokensPerRecord": 90,
+    "envelopeOverhead": 50,
+    "note": "Actual size depends on record count and field content. Use --truncate to limit records.",
+    "suggestion": "Add --truncate 10 to cap at ~950 tokens"
+  },
+  "aciMetadata": {
+    "apiCallsConsumed": 4,
+    "mutability": "read"
+  }
+}

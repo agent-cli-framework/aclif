@@ -1,0 +1,11 @@
+# gitleaks configuration: the default rules plus allowlists for known false
+# positives. CI runs `gitleaks detect` over the whole tree, private tier
+# included, and forks inherit this file.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Build output, dependencies, and type annotations the linkedin-client-secret rule mistakes for a secret"
+regexTarget = "line"
+regexes = ['''linkedinads(Credentials|Metadata|Plugin)\s*:\s*(CredentialSchema|ProviderMetadata|ProviderPlugin)''']
+paths = ['''(^|/)lib/''', '''(^|/)node_modules/''', '''(^|/)coverage/''']

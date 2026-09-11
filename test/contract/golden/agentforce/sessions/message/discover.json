@@ -1,0 +1,66 @@
+{
+  "currentCommand": "agentforce:sessions:message",
+  "topic": "agentforce:sessions",
+  "siblingCommands": [
+    {
+      "command": "agentforce:sessions:end",
+      "description": "End an active Agentforce session",
+      "aciMetadata": {
+        "mutability": "delete",
+        "idempotent": true,
+        "reversible": false,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 1,
+        "requiresConfirmation": true,
+        "prerequisites": [
+          "A session ID from a prior `sessions start` call"
+        ]
+      }
+    },
+    {
+      "command": "agentforce:sessions:message",
+      "description": "Send a Text message to an active Agentforce session and return the agent reply",
+      "aciMetadata": {
+        "mutability": "update",
+        "idempotent": false,
+        "reversible": false,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 1,
+        "requiresConfirmation": false,
+        "prerequisites": [
+          "An active session started via `aclif agentforce sessions start`"
+        ]
+      }
+    },
+    {
+      "command": "agentforce:sessions:start",
+      "description": "Start a new Agentforce conversation session against an agent",
+      "aciMetadata": {
+        "mutability": "create",
+        "idempotent": false,
+        "reversible": true,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 1,
+        "requiresConfirmation": false,
+        "prerequisites": [
+          "AgentForce External Client App configured with client-credentials flow (see docs/AGENTFORCE_SETUP.md)"
+        ]
+      }
+    }
+  ],
+  "childTopics": [
+    {
+      "topic": "agentforce:sessions:end",
+      "description": "End an active Agentforce session"
+    },
+    {
+      "topic": "agentforce:sessions:message",
+      "description": "Send a Text message to an active Agentforce session and return the agent reply"
+    },
+    {
+      "topic": "agentforce:sessions:start",
+      "description": "Start a new Agentforce conversation session against an agent"
+    }
+  ],
+  "suggestedStart": "aclif agentforce sessions end --schema --json"
+}

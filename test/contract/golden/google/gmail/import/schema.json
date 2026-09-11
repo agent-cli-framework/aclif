@@ -1,0 +1,237 @@
+{
+  "command": "google:gmail:import",
+  "description": "Insert an RFC 2822 message into the mailbox without sending it",
+  "flags": {
+    "json": {
+      "type": "boolean",
+      "description": "Output as JSON",
+      "required": false,
+      "default": true
+    },
+    "fields": {
+      "type": "option",
+      "description": "Comma-separated fields to return",
+      "required": false
+    },
+    "dry-run": {
+      "type": "boolean",
+      "description": "Preview the operation without executing",
+      "required": false,
+      "default": false
+    },
+    "estimate": {
+      "type": "boolean",
+      "description": "Estimate response size without executing",
+      "required": false,
+      "default": false
+    },
+    "diff": {
+      "type": "boolean",
+      "description": "Show only changed fields (for mutations)",
+      "required": false,
+      "default": false
+    },
+    "truncate": {
+      "type": "option",
+      "description": "Max records to return",
+      "required": false
+    },
+    "full": {
+      "type": "boolean",
+      "description": "Include sensitive values in output (passwords, tokens)",
+      "required": false,
+      "default": false
+    },
+    "pretty": {
+      "type": "boolean",
+      "description": "Colored output for human reading",
+      "required": false,
+      "default": false
+    },
+    "schema": {
+      "type": "boolean",
+      "description": "Output command schema as JSON",
+      "required": false,
+      "default": false
+    },
+    "changelog": {
+      "type": "boolean",
+      "description": "Output command version history",
+      "required": false,
+      "default": false
+    },
+    "discover": {
+      "type": "boolean",
+      "description": "List available sub-topics and commands",
+      "required": false,
+      "default": false
+    },
+    "examples": {
+      "type": "boolean",
+      "description": "Show usage examples with response shapes",
+      "required": false,
+      "default": false
+    },
+    "shape": {
+      "type": "boolean",
+      "description": "Preview response structure without executing",
+      "required": false,
+      "default": false
+    },
+    "flags-for": {
+      "type": "option",
+      "description": "Show flags for a use case: filtering, output, pagination, auth, bulk",
+      "required": false,
+      "options": [
+        "filtering",
+        "output",
+        "pagination",
+        "auth",
+        "bulk"
+      ]
+    },
+    "profile": {
+      "type": "option",
+      "description": "Named profile from the config file",
+      "required": false
+    },
+    "instance": {
+      "type": "option",
+      "description": "Named instance within the profile, for providers with more than one; embedding hosts pass it through",
+      "required": false
+    },
+    "confirm": {
+      "type": "boolean",
+      "description": "Confirm a command that requires explicit confirmation",
+      "required": false,
+      "default": false
+    },
+    "identity-token": {
+      "type": "option",
+      "description": "Identity token verified by the configured identity provider",
+      "required": false
+    },
+    "service-account-key": {
+      "type": "option",
+      "description": "Google service account JSON key content",
+      "required": false
+    },
+    "delegated-user": {
+      "type": "option",
+      "description": "Email of user to impersonate via Domain-Wide Delegation",
+      "required": false
+    },
+    "gw-client-id": {
+      "type": "option",
+      "description": "Google OAuth2 client ID",
+      "required": false
+    },
+    "gw-client-secret": {
+      "type": "option",
+      "description": "Google OAuth2 client secret",
+      "required": false
+    },
+    "refresh-token": {
+      "type": "option",
+      "description": "Google OAuth2 refresh token",
+      "required": false
+    },
+    "access-token": {
+      "type": "option",
+      "description": "Pre-obtained OAuth2 access token (short-lived)",
+      "required": false
+    },
+    "from": {
+      "type": "option",
+      "description": "Sender (From: header). Required for import — the message can be attributed to anyone.",
+      "required": true
+    },
+    "to": {
+      "type": "option",
+      "description": "Recipient(s) (To: header), comma-separated. Typically the importing mailbox itself.",
+      "required": true
+    },
+    "subject": {
+      "type": "option",
+      "description": "Email subject line",
+      "required": true
+    },
+    "body": {
+      "type": "option",
+      "description": "Email body text",
+      "required": true
+    },
+    "cc": {
+      "type": "option",
+      "description": "CC recipient(s), comma-separated",
+      "required": false
+    },
+    "bcc": {
+      "type": "option",
+      "description": "BCC recipient(s), comma-separated",
+      "required": false
+    },
+    "date": {
+      "type": "option",
+      "description": "RFC 2822 Date header (e.g. \"Mon, 03 Mar 2026 09:00:00 +0000\"). Drives Gmail internal date when --internal-date-source=dateHeader.",
+      "required": false
+    },
+    "message-id": {
+      "type": "option",
+      "description": "RFC Message-ID (without angle brackets). If omitted, Gmail assigns one — set explicitly for deterministic threading across imports.",
+      "required": false
+    },
+    "in-reply-to": {
+      "type": "option",
+      "description": "Message-ID of the parent message for threading (without angle brackets).",
+      "required": false
+    },
+    "references": {
+      "type": "option",
+      "description": "Whitespace-separated Message-IDs of ancestor messages in the thread.",
+      "required": false
+    },
+    "attachment": {
+      "type": "option",
+      "description": "Path to a file to attach (repeatable). Each value is an absolute path readable by the runtime; the file is base64-encoded into a multipart/mixed part.",
+      "required": false
+    },
+    "label-names": {
+      "type": "option",
+      "description": "Comma-separated user-visible label names to apply at import time (e.g. \"candidate,hiring\"). Missing labels are auto-created.",
+      "required": false
+    },
+    "never-mark-spam": {
+      "type": "boolean",
+      "description": "Tell Gmail to skip spam classification on this message.",
+      "required": false,
+      "default": true
+    },
+    "process-for-calendar": {
+      "type": "boolean",
+      "description": "Extract calendar invites from the message and add them to Google Calendar.",
+      "required": false,
+      "default": false
+    },
+    "internal-date-source": {
+      "type": "option",
+      "description": "Source for Gmail internal date: \"dateHeader\" (default, uses Date: header) or \"receivedTime\" (now).",
+      "required": false,
+      "default": "dateHeader",
+      "options": [
+        "dateHeader",
+        "receivedTime"
+      ]
+    }
+  },
+  "args": {},
+  "aciMetadata": {
+    "mutability": "create",
+    "idempotent": false,
+    "reversible": true,
+    "blastRadius": "single_record",
+    "apiCallsConsumed": 1,
+    "requiresConfirmation": false,
+    "prerequisites": []
+  }
+}

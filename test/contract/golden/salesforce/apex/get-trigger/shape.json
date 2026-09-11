@@ -1,0 +1,57 @@
+{
+  "command": "salesforce:apex:get-trigger",
+  "responseShape": {
+    "description": "One trigger in full with --name, or a listing with --pattern",
+    "fields": {
+      "name": {
+        "type": "string",
+        "description": "with --name: trigger name"
+      },
+      "object": {
+        "type": "string",
+        "description": "with --name: object the trigger is on"
+      },
+      "apiVersion": {
+        "type": "string",
+        "description": "with --name"
+      },
+      "status": {
+        "type": "string",
+        "description": "with --name: Active or Inactive"
+      },
+      "isValid": {
+        "type": "boolean",
+        "description": "with --name"
+      },
+      "lastModified": {
+        "type": "string",
+        "description": "with --name: ISO timestamp"
+      },
+      "body": {
+        "type": "string",
+        "description": "with --name: Apex source"
+      },
+      "pattern": {
+        "type": "string",
+        "description": "with --pattern: the pattern searched"
+      },
+      "totalFound": {
+        "type": "number",
+        "description": "with --pattern: matches"
+      },
+      "triggers": {
+        "type": "array",
+        "description": "with --pattern: [{name, object, status, apiVersion}]"
+      }
+    },
+    "example": {
+      "name": "AccountTrigger",
+      "object": "Account",
+      "apiVersion": "59.0",
+      "status": "Active",
+      "isValid": true,
+      "lastModified": "2026-09-11T00:00:00.000Z",
+      "body": "trigger AccountTrigger on Account (before insert) { }"
+    }
+  }
+}

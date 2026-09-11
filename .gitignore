@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Build output
+/lib/
+tsconfig.tsbuildinfo
+
+# oclif
+oclif.manifest.json
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Generated provider registry (scripts/gen-provider-index.mjs)
+src/providers/index.generated.ts
+coverage/
+RELEASE_NOTES.md

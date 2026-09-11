@@ -1,0 +1,35 @@
+{
+  "command": "salesforce:data:query",
+  "responseShape": {
+    "description": "SOQL query results with record array",
+    "fields": {
+      "query": {
+        "type": "string",
+        "description": "The executed SOQL query"
+      },
+      "totalSize": {
+        "type": "integer",
+        "description": "Total matching records"
+      },
+      "done": {
+        "type": "boolean",
+        "description": "Whether all results returned (false if queryMore needed)"
+      },
+      "records": {
+        "type": "array",
+        "description": "Array of SObject records with requested fields"
+      }
+    },
+    "example": {
+      "query": "SELECT Id, Name FROM Account LIMIT 5",
+      "totalSize": 5,
+      "done": true,
+      "records": [
+        {
+          "Id": "001xx000003GYRA",
+          "Name": "Acme Corp"
+        }
+      ]
+    }
+  }
+}

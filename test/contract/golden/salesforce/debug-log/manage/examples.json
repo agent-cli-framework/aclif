@@ -1,0 +1,9 @@
+{
+  "command": "salesforce:debug-log:manage",
+  "examples": [
+    {
+      "description": "No examples defined yet",
+      "command": "aclif salesforce debug-log manage --help"
+    }
+  ]
+}

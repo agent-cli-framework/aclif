@@ -1,0 +1,9 @@
+{
+  "command": "servicenow:introspect",
+  "examples": [
+    {
+      "description": "No examples defined yet",
+      "command": "aclif servicenow introspect --help"
+    }
+  ]
+}

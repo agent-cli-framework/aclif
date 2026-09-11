@@ -1,0 +1,9 @@
+{
+  "command": "auth:status",
+  "examples": [
+    {
+      "description": "No examples defined yet",
+      "command": "aclif auth status --help"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "command": "servicenow:data:search",
+  "examples": [
+    {
+      "description": "Search incidents for network issues",
+      "command": "aclif servicenow data search --table incident --text \"network outage\"",
+      "responseShape": {
+        "table": "incident",
+        "searchText": "network outage",
+        "totalCount": 7,
+        "records": [
+          {
+            "sys_id": "abc...",
+            "short_description": "Network outage in DC1"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Search knowledge base with custom fields",
+      "command": "aclif servicenow data search --table kb_knowledge --text \"password reset\" --search-fields short_description,text --limit 20"
+    },
+    {
+      "description": "Search users by name/email",
+      "command": "aclif servicenow data search --table sys_user --text \"john\" --search-fields name,email,user_name"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "command": "google:gmail:send",
+  "examples": [
+    {
+      "description": "Send a simple email",
+      "command": "aclif google gmail send --to \"user@example.com\" --subject \"Meeting\" --body \"Let's meet tomorrow\" --confirm",
+      "responseShape": {
+        "id": "18f0abc123",
+        "threadId": "18f0abc123",
+        "labelIds": [
+          "SENT"
+        ]
+      }
+    },
+    {
+      "description": "Send with CC recipients",
+      "command": "aclif google gmail send --to \"user@example.com\" --cc \"manager@example.com\" --subject \"Report\" --body \"Attached\" --confirm"
+    },
+    {
+      "description": "Preview without sending (dry run)",
+      "command": "aclif google gmail send --to \"user@example.com\" --subject \"Test\" --body \"Hello\" --dry-run"
+    }
+  ]
+}

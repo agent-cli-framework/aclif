@@ -1,0 +1,1 @@
+{"messages": [{"type": "Inform", "id": "m1", "feedbackId": "f1", "planId": "p1", "isContentSafe": true, "message": "Your order 42 shipped yesterday.", "result": [], "citedReferences": []}]}

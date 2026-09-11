@@ -1,0 +1,52 @@
+{
+  "command": "docusign:introspect",
+  "responseShape": {
+    "description": "Effective permissions of the impersonated user: entity CRUD, permission profiles, and groups",
+    "fields": {
+      "introspectedAt": {
+        "type": "string",
+        "description": "ISO timestamp"
+      },
+      "serviceAccountId": {
+        "type": "string",
+        "description": "impersonated user id"
+      },
+      "effectivePermissionProfileId": {
+        "type": "string",
+        "description": "permission profile in force"
+      },
+      "systemPermissions": {
+        "type": "object",
+        "description": "account-level flags"
+      },
+      "entities": {
+        "type": "object",
+        "description": "entity name to {read, create, update, delete}"
+      },
+      "permissionProfiles": {
+        "type": "array",
+        "description": "present with --permission-profiles: [{id, name, label, isBuiltIn, userCount, entityPermissions}]"
+      },
+      "groups": {
+        "type": "array",
+        "description": "present with --groups: [{id, name, groupType, permissionProfileId, userCount}]"
+      }
+    },
+    "example": {
+      "introspectedAt": "2026-09-11T00:00:00.000Z",
+      "serviceAccountId": "00000000-0000-0000-0000-000000000000",
+      "effectivePermissionProfileId": "1",
+      "systemPermissions": {
+        "canManageAccount": false
+      },
+      "entities": {
+        "envelopes": {
+          "read": true,
+          "create": true,
+          "update": true,
+          "delete": false
+        }
+      }
+    }
+  }
+}

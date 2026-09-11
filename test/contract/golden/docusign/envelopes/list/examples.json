@@ -1,0 +1,27 @@
+{
+  "command": "docusign:envelopes:list",
+  "examples": [
+    {
+      "description": "List the 50 most recent envelopes",
+      "command": "aclif docusign envelopes list --limit 50 --json",
+      "responseShape": {
+        "envelopes": [
+          {
+            "envelopeId": "abc-123",
+            "status": "sent",
+            "emailSubject": "Please sign"
+          }
+        ],
+        "resultSetSize": "50"
+      }
+    },
+    {
+      "description": "List only completed envelopes from a specific date",
+      "command": "aclif docusign envelopes list --from-date 2025-01-01 --status completed --json"
+    },
+    {
+      "description": "List drafts",
+      "command": "aclif docusign envelopes list --status created --json"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aclif.dev/schemas/alias-set.schema.json",
+  "title": "AliasSet",
+  "description": "Canonical entity and field names mapped to native names per provider and instance. instance '*' means any instance of the provider.",
+  "type": "object",
+  "required": ["id", "name", "capturedAt", "entities"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {"type": "string", "minLength": 1},
+    "name": {"type": "string", "minLength": 1},
+    "capturedAt": {"type": "string", "format": "date-time"},
+    "description": {"type": "string"},
+    "entities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["canonical", "mappings", "fields"],
+        "additionalProperties": false,
+        "properties": {
+          "canonical": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+          "label": {"type": "string"},
+          "description": {"type": "string"},
+          "naturalKey": {"type": "array", "items": {"type": "string"}},
+          "mappings": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/mapping"}},
+          "fields": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["canonical", "mappings"],
+              "additionalProperties": false,
+              "properties": {
+                "canonical": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+                "label": {"type": "string"},
+                "type": {"type": "string"},
+                "description": {"type": "string"},
+                "mappings": {"type": "array", "items": {"$ref": "#/$defs/mapping"}}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "mapping": {
+      "type": "object",
+      "required": ["provider", "instance", "native"],
+      "additionalProperties": false,
+      "properties": {
+        "provider": {"type": "string", "minLength": 1},
+        "instance": {"type": "string", "minLength": 1},
+        "native": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

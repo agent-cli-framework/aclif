@@ -1,0 +1,26 @@
+{
+  "command": "salesforce:files:view-url",
+  "category": "auth",
+  "flags": {
+    "instance-url": {
+      "type": "option",
+      "description": "Salesforce instance URL",
+      "required": false
+    },
+    "access-token": {
+      "type": "option",
+      "description": "Salesforce access/session token",
+      "required": false
+    },
+    "sf-username": {
+      "type": "option",
+      "description": "Salesforce username",
+      "required": false
+    },
+    "sf-password": {
+      "type": "option",
+      "description": "Salesforce password",
+      "required": false
+    }
+  }
+}

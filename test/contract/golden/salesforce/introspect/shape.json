@@ -1,0 +1,48 @@
+{
+  "command": "salesforce:introspect",
+  "responseShape": {
+    "description": "Effective permissions of the credentials: system permissions, object CRUD, and optionally permission sets and groups",
+    "fields": {
+      "introspectedAt": {
+        "type": "string",
+        "description": "ISO timestamp"
+      },
+      "serviceAccountId": {
+        "type": "string",
+        "description": "user id of the credentials"
+      },
+      "systemPermissions": {
+        "type": "object",
+        "description": "{modifyAllData, viewAllData, apiEnabled, ...}"
+      },
+      "objects": {
+        "type": "object",
+        "description": "object name to {read, create, update, delete, fields}"
+      },
+      "permissionSets": {
+        "type": "array",
+        "description": "present with --permission-sets: [{id, name, label, ...}]"
+      },
+      "permissionSetGroups": {
+        "type": "array",
+        "description": "present with --permission-set-groups: [{id, developerName, label, status, memberPermissionSetIds}]"
+      }
+    },
+    "example": {
+      "introspectedAt": "2026-09-11T00:00:00.000Z",
+      "serviceAccountId": "005xx0000000000",
+      "systemPermissions": {
+        "modifyAllData": false,
+        "apiEnabled": true
+      },
+      "objects": {
+        "Account": {
+          "read": true,
+          "create": true,
+          "update": true,
+          "delete": false
+        }
+      }
+    }
+  }
+}

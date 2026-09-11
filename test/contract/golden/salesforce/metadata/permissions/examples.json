@@ -1,0 +1,9 @@
+{
+  "command": "salesforce:metadata:permissions",
+  "examples": [
+    {
+      "description": "No examples defined yet",
+      "command": "aclif salesforce metadata permissions --help"
+    }
+  ]
+}

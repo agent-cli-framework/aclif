@@ -1,0 +1,39 @@
+{
+  "id": "two-instance-fixture",
+  "name": "Two Salesforce orgs plus ServiceNow",
+  "capturedAt": "2026-09-10T00:00:00.000Z",
+  "entities": [
+    {
+      "canonical": "customer",
+      "label": "customer / company / account",
+      "naturalKey": ["name"],
+      "mappings": [
+        {"provider": "salesforce", "instance": "primary", "native": "Account"},
+        {"provider": "salesforce", "instance": "acquired", "native": "Account"},
+        {"provider": "servicenow", "instance": "primary", "native": "core_company"}
+      ],
+      "fields": [
+        {"canonical": "name", "type": "text", "mappings": [
+          {"provider": "salesforce", "instance": "primary", "native": "Name"},
+          {"provider": "salesforce", "instance": "acquired", "native": "Name"},
+          {"provider": "servicenow", "instance": "primary", "native": "name"}
+        ]},
+        {"canonical": "primary_domain", "type": "text", "mappings": [
+          {"provider": "salesforce", "instance": "primary", "native": "Website"},
+          {"provider": "servicenow", "instance": "primary", "native": "website"}
+        ]},
+        {"canonical": "region", "type": "text", "mappings": [
+          {"provider": "salesforce", "instance": "acquired", "native": "Region__c"}
+        ]}
+      ]
+    },
+    {
+      "canonical": "ticket",
+      "mappings": [{"provider": "servicenow", "instance": "*", "native": "incident"}],
+      "fields": [
+        {"canonical": "short_description", "mappings": [{"provider": "servicenow", "instance": "*", "native": "short_description"}]},
+        {"canonical": "priority", "mappings": [{"provider": "servicenow", "instance": "*", "native": "priority"}]}
+      ]
+    }
+  ]
+}

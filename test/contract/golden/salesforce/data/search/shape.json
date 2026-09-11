@@ -1,0 +1,30 @@
+{
+  "command": "salesforce:data:search",
+  "responseShape": {
+    "description": "SOSL cross-object search results",
+    "fields": {
+      "query": {
+        "type": "string",
+        "description": "The executed SOSL query"
+      },
+      "searchRecords": {
+        "type": "array",
+        "description": "Matching records across objects"
+      },
+      "totalResults": {
+        "type": "integer",
+        "description": "Total matching records"
+      }
+    },
+    "example": {
+      "query": "FIND {Acme} RETURNING Account(Id,Name)",
+      "searchRecords": [
+        {
+          "Id": "001xx...",
+          "Name": "Acme"
+        }
+      ],
+      "totalResults": 1
+    }
+  }
+}

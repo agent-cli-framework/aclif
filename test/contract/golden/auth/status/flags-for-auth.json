@@ -1,0 +1,21 @@
+{
+  "command": "auth:status",
+  "category": "auth",
+  "flags": {
+    "profile": {
+      "type": "option",
+      "description": "Named profile from the config file",
+      "required": false
+    },
+    "instance": {
+      "type": "option",
+      "description": "Named instance within the profile, for providers with more than one; embedding hosts pass it through",
+      "required": false
+    },
+    "identity-token": {
+      "type": "option",
+      "description": "Identity token verified by the configured identity provider",
+      "required": false
+    }
+  }
+}

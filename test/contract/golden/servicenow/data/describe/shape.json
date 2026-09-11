@@ -1,0 +1,40 @@
+{
+  "command": "servicenow:data:describe",
+  "responseShape": {
+    "description": "Table schema with field metadata, types, and picklist values",
+    "fields": {
+      "table": {
+        "type": "string",
+        "description": "Table name"
+      },
+      "label": {
+        "type": "string",
+        "description": "Display label"
+      },
+      "custom": {
+        "type": "boolean",
+        "description": "Whether this is a custom table"
+      },
+      "fieldCount": {
+        "type": "integer",
+        "description": "Number of fields"
+      },
+      "fields": {
+        "type": "array",
+        "description": "Field metadata (name, label, type, required, references, picklist values)"
+      }
+    },
+    "example": {
+      "table": "incident",
+      "label": "Incident",
+      "custom": false,
+      "fieldCount": 85,
+      "fields": [
+        {
+          "name": "number",
+          "type": "string"
+        }
+      ]
+    }
+  }
+}

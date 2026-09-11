@@ -1,0 +1,25 @@
+{
+  "command": "google:calendar:delete",
+  "responseShape": {
+    "description": "Delete confirmation",
+    "fields": {
+      "deleted": {
+        "type": "boolean",
+        "description": "Whether the event was successfully deleted"
+      },
+      "eventId": {
+        "type": "string",
+        "description": "ID of the deleted event"
+      },
+      "calendarId": {
+        "type": "string",
+        "description": "Calendar the event was deleted from"
+      }
+    },
+    "example": {
+      "deleted": true,
+      "eventId": "evt123",
+      "calendarId": "primary"
+    }
+  }
+}

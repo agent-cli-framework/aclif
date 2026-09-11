@@ -1,0 +1,6 @@
+{"result": [
+  {"value": "1", "label": "New", "inactive": "false", "sequence": "1"},
+  {"value": "2", "label": "In Progress", "inactive": "false", "sequence": "2"},
+  {"value": "7", "label": "Closed", "inactive": "false", "sequence": "7"},
+  {"value": "9", "label": "Legacy", "inactive": "true", "sequence": "9"}
+]}

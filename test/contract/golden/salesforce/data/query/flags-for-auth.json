@@ -1,0 +1,41 @@
+{
+  "command": "salesforce:data:query",
+  "category": "auth",
+  "flags": {
+    "instance-url": {
+      "type": "option",
+      "description": "Salesforce instance URL",
+      "required": false
+    },
+    "access-token": {
+      "type": "option",
+      "description": "Salesforce access/session token",
+      "required": false
+    },
+    "sf-username": {
+      "type": "option",
+      "description": "Salesforce username",
+      "required": false
+    },
+    "sf-password": {
+      "type": "option",
+      "description": "Salesforce password",
+      "required": false
+    },
+    "security-token": {
+      "type": "option",
+      "description": "Salesforce security token",
+      "required": false
+    },
+    "client-id": {
+      "type": "option",
+      "description": "OAuth2 client ID",
+      "required": false
+    },
+    "client-secret": {
+      "type": "option",
+      "description": "OAuth2 client secret",
+      "required": false
+    }
+  }
+}

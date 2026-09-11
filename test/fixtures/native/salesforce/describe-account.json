@@ -1,0 +1,8 @@
+{"name": "Account", "label": "Account", "labelPlural": "Accounts", "custom": false, "keyPrefix": "001", "queryable": true, "createable": true, "updateable": true, "deletable": true,
+ "fields": [
+  {"name": "Id", "label": "Account ID", "type": "id", "length": 18, "nillable": false, "createable": false, "updateable": false, "defaultValue": null, "picklistValues": [], "referenceTo": [], "relationshipName": null, "externalId": false, "unique": false, "calculated": false, "custom": false},
+  {"name": "Name", "label": "Account Name", "type": "string", "length": 255, "nillable": false, "createable": true, "updateable": true, "defaultValue": null, "picklistValues": [], "referenceTo": [], "relationshipName": null, "externalId": false, "unique": false, "calculated": false, "custom": false},
+  {"name": "Tier__c", "label": "Tier", "type": "picklist", "length": 255, "nillable": true, "createable": true, "updateable": true, "defaultValue": null, "picklistValues": [{"value": "Gold", "label": "Gold", "active": true, "defaultValue": false}, {"value": "Old", "label": "Old", "active": false, "defaultValue": false}], "referenceTo": [], "relationshipName": null, "externalId": false, "unique": false, "calculated": false, "custom": true},
+  {"name": "OwnerId", "label": "Owner ID", "type": "reference", "length": 18, "nillable": false, "createable": true, "updateable": true, "defaultValue": null, "picklistValues": [], "referenceTo": ["User"], "relationshipName": "Owner", "externalId": false, "unique": false, "calculated": false, "custom": false}
+ ],
+ "childRelationships": [{"childSObject": "Contact", "field": "AccountId", "relationshipName": "Contacts"}]}

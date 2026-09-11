@@ -1,0 +1,14 @@
+{
+  "command": "agentforce:sessions:message",
+  "estimate": {
+    "fieldsPerRecord": 2,
+    "tokensPerRecord": 30,
+    "envelopeOverhead": 50,
+    "note": "Actual size depends on record count and field content. Use --truncate to limit records.",
+    "suggestion": "Add --truncate 10 to cap at ~350 tokens"
+  },
+  "aciMetadata": {
+    "apiCallsConsumed": 1,
+    "mutability": "update"
+  }
+}

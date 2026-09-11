@@ -1,0 +1,20 @@
+{
+  "command": "agentforce:sessions:end",
+  "responseShape": {
+    "description": "Confirmation envelope — the Agent API returns 204 No Content on success",
+    "fields": {
+      "sessionId": {
+        "type": "string",
+        "description": "The session that was ended"
+      },
+      "ended": {
+        "type": "boolean",
+        "description": "True when the DELETE succeeded"
+      }
+    },
+    "example": {
+      "sessionId": "5e3a1c8c-...",
+      "ended": true
+    }
+  }
+}

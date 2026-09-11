@@ -1,0 +1,65 @@
+{
+  "command": "learn",
+  "responseShape": {
+    "description": "Compact briefing for one provider",
+    "fields": {
+      "provider": {
+        "type": "string",
+        "description": "string"
+      },
+      "tier": {
+        "type": "native",
+        "description": "native | contributed | private"
+      },
+      "overview": {
+        "type": "string",
+        "description": "string"
+      },
+      "auth_status": {
+        "type": "string",
+        "description": "string"
+      },
+      "auth_paths": {
+        "type": "array",
+        "description": "array of string"
+      },
+      "topics": {
+        "type": "object",
+        "description": "object keyed by topic: {description, commands, key_fields, common_patterns}"
+      },
+      "query_syntax": {
+        "type": "string",
+        "description": "string"
+      },
+      "provider_specific_flags": {
+        "type": "array",
+        "description": "array of string"
+      }
+    },
+    "example": {
+      "provider": "salesforce",
+      "tier": "native",
+      "overview": "...",
+      "auth_status": "not configured",
+      "auth_paths": [
+        "Session token: --instance-url + --access-token (or SF_INSTANCE_URL, SF_ACCESS_TOKEN)"
+      ],
+      "topics": {
+        "data": {
+          "description": "...",
+          "commands": [
+            "query"
+          ],
+          "key_fields": [
+            "Id"
+          ],
+          "common_patterns": [
+            "..."
+          ]
+        }
+      },
+      "query_syntax": "SOQL",
+      "provider_specific_flags": []
+    }
+  }
+}

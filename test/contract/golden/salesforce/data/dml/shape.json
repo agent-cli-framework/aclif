@@ -1,0 +1,28 @@
+{
+  "command": "salesforce:data:dml",
+  "responseShape": {
+    "description": "DML operation result with success/failure per record",
+    "fields": {
+      "operation": {
+        "type": "string",
+        "description": "The DML operation performed (insert, update, delete, upsert)"
+      },
+      "objectName": {
+        "type": "string",
+        "description": "Target Salesforce object"
+      },
+      "result": {
+        "type": "object",
+        "description": "Operation result with id and success status"
+      }
+    },
+    "example": {
+      "operation": "insert",
+      "objectName": "Account",
+      "result": {
+        "id": "001xx000003GYRA",
+        "success": true
+      }
+    }
+  }
+}

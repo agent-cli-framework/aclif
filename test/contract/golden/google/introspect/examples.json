@@ -1,0 +1,9 @@
+{
+  "command": "google:introspect",
+  "examples": [
+    {
+      "description": "No examples defined yet",
+      "command": "aclif google introspect --help"
+    }
+  ]
+}

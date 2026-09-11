@@ -1,0 +1,27 @@
+{
+  "command": "google:gmail:reply",
+  "responseShape": {
+    "description": "Reply confirmation with message and thread IDs",
+    "fields": {
+      "id": {
+        "type": "string",
+        "description": "ID of the reply message"
+      },
+      "threadId": {
+        "type": "string",
+        "description": "Thread ID"
+      },
+      "labelIds": {
+        "type": "array",
+        "description": "Labels applied to the reply"
+      }
+    },
+    "example": {
+      "id": "18f0def",
+      "threadId": "18f0abc",
+      "labelIds": [
+        "SENT"
+      ]
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "command": "salesforce:discover",
+  "category": "auth",
+  "flags": {
+    "profile": {
+      "type": "option",
+      "description": "Named profile from the config file",
+      "required": false
+    },
+    "instance": {
+      "type": "option",
+      "description": "Named instance within the profile, for providers with more than one; embedding hosts pass it through",
+      "required": false
+    },
+    "identity-token": {
+      "type": "option",
+      "description": "Identity token verified by the configured identity provider",
+      "required": false
+    },
+    "instance-url": {
+      "type": "option",
+      "description": "Salesforce instance URL",
+      "required": false
+    },
+    "access-token": {
+      "type": "option",
+      "description": "Salesforce access/session token",
+      "required": false
+    },
+    "sf-username": {
+      "type": "option",
+      "description": "Salesforce username",
+      "required": false
+    },
+    "sf-password": {
+      "type": "option",
+      "description": "Salesforce password",
+      "required": false
+    },
+    "security-token": {
+      "type": "option",
+      "description": "Salesforce security token",
+      "required": false
+    },
+    "client-id": {
+      "type": "option",
+      "description": "OAuth2 client ID",
+      "required": false
+    },
+    "client-secret": {
+      "type": "option",
+      "description": "OAuth2 client secret",
+      "required": false
+    },
+    "login-url": {
+      "type": "option",
+      "description": "Login URL for username/password auth (default https://login.salesforce.com; use https://test.salesforce.com for sandboxes or the My Domain URL)",
+      "required": false
+    }
+  }
+}

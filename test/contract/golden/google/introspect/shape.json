@@ -1,0 +1,53 @@
+{
+  "command": "google:introspect",
+  "responseShape": {
+    "description": "Which Google API scopes the credentials can exercise",
+    "fields": {
+      "introspectedAt": {
+        "type": "string",
+        "description": "ISO timestamp"
+      },
+      "serviceAccountId": {
+        "type": "string",
+        "description": "impersonated or authenticated user"
+      },
+      "summary": {
+        "type": "object",
+        "description": "{totalScopes, authorized, denied}"
+      },
+      "systemPermissions": {
+        "type": "object",
+        "description": "{domainWideDelegation}"
+      },
+      "scopes": {
+        "type": "array",
+        "description": "array of {scope, service, authorized, error}"
+      },
+      "remediation": {
+        "type": "string",
+        "description": "next step when scopes are denied, else null"
+      }
+    },
+    "example": {
+      "introspectedAt": "2026-09-11T00:00:00.000Z",
+      "serviceAccountId": "user@example.com",
+      "summary": {
+        "totalScopes": 4,
+        "authorized": 3,
+        "denied": 1
+      },
+      "systemPermissions": {
+        "domainWideDelegation": true
+      },
+      "scopes": [
+        {
+          "scope": "https://www.googleapis.com/auth/gmail.readonly",
+          "service": "gmail",
+          "authorized": true,
+          "error": null
+        }
+      ],
+      "remediation": null
+    }
+  }
+}

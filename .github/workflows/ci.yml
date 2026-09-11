@@ -1,0 +1,82 @@
+name: ci
+
+on:
+  push:
+    branches: [main, open-source, 'prerelease/**']
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: ${{ matrix.os }} / node ${{ matrix.node }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node: [22, 24]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm run typecheck
+      # `npm test` runs vitest, then posttest runs lint and the circular-dependency check.
+      # One cell runs the same suite under coverage and enforces the thresholds
+      # (80 percent lines for src/core and src/cli, vitest.config.ts).
+      - run: npm test
+        if: ${{ !(matrix.os == 'ubuntu-latest' && matrix.node == 24) }}
+      - run: npm run test:coverage
+        if: ${{ matrix.os == 'ubuntu-latest' && matrix.node == 24 }}
+
+  fork-simulation:
+    # K-8: a fork's private provider, scaffolded from the template, builds
+    # and conforms, appears in discover with tier private, and leaves every
+    # upstream golden unchanged. A core change that breaks the template
+    # breaks this job before it reaches a fork.
+    name: fork simulation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: node scripts/scaffold-provider.mjs --tier private --name example --display "Example Widgets"
+      - run: npm run build
+      - run: npm run typecheck
+      - name: discover lists the provider as private
+        run: |
+          node bin/run.js discover --json | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{const p=JSON.parse(s).providers.find(p=>p.name==='example');console.log(JSON.stringify(p));process.exit(p&&p.tier==='private'?0:1)})"
+      - name: the scaffolded provider passes conformance
+        run: npx vitest run test/conformance
+      - name: upstream goldens are unchanged
+        run: npx tsx scripts/capture-golden.ts --check --exclude example
+
+  secrets:
+    # gitleaks over the whole tree, private tier included, so a fork's CI
+    # catches a committed credential as early as upstream's does.
+    name: secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: docker run --rm -v "$PWD:/repo" ghcr.io/gitleaks/gitleaks:v8.24.3 detect --source /repo --config /repo/.gitleaks.toml --redact --verbose --exit-code 1
+
+  sync-boundary:
+    # K-7: upstream refuses pull requests that touch the fork-owned private tier.
+    # Runs in the upstream repository, and in a fork that sets the repository
+    # variable RUN_SYNC_BOUNDARY=true; every other fork skips it.
+    name: sync boundary
+    if: github.event_name == 'pull_request' && (github.repository == 'agent-cli-framework/aclif' || vars.RUN_SYNC_BOUNDARY == 'true')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: node scripts/check-sync-boundary.mjs origin/${{ github.base_ref }}

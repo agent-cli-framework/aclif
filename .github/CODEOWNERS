@@ -1,0 +1,5 @@
+# Review ownership by tier. Nothing under a private/ prefix is listed: that
+# tier is fork-owned and upstream CI refuses changes to it.
+*                                     @agent-cli-framework/maintainers
+src/providers/native/                 @agent-cli-framework/maintainers
+src/providers/contributed/google/     @chrismarino

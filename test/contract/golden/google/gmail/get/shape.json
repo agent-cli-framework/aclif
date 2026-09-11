@@ -1,0 +1,66 @@
+{
+  "command": "google:gmail:get",
+  "responseShape": {
+    "description": "Full Gmail message with headers, body, and attachment metadata",
+    "fields": {
+      "id": {
+        "type": "string",
+        "description": "Message ID"
+      },
+      "threadId": {
+        "type": "string",
+        "description": "Thread ID"
+      },
+      "from": {
+        "type": "string",
+        "description": "Sender email"
+      },
+      "to": {
+        "type": "string",
+        "description": "Recipient email(s)"
+      },
+      "subject": {
+        "type": "string",
+        "description": "Message subject"
+      },
+      "date": {
+        "type": "string",
+        "description": "Message date"
+      },
+      "body": {
+        "type": "string",
+        "nullable": true,
+        "description": "Message body text (plain text preferred)"
+      },
+      "labelIds": {
+        "type": "array",
+        "description": "Labels applied to the message"
+      },
+      "attachments": {
+        "type": "array",
+        "description": "Attachment metadata — {id, filename, mime_type, size} per part with body.attachmentId. Use `gmail get-attachment` to fetch bytes."
+      }
+    },
+    "example": {
+      "id": "18f0abc",
+      "threadId": "18f0abc",
+      "from": "sender@example.com",
+      "to": "me@example.com",
+      "subject": "Hello",
+      "date": "2026-04-09T14:30:00Z",
+      "body": "Hello there!",
+      "labelIds": [
+        "INBOX",
+        "UNREAD"
+      ],
+      "attachments": [
+        {
+          "id": "ANGjdJ...",
+          "filename": "resume.pdf",
+          "mime_type": "application/pdf",
+          "size": 84012
+        }
+      ]
+    }
+  }
+}

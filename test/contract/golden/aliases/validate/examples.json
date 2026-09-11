@@ -1,0 +1,9 @@
+{
+  "command": "aliases:validate",
+  "examples": [
+    {
+      "description": "No examples defined yet",
+      "command": "aclif aliases validate --help"
+    }
+  ]
+}

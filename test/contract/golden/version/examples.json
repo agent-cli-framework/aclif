@@ -1,0 +1,9 @@
+{
+  "command": "version",
+  "examples": [
+    {
+      "description": "No examples defined yet",
+      "command": "aclif version --help"
+    }
+  ]
+}

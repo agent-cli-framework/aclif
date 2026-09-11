@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aclif.dev/schemas/manifest.schema.json",
+  "title": "CommandManifest",
+  "description": "One operation on an instance-specific endpoint, described as data and synthesised into a command at load time.",
+  "type": "object",
+  "required": ["id", "description", "aciMetadata", "request", "flags"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9-]*(:[a-z][a-z0-9-]*)+$"},
+    "description": {"type": "string", "minLength": 1},
+    "aciMetadata": {
+      "type": "object",
+      "required": ["mutability", "idempotent", "reversible", "blastRadius", "apiCallsConsumed", "requiresConfirmation", "prerequisites"],
+      "properties": {
+        "mutability": {"enum": ["read", "create", "update", "delete"]},
+        "idempotent": {"type": "boolean"},
+        "reversible": {"type": "boolean"},
+        "blastRadius": {"enum": ["single_record", "filtered_set", "all_records"]},
+        "apiCallsConsumed": {"type": "number"},
+        "requiresConfirmation": {"type": "boolean"},
+        "prerequisites": {"type": "array", "items": {"type": "string"}},
+        "capabilities": {"type": "array", "items": {"enum": ["code_exec", "metadata_change", "bulk"]}}
+      }
+    },
+    "request": {
+      "type": "object",
+      "required": ["method", "path"],
+      "additionalProperties": false,
+      "properties": {
+        "method": {"enum": ["GET", "POST", "PUT", "PATCH", "DELETE"]},
+        "path": {"type": "string", "pattern": "^/"},
+        "query": {"type": "object", "additionalProperties": {"type": "string"}},
+        "body": {}
+      }
+    },
+    "flags": {
+      "type": "object",
+      "propertyNames": {"pattern": "^[a-z][a-z0-9-]*$"},
+      "additionalProperties": {
+        "type": "object",
+        "required": ["type", "description"],
+        "additionalProperties": false,
+        "properties": {
+          "type": {"enum": ["string", "integer", "boolean", "json"]},
+          "description": {"type": "string"},
+          "required": {"type": "boolean"},
+          "options": {"type": "array", "items": {"type": "string"}},
+          "default": {}
+        }
+      }
+    },
+    "responseShape": {
+      "type": "object",
+      "required": ["description", "fields", "example"],
+      "properties": {
+        "description": {"type": "string"},
+        "fields": {"type": "object"},
+        "example": {"type": "object"}
+      }
+    },
+    "aciExamples": {
+      "type": "array",
+      "items": {"type": "object", "required": ["description", "command"], "properties": {"description": {"type": "string"}, "command": {"type": "string"}, "responseShape": {"type": "object"}}}
+    }
+  }
+}

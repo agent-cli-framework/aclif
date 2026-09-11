@@ -1,0 +1,20 @@
+{
+  "command": "google:gmail:reply",
+  "examples": [
+    {
+      "description": "Reply to a thread",
+      "command": "aclif google gmail reply --thread-id 18f0abc --message-id 18f0abc123 --body \"Thanks, will review.\" --confirm",
+      "responseShape": {
+        "id": "18f0def456",
+        "threadId": "18f0abc",
+        "labelIds": [
+          "SENT"
+        ]
+      }
+    },
+    {
+      "description": "Reply to all recipients",
+      "command": "aclif google gmail reply --thread-id 18f0abc --message-id 18f0abc123 --body \"Agreed.\" --reply-all --confirm"
+    }
+  ]
+}

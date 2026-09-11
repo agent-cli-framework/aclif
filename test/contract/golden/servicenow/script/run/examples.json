@@ -1,0 +1,9 @@
+{
+  "command": "servicenow:script:run",
+  "examples": [
+    {
+      "description": "No examples defined yet",
+      "command": "aclif servicenow script run --help"
+    }
+  ]
+}

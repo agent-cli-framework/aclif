@@ -1,0 +1,25 @@
+{
+  "command": "agentforce:sessions:message",
+  "responseShape": {
+    "description": "Agent reply envelope with one or more messages (some may carry structured action results)",
+    "fields": {
+      "messages": {
+        "type": "array",
+        "description": "Reply messages — Text payloads or action results"
+      },
+      "_links": {
+        "type": "object",
+        "nullable": true,
+        "description": "HATEOAS-style follow-up URLs (rarely used)"
+      }
+    },
+    "example": {
+      "messages": [
+        {
+          "type": "Inform",
+          "message": "Acme Corp has 3 open opportunities..."
+        }
+      ]
+    }
+  }
+}

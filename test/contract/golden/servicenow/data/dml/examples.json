@@ -1,0 +1,25 @@
+{
+  "command": "servicenow:data:dml",
+  "examples": [
+    {
+      "description": "Create an incident",
+      "command": "aclif servicenow data dml insert --table incident --values '{\"short_description\":\"Server down\",\"urgency\":\"1\"}'",
+      "responseShape": {
+        "operation": "insert",
+        "table": "incident",
+        "result": {
+          "sys_id": "abc123",
+          "number": "INC0010042"
+        }
+      }
+    },
+    {
+      "description": "Update a record",
+      "command": "aclif servicenow data dml update --table incident --sys-id abc123 --values '{\"state\":\"2\",\"assigned_to\":\"admin\"}'"
+    },
+    {
+      "description": "Delete a record",
+      "command": "aclif servicenow data dml delete --table incident --sys-id abc123"
+    }
+  ]
+}

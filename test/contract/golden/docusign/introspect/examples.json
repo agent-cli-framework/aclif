@@ -1,0 +1,9 @@
+{
+  "command": "docusign:introspect",
+  "examples": [
+    {
+      "description": "No examples defined yet",
+      "command": "aclif docusign introspect --help"
+    }
+  ]
+}

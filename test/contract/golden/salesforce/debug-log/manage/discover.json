@@ -1,0 +1,26 @@
+{
+  "currentCommand": "salesforce:debug-log:manage",
+  "topic": "salesforce:debug-log",
+  "siblingCommands": [
+    {
+      "command": "salesforce:debug-log:manage",
+      "description": "Enable, disable, or retrieve Salesforce debug logs via TraceFlag API",
+      "aciMetadata": {
+        "mutability": "update",
+        "idempotent": true,
+        "reversible": true,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 3,
+        "requiresConfirmation": false,
+        "prerequisites": []
+      }
+    }
+  ],
+  "childTopics": [
+    {
+      "topic": "salesforce:debug-log:manage",
+      "description": "Enable, disable, or retrieve Salesforce debug logs via TraceFlag API"
+    }
+  ],
+  "suggestedStart": "aclif salesforce debug-log manage --schema --json"
+}

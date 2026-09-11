@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aclif.dev/schemas/tenant-catalog.schema.json",
+  "title": "TenantCatalog",
+  "description": "What one live instance has beyond the provider's platform: entities, custom fields, enumerations, relationships, permissions. Never field values.",
+  "type": "object",
+  "required": ["provider", "capturedAt", "entities", "permissions"],
+  "additionalProperties": false,
+  "properties": {
+    "provider": {"type": "string", "minLength": 1},
+    "capturedAt": {"type": "string", "format": "date-time"},
+    "apiVersion": {"type": "string"},
+    "identity": {"type": "string"},
+    "entities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "label", "custom", "fields", "provenance"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "label": {"type": "string"},
+          "custom": {"type": "boolean"},
+          "provenance": {"enum": ["metadata", "sample-inference", "probe"]},
+          "fields": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["name", "label", "type", "custom"],
+              "additionalProperties": false,
+              "properties": {
+                "name": {"type": "string", "minLength": 1},
+                "label": {"type": "string"},
+                "type": {"type": "string"},
+                "enum": {"type": "array", "items": {"type": "string"}},
+                "references": {"type": "array", "items": {"type": "string"}},
+                "custom": {"type": "boolean"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "permissions": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "required": ["read", "create", "update", "delete"],
+            "properties": {
+              "read": {"type": "boolean"},
+              "create": {"type": "boolean"},
+              "update": {"type": "boolean"},
+              "delete": {"type": "boolean"}
+            }
+          }
+        }
+      ]
+    }
+  }
+}

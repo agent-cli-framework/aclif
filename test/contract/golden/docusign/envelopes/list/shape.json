@@ -1,0 +1,36 @@
+{
+  "command": "docusign:envelopes:list",
+  "responseShape": {
+    "description": "List response with envelopes[] and paging metadata",
+    "fields": {
+      "envelopes": {
+        "type": "array",
+        "description": "Envelope summary records"
+      },
+      "resultSetSize": {
+        "type": "string",
+        "description": "Number of envelopes returned"
+      },
+      "totalSetSize": {
+        "type": "string",
+        "nullable": true,
+        "description": "Total matching envelopes (if known)"
+      },
+      "startPosition": {
+        "type": "string",
+        "nullable": true,
+        "description": "Offset of the first record"
+      }
+    },
+    "example": {
+      "envelopes": [
+        {
+          "envelopeId": "xyz",
+          "status": "sent",
+          "emailSubject": "NDA"
+        }
+      ],
+      "resultSetSize": "1"
+    }
+  }
+}

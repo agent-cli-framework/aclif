@@ -1,0 +1,26 @@
+{
+  "command": "auth:logout",
+  "responseShape": {
+    "description": "Standard ACI response envelope",
+    "fields": {
+      "success": {
+        "type": "boolean",
+        "description": "Whether the operation succeeded"
+      },
+      "result": {
+        "type": "object",
+        "description": "Command-specific result data"
+      },
+      "_context": {
+        "type": "object",
+        "nullable": true,
+        "description": "Pagination, rate limits, refinements"
+      }
+    },
+    "example": {
+      "success": true,
+      "result": {},
+      "_context": null
+    }
+  }
+}

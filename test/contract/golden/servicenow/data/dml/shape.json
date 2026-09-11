@@ -1,0 +1,34 @@
+{
+  "command": "servicenow:data:dml",
+  "responseShape": {
+    "description": "DML operation result with created/updated record or deletion confirmation",
+    "fields": {
+      "operation": {
+        "type": "string",
+        "description": "The DML operation performed (insert, update, delete)"
+      },
+      "table": {
+        "type": "string",
+        "description": "Target table"
+      },
+      "result": {
+        "type": "object",
+        "nullable": true,
+        "description": "Created or updated record (null for delete)"
+      },
+      "sysId": {
+        "type": "string",
+        "nullable": true,
+        "description": "Record sys_id (for update/delete)"
+      }
+    },
+    "example": {
+      "operation": "insert",
+      "table": "incident",
+      "result": {
+        "sys_id": "abc123",
+        "number": "INC0010042"
+      }
+    }
+  }
+}

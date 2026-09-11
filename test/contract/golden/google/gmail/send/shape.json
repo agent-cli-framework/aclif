@@ -1,0 +1,27 @@
+{
+  "command": "google:gmail:send",
+  "responseShape": {
+    "description": "Sent message confirmation",
+    "fields": {
+      "id": {
+        "type": "string",
+        "description": "ID of the sent message"
+      },
+      "threadId": {
+        "type": "string",
+        "description": "Thread ID"
+      },
+      "labelIds": {
+        "type": "array",
+        "description": "Labels applied to the sent message"
+      }
+    },
+    "example": {
+      "id": "18f0abc",
+      "threadId": "18f0abc",
+      "labelIds": [
+        "SENT"
+      ]
+    }
+  }
+}

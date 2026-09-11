@@ -1,0 +1,37 @@
+{
+  "command": "docusign:envelopes:get",
+  "responseShape": {
+    "description": "Single envelope record",
+    "fields": {
+      "envelopeId": {
+        "type": "string",
+        "description": "Unique envelope GUID"
+      },
+      "status": {
+        "type": "string",
+        "description": "created | sent | delivered | completed | declined | voided"
+      },
+      "emailSubject": {
+        "type": "string",
+        "nullable": true
+      },
+      "sentDateTime": {
+        "type": "string",
+        "nullable": true
+      },
+      "completedDateTime": {
+        "type": "string",
+        "nullable": true
+      },
+      "lastModifiedDateTime": {
+        "type": "string",
+        "nullable": true
+      }
+    },
+    "example": {
+      "envelopeId": "xyz",
+      "status": "sent",
+      "emailSubject": "NDA"
+    }
+  }
+}

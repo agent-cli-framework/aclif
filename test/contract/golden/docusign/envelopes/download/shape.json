@@ -1,0 +1,29 @@
+{
+  "command": "docusign:envelopes:download",
+  "responseShape": {
+    "description": "Download result metadata (bytes written to --output)",
+    "fields": {
+      "envelopeId": {
+        "type": "string"
+      },
+      "documentId": {
+        "type": "string"
+      },
+      "bytes": {
+        "type": "integer",
+        "description": "Size of the downloaded payload"
+      },
+      "output": {
+        "type": "string",
+        "nullable": true,
+        "description": "Path written to, or null if stdout"
+      }
+    },
+    "example": {
+      "envelopeId": "abc-123",
+      "documentId": "combined",
+      "bytes": 12345,
+      "output": "./signed.pdf"
+    }
+  }
+}

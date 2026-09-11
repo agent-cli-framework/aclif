@@ -1,0 +1,29 @@
+{
+  "command": "docusign:envelopes:create",
+  "responseShape": {
+    "description": "Envelope creation result",
+    "fields": {
+      "envelopeId": {
+        "type": "string",
+        "description": "Server-assigned envelope GUID"
+      },
+      "status": {
+        "type": "string",
+        "description": "created (draft) or sent"
+      },
+      "statusDateTime": {
+        "type": "string",
+        "nullable": true
+      },
+      "uri": {
+        "type": "string",
+        "nullable": true,
+        "description": "Relative API URI for the new envelope"
+      }
+    },
+    "example": {
+      "envelopeId": "abc-123",
+      "status": "created"
+    }
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aclif.dev/schemas/envelope.schema.json",
+  "title": "Command envelope",
+  "description": "Every command result on stdout. success:true carries result and _context; success:false carries error.",
+  "type": "object",
+  "required": ["success"],
+  "properties": {
+    "success": {"type": "boolean"},
+    "result": {},
+    "error": {"$ref": "#/$defs/error"},
+    "_context": {"$ref": "#/$defs/context"},
+    "_events": {"type": "array"}
+  },
+  "additionalProperties": false,
+  "oneOf": [
+    {
+      "properties": {"success": {"const": true}},
+      "required": ["success", "result", "_context"],
+      "not": {"required": ["error"]}
+    },
+    {
+      "properties": {"success": {"const": false}},
+      "required": ["success", "error"],
+      "not": {"required": ["result"]}
+    }
+  ],
+  "$defs": {
+    "error": {
+      "type": "object",
+      "required": ["code", "message"],
+      "properties": {
+        "code": {"type": "string", "pattern": "^[A-Z][A-Z0-9_]*$"},
+        "message": {"type": "string"},
+        "correctedValue": {"type": "string"},
+        "syntaxGuide": {"type": "string"},
+        "workingExample": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "context": {
+      "type": "object",
+      "required": ["contract", "pagination", "rateLimit", "availableFields", "refinements", "relatedCommands"],
+      "properties": {
+        "contract": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$"},
+        "pagination": {
+          "oneOf": [
+            {"type": "null"},
+            {
+              "type": "object",
+              "required": ["returned", "total", "hasMore", "nextCommand"],
+              "properties": {
+                "returned": {"type": "integer", "minimum": 0},
+                "total": {"type": ["integer", "null"]},
+                "hasMore": {"type": "boolean"},
+                "nextCommand": {"type": ["string", "null"]}
+              },
+              "additionalProperties": false
+            }
+          ]
+        },
+        "rateLimit": {
+          "oneOf": [
+            {"type": "null"},
+            {
+              "type": "object",
+              "required": ["remaining", "limit", "resetsAt"],
+              "properties": {
+                "remaining": {"type": "integer"},
+                "limit": {"type": "integer"},
+                "resetsAt": {"type": ["string", "null"]}
+              },
+              "additionalProperties": false
+            }
+          ]
+        },
+        "availableFields": {"type": "array", "items": {"type": "string"}},
+        "refinements": {"type": "array", "items": {"type": "string"}},
+        "relatedCommands": {"type": "array", "items": {"type": "string"}},
+        "source": {"const": "manifest"},
+        "canonical": {
+          "type": "object",
+          "required": ["set", "entity", "native", "instance"],
+          "properties": {
+            "set": {"type": "string"},
+            "entity": {"type": "string"},
+            "native": {"type": "string"},
+            "instance": {"type": "string"}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "command": "servicenow:data:query",
+  "responseShape": {
+    "description": "Table API query results with record array",
+    "fields": {
+      "table": {
+        "type": "string",
+        "description": "Table queried"
+      },
+      "query": {
+        "type": "string",
+        "nullable": true,
+        "description": "Encoded query used"
+      },
+      "totalCount": {
+        "type": "integer",
+        "nullable": true,
+        "description": "Total matching records (from X-Total-Count header)"
+      },
+      "records": {
+        "type": "array",
+        "description": "Array of table records"
+      }
+    },
+    "example": {
+      "table": "incident",
+      "query": "active=true",
+      "totalCount": 42,
+      "records": [
+        {
+          "sys_id": "abc123",
+          "number": "INC0010001"
+        }
+      ]
+    }
+  }
+}

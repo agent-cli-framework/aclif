@@ -1,0 +1,2 @@
+{"sessionId": "5e3a1c8c-0000-4000-8000-000000000001", "_links": {"self": null, "messages": {"href": "https://api.salesforce.com/einstein/ai-agent/v1/sessions/5e3a1c8c-0000-4000-8000-000000000001/messages"}},
+ "messages": [{"type": "Inform", "id": "m0", "feedbackId": "f0", "planId": "p0", "isContentSafe": true, "message": "Hi, I am the service agent. How can I help?", "result": [], "citedReferences": []}]}

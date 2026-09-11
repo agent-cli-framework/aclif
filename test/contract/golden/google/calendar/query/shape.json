@@ -1,0 +1,28 @@
+{
+  "command": "google:calendar:query",
+  "responseShape": {
+    "description": "Calendar event list",
+    "fields": {
+      "calendarId": {
+        "type": "string",
+        "description": "Calendar ID queried"
+      },
+      "events": {
+        "type": "array",
+        "description": "Array of calendar events"
+      }
+    },
+    "example": {
+      "calendarId": "primary",
+      "events": [
+        {
+          "id": "evt123",
+          "summary": "Meeting",
+          "start": "2026-04-10T10:00:00Z",
+          "end": "2026-04-10T11:00:00Z",
+          "status": "confirmed"
+        }
+      ]
+    }
+  }
+}

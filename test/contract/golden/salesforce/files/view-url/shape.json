@@ -1,0 +1,20 @@
+{
+  "command": "salesforce:files:view-url",
+  "responseShape": {
+    "description": "Deterministic web-UI URL that opens the Files record in the user's Salesforce session. No API call is made — the URL is formatted from the connection's instance URL and the supplied ContentDocument id.",
+    "fields": {
+      "contentDocumentId": {
+        "type": "string",
+        "description": "Echo of the ContentDocument id"
+      },
+      "url": {
+        "type": "string",
+        "description": "Lightning ContentDocument view URL"
+      }
+    },
+    "example": {
+      "contentDocumentId": "069xxx",
+      "url": "https://example.lightning.force.com/lightning/r/ContentDocument/069xxx/view"
+    }
+  }
+}

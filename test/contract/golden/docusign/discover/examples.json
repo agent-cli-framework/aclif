@@ -1,0 +1,9 @@
+{
+  "command": "docusign:discover",
+  "examples": [
+    {
+      "description": "No examples defined yet",
+      "command": "aclif docusign discover --help"
+    }
+  ]
+}

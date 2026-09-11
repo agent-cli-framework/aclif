@@ -1,0 +1,41 @@
+name: Provider request or change
+description: Propose a new provider, or a change to what an existing one covers
+labels: [provider]
+body:
+  - type: input
+    id: platform
+    attributes:
+      label: Platform
+      placeholder: Acme Widgets
+    validations:
+      required: true
+  - type: input
+    id: spec
+    attributes:
+      label: API specification
+      description: A link to the OpenAPI document or equivalent. Providers are generated from the spec; a platform with no machine-readable description is a harder case, say so.
+    validations:
+      required: true
+  - type: dropdown
+    id: tier
+    attributes:
+      label: Intended tier
+      description: Contributed providers are maintained by the people who propose them; see CONTRIBUTING.md
+      options:
+        - contributed (I will maintain it)
+        - native (I am proposing the project maintain it)
+        - change to an existing provider
+    validations:
+      required: true
+  - type: textarea
+    id: auth
+    attributes:
+      label: Authentication
+      description: How the API authenticates, and whether a non-interactive path exists (token, client credentials, signed assertion)
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Operations
+      description: Which parts of the API matter first. Providers cover the whole spec; this orders the work.

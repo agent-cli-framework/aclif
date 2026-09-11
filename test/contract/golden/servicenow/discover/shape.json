@@ -1,0 +1,37 @@
+{
+  "command": "servicenow:discover",
+  "responseShape": {
+    "description": "Tables and fields in the instance, or one table in full with --table",
+    "fields": {
+      "discoveredAt": {
+        "type": "string",
+        "description": "ISO timestamp"
+      },
+      "instanceUrl": {
+        "type": "string",
+        "description": "instance URL"
+      },
+      "tableCount": {
+        "type": "number",
+        "description": "tables described"
+      },
+      "tables": {
+        "type": "array",
+        "description": "array of {apiName, label, custom, fieldCount} plus fields with --verbose"
+      }
+    },
+    "example": {
+      "discoveredAt": "2026-09-11T00:00:00.000Z",
+      "instanceUrl": "https://example.service-now.com",
+      "tableCount": 2,
+      "tables": [
+        {
+          "apiName": "incident",
+          "label": "Incident",
+          "custom": false,
+          "fieldCount": 80
+        }
+      ]
+    }
+  }
+}

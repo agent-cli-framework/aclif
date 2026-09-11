@@ -1,0 +1,26 @@
+{
+  "currentCommand": "google:drive:view-url",
+  "topic": "google:drive",
+  "siblingCommands": [
+    {
+      "command": "google:drive:view-url",
+      "description": "Build the Google Drive web-UI URL for a file (deterministic — no API call)",
+      "aciMetadata": {
+        "mutability": "read",
+        "idempotent": true,
+        "reversible": false,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 0,
+        "requiresConfirmation": false,
+        "prerequisites": []
+      }
+    }
+  ],
+  "childTopics": [
+    {
+      "topic": "google:drive:view-url",
+      "description": "Build the Google Drive web-UI URL for a file (deterministic — no API call)"
+    }
+  ],
+  "suggestedStart": "aclif google drive view-url --schema --json"
+}

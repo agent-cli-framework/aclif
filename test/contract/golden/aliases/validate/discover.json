@@ -1,0 +1,94 @@
+{
+  "currentCommand": "aliases:validate",
+  "topic": "aliases",
+  "siblingCommands": [
+    {
+      "command": "aliases:export",
+      "description": "Export the alias sets in force as AliasSet JSON",
+      "aciMetadata": {
+        "mutability": "read",
+        "idempotent": true,
+        "reversible": false,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 0,
+        "requiresConfirmation": false,
+        "prerequisites": []
+      }
+    },
+    {
+      "command": "aliases:import",
+      "description": "Import an alias set file (for example an export from a gateway) into the config directory",
+      "aciMetadata": {
+        "mutability": "create",
+        "idempotent": true,
+        "reversible": true,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 0,
+        "requiresConfirmation": false,
+        "prerequisites": []
+      }
+    },
+    {
+      "command": "aliases:list",
+      "description": "List the canonical alias sets in force, in precedence order",
+      "aciMetadata": {
+        "mutability": "read",
+        "idempotent": true,
+        "reversible": false,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 0,
+        "requiresConfirmation": false,
+        "prerequisites": []
+      }
+    },
+    {
+      "command": "aliases:resolve",
+      "description": "Resolve a canonical entity name to the native entity and field names for a provider and instance",
+      "aciMetadata": {
+        "mutability": "read",
+        "idempotent": true,
+        "reversible": false,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 0,
+        "requiresConfirmation": false,
+        "prerequisites": []
+      }
+    },
+    {
+      "command": "aliases:validate",
+      "description": "Validate an alias set file",
+      "aciMetadata": {
+        "mutability": "read",
+        "idempotent": true,
+        "reversible": false,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 0,
+        "requiresConfirmation": false,
+        "prerequisites": []
+      }
+    }
+  ],
+  "childTopics": [
+    {
+      "topic": "aliases:export",
+      "description": "Export the alias sets in force as AliasSet JSON"
+    },
+    {
+      "topic": "aliases:import",
+      "description": "Import an alias set file (for example an export from a gateway) into the config directory"
+    },
+    {
+      "topic": "aliases:list",
+      "description": "List the canonical alias sets in force, in precedence order"
+    },
+    {
+      "topic": "aliases:resolve",
+      "description": "Resolve a canonical entity name to the native entity and field names for a provider and instance"
+    },
+    {
+      "topic": "aliases:validate",
+      "description": "Validate an alias set file"
+    }
+  ],
+  "suggestedStart": "aclif aliases export --schema --json"
+}

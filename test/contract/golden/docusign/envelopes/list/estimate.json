@@ -1,0 +1,14 @@
+{
+  "command": "docusign:envelopes:list",
+  "estimate": {
+    "fieldsPerRecord": 4,
+    "tokensPerRecord": 60,
+    "envelopeOverhead": 50,
+    "note": "Actual size depends on record count and field content. Use --truncate to limit records.",
+    "suggestion": "Add --truncate 10 to cap at ~650 tokens"
+  },
+  "aciMetadata": {
+    "apiCallsConsumed": 1,
+    "mutability": "read"
+  }
+}

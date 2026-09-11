@@ -1,0 +1,9 @@
+{
+  "$comment": "Packages provider source may import (C-DEP-1). Node builtins (node:*) and the framework are always allowed. Each entry states why; vendor API SDKs are not accepted, providers use fetch against the documented HTTP API.",
+  "packages": {
+    "@oclif/core": "Command, Flags, and Args for command classes",
+    "jsforce": "Salesforce SDK, grandfathered for the native Salesforce provider; migration to a fetch client is follow-on work (plan section 2)",
+    "jsonwebtoken": "RS256 assertion signing for the DocuSign JWT Grant flow; node:crypto covers HS256 elsewhere",
+    "marked": "Markdown to HTML for DocuSign envelope documents authored as Markdown"
+  }
+}

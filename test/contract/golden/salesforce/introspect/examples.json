@@ -1,0 +1,9 @@
+{
+  "command": "salesforce:introspect",
+  "examples": [
+    {
+      "description": "No examples defined yet",
+      "command": "aclif salesforce introspect --help"
+    }
+  ]
+}

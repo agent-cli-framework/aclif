@@ -1,0 +1,52 @@
+{
+  "command": "google:discover",
+  "responseShape": {
+    "description": "Google Workspace services, commands, scopes, and authentication methods",
+    "fields": {
+      "provider": {
+        "type": "string",
+        "description": "always \"google\""
+      },
+      "services": {
+        "type": "array",
+        "description": "array of {name, description, commands, scopes, querySyntax}"
+      },
+      "totalCommands": {
+        "type": "number",
+        "description": "commands across services"
+      },
+      "authentication": {
+        "type": "object",
+        "description": "{methods: [{name, flags, envVars, setupGuide}]}"
+      }
+    },
+    "example": {
+      "provider": "google",
+      "services": [
+        {
+          "name": "gmail",
+          "description": "Gmail",
+          "commands": [
+            "query",
+            "get"
+          ],
+          "scopes": [
+            "https://www.googleapis.com/auth/gmail.readonly"
+          ],
+          "querySyntax": "from:, to:, subject:"
+        }
+      ],
+      "totalCommands": 2,
+      "authentication": {
+        "methods": [
+          {
+            "name": "OAuth2 refresh token",
+            "flags": "--gw-client-id + --gw-client-secret + --refresh-token",
+            "envVars": "GW_CLIENT_ID, GW_CLIENT_SECRET, GW_REFRESH_TOKEN",
+            "setupGuide": "..."
+          }
+        ]
+      }
+    }
+  }
+}

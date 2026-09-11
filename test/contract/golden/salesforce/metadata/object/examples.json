@@ -1,0 +1,9 @@
+{
+  "command": "salesforce:metadata:object",
+  "examples": [
+    {
+      "description": "No examples defined yet",
+      "command": "aclif salesforce metadata object --help"
+    }
+  ]
+}

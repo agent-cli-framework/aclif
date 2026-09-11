@@ -1,0 +1,19 @@
+{
+  "command": "docusign:envelopes:download",
+  "examples": [
+    {
+      "description": "Download the combined signed PDF",
+      "command": "aclif docusign envelopes download --envelope-id abc-123 --output ./signed.pdf",
+      "responseShape": {
+        "envelopeId": "abc-123",
+        "documentId": "combined",
+        "bytes": 12345,
+        "output": "./signed.pdf"
+      }
+    },
+    {
+      "description": "Download the Certificate of Completion",
+      "command": "aclif docusign envelopes download --envelope-id abc-123 --document-id certificate --output ./cert.pdf"
+    }
+  ]
+}

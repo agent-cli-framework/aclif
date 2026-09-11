@@ -1,0 +1,28 @@
+{
+  "command": "servicenow:data:query",
+  "examples": [
+    {
+      "description": "List open P1 incidents",
+      "command": "aclif servicenow data query --table incident --query \"active=true^priority=1\" --limit 10",
+      "responseShape": {
+        "table": "incident",
+        "totalCount": 3,
+        "records": [
+          {
+            "sys_id": "abc...",
+            "number": "INC001",
+            "short_description": "Server down"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Get users with specific fields",
+      "command": "aclif servicenow data query --table sys_user --fields \"user_name,email,name\" --limit 5"
+    },
+    {
+      "description": "Query with display values and ordering",
+      "command": "aclif servicenow data query --table change_request --query \"state=2\" --display-value true --order-by number"
+    }
+  ]
+}

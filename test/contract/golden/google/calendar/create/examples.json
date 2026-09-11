@@ -1,0 +1,23 @@
+{
+  "command": "google:calendar:create",
+  "examples": [
+    {
+      "description": "Create a meeting",
+      "command": "aclif google calendar create --summary \"Team Meeting\" --start \"2026-04-11T10:00:00Z\" --end \"2026-04-11T11:00:00Z\"",
+      "responseShape": {
+        "id": "evt456",
+        "summary": "Team Meeting",
+        "status": "confirmed",
+        "htmlLink": "https://calendar.google.com/..."
+      }
+    },
+    {
+      "description": "Create with attendees and location",
+      "command": "aclif google calendar create --summary \"Lunch\" --start \"2026-04-11T12:00:00Z\" --end \"2026-04-11T13:00:00Z\" --attendees \"alice@example.com,bob@example.com\" --location \"Cafe\""
+    },
+    {
+      "description": "Create all-day event",
+      "command": "aclif google calendar create --summary \"Company Holiday\" --start \"2026-04-15\" --end \"2026-04-16\" --all-day"
+    }
+  ]
+}

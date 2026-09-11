@@ -1,0 +1,26 @@
+{
+  "command": "docusign:envelopes:get",
+  "category": "auth",
+  "flags": {
+    "integration-key": {
+      "type": "option",
+      "description": "DocuSign Integration Key (OAuth client_id)",
+      "required": false
+    },
+    "user-id": {
+      "type": "option",
+      "description": "Impersonated DocuSign user GUID (API Username)",
+      "required": false
+    },
+    "account-id": {
+      "type": "option",
+      "description": "DocuSign API Account GUID",
+      "required": false
+    },
+    "private-key": {
+      "type": "option",
+      "description": "RSA private key PEM — inline value or @/path/to/key.pem",
+      "required": false
+    }
+  }
+}

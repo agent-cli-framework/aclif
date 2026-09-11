@@ -1,0 +1,21 @@
+{
+  "command": "salesforce:data:aggregate",
+  "examples": [
+    {
+      "description": "Count opportunities by stage",
+      "command": "aclif salesforce data aggregate Opportunity --select \"StageName,COUNT(Id) OpCount\" --group-by StageName",
+      "responseShape": {
+        "records": [
+          {
+            "StageName": "Prospecting",
+            "OpCount": 42
+          }
+        ]
+      }
+    },
+    {
+      "description": "Revenue by year with threshold",
+      "command": "aclif salesforce data aggregate Opportunity --select \"CALENDAR_YEAR(CloseDate) Year,SUM(Amount) Revenue\" --group-by \"CALENDAR_YEAR(CloseDate)\" --having \"SUM(Amount) > 50000\""
+    }
+  ]
+}

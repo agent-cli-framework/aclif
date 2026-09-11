@@ -1,0 +1,40 @@
+name: publish
+
+# Publishing a GitHub release publishes the package to npm with provenance.
+# The dist-tag is the prerelease identifier of the version (beta, dev) or
+# latest. Requires the NPM_TOKEN secret (an automation token) in the
+# repository, or npm trusted publishing configured for this workflow.
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          registry-url: https://registry.npmjs.org
+      - run: npm ci
+      - name: the tag matches package.json
+        run: |
+          v=$(node -p "require('./package.json').version")
+          [[ "v$v" == "${{ github.event.release.tag_name }}" ]] || { echo "package.json is $v, tag is ${{ github.event.release.tag_name }}"; exit 1; }
+      - name: publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          v=$(node -p "require('./package.json').version")
+          tag=latest
+          if [[ "$v" == *-* ]]; then tag="${v#*-}"; tag="${tag%%.*}"; fi
+          # prepack rebuilds lib/ and writes the oclif manifest.
+          npm publish --provenance --access public --tag "$tag"

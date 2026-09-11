@@ -1,0 +1,13 @@
+{
+  "command": "salesforce:apex:get-trigger",
+  "examples": [
+    {
+      "description": "One trigger in full",
+      "command": "aclif salesforce apex get-trigger --name AccountTrigger --json"
+    },
+    {
+      "description": "List triggers matching a pattern with metadata",
+      "command": "aclif salesforce apex get-trigger --pattern \"Account*\" --include-metadata --json"
+    }
+  ]
+}

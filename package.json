@@ -1,0 +1,230 @@
+{
+  "name": "aclif",
+  "version": "0.1.0",
+  "description": "Agent CLI Framework: a self-describing command surface over SaaS APIs for compiled workflow agents",
+  "license": "MIT",
+  "author": "Prompt One",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agent-cli-framework/aclif.git"
+  },
+  "homepage": "https://github.com/agent-cli-framework/aclif#readme",
+  "bugs": {
+    "url": "https://github.com/agent-cli-framework/aclif/issues"
+  },
+  "keywords": [
+    "cli",
+    "agent",
+    "ai",
+    "oclif",
+    "salesforce",
+    "servicenow",
+    "docusign",
+    "agentforce",
+    "framework"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "type": "module",
+  "bin": {
+    "aclif": "./bin/run.js",
+    "aclif-scaffold-cli": "./scripts/scaffold-cli.mjs"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "/bin",
+    "/lib",
+    "/schemas",
+    "/scripts/gen-provider-index.mjs",
+    "/scripts/scaffold-cli.mjs",
+    "/oclif.manifest.json"
+  ],
+  "scripts": {
+    "build": "tsc -b && node scripts/copy-data.mjs && node scripts/gen-topics.mjs",
+    "check-sync-boundary": "node scripts/check-sync-boundary.mjs",
+    "dev": "ts-node ./bin/run.ts",
+    "golden:capture": "tsx scripts/capture-golden.ts",
+    "golden:check": "tsx scripts/capture-golden.ts --check",
+    "lint": "eslint .",
+    "manifest": "oclif manifest",
+    "postinstall": "node scripts/gen-provider-index.mjs",
+    "postpack": "rm -f oclif.manifest.json",
+    "posttest": "npm run lint && npm run test:circular",
+    "prebuild": "node scripts/gen-provider-index.mjs",
+    "prepack": "rm -rf lib && npm run build && oclif manifest",
+    "scaffold-provider": "node scripts/scaffold-provider.mjs",
+    "test": "vitest run",
+    "test:circular": "madge --circular lib/",
+    "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.test.json",
+    "test:coverage": "vitest run --coverage",
+    "posttest:coverage": "npm run lint && npm run test:circular",
+    "prepare": "husky || true",
+    "release:version": "node scripts/release-version.mjs",
+    "release:notes": "node scripts/release-notes.mjs"
+  },
+  "dependencies": {
+    "@googleapis/calendar": "^9.0.0",
+    "@googleapis/gmail": "^8.0.0",
+    "@oclif/core": "^4.2.0",
+    "@oclif/plugin-help": "^6.2.0",
+    "@oclif/plugin-plugins": "^5.4.0",
+    "google-auth-library": "^9.0.0",
+    "js-yaml": "^4.1.0",
+    "jsforce": "^3.6.2",
+    "jsonwebtoken": "^9.0.2",
+    "lru-cache": "^11.0.0",
+    "marked": "^14.1.4"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.2.2",
+    "@commitlint/config-conventional": "^21.2.2",
+    "@eslint/js": "^10.0.1",
+    "@oclif/test": "^4.2.0",
+    "@types/js-yaml": "^4.0.9",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^22.0.0",
+    "@vitest/coverage-v8": "^5.0.0",
+    "ajv": "^8.20.0",
+    "eslint": "^10.10.0",
+    "eslint-plugin-import-x": "^4.17.1",
+    "globals": "^17.12.0",
+    "husky": "^9.1.7",
+    "madge": "^8.0.0",
+    "msw": "^2.15.0",
+    "oclif": "^4.17.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.23.13",
+    "typescript": "^5.7.0",
+    "typescript-eslint": "^8.70.0",
+    "vitest": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "oclif": {
+    "bin": "aclif",
+    "dirname": "aclif",
+    "commands": {
+      "strategy": "explicit",
+      "target": "./lib/commands-index.js",
+      "identifier": "COMMANDS"
+    },
+    "topicSeparator": " ",
+    "plugins": [
+      "@oclif/plugin-help",
+      "@oclif/plugin-plugins"
+    ],
+    "jitPlugins": {},
+    "topics": {
+      "agentforce": {
+        "description": "Salesforce Agentforce agent sessions"
+      },
+      "agentforce:agents": {
+        "description": "Inspect agents configured in the connected Salesforce org"
+      },
+      "agentforce:sessions": {
+        "description": "Start, message, and end conversation sessions with an Agentforce agent"
+      },
+      "aliases": {
+        "description": "Canonical entity and field names across providers"
+      },
+      "auth": {
+        "description": "Identity, profile, and cached sessions"
+      },
+      "discover": {
+        "description": "List all available providers, topics, and commands"
+      },
+      "docusign": {
+        "description": "DocuSign eSignature envelopes"
+      },
+      "docusign:envelopes": {
+        "description": "Create, list, inspect, and download signature envelopes"
+      },
+      "google": {
+        "description": "Google Workspace: Gmail, Calendar, Drive"
+      },
+      "google:calendar": {
+        "description": "List, create, update, and delete Google Calendar events"
+      },
+      "google:drive": {
+        "description": "Links to Google Drive files"
+      },
+      "google:gmail": {
+        "description": "Search, read, and send Gmail messages"
+      },
+      "learn": {
+        "description": "Compact agent briefing for a provider"
+      },
+      "manifests": {
+        "description": "Validate and list declarative command manifests"
+      },
+      "salesforce": {
+        "description": "Salesforce CRM and Platform operations"
+      },
+      "salesforce:apex": {
+        "description": "Execute and manage Apex code and triggers"
+      },
+      "salesforce:data": {
+        "description": "Query and manage Salesforce records"
+      },
+      "salesforce:debug-log": {
+        "description": "Manage debug logging"
+      },
+      "salesforce:files": {
+        "description": "Links to files and attachments in the Salesforce UI"
+      },
+      "salesforce:metadata": {
+        "description": "Manage custom objects, fields, and permissions"
+      },
+      "servicenow": {
+        "description": "ServiceNow ITSM and Platform operations"
+      },
+      "servicenow:data": {
+        "description": "Query and manage ServiceNow records"
+      },
+      "servicenow:script": {
+        "description": "Execute ServiceNow background scripts"
+      }
+    },
+    "exitCodes": {
+      "default": 1,
+      "invalidArgsSpec": 2,
+      "requiredArgs": 2,
+      "unexpectedArgs": 2,
+      "failedFlagValidation": 2,
+      "failedFlagParsing": 2,
+      "nonExistentFlag": 2
+    },
+    "hooks": {
+      "init": "./lib/cli/hooks/init",
+      "prerun": "./lib/cli/hooks/prerun",
+      "finally": "./lib/cli/hooks/finally"
+    }
+  },
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./providers": {
+      "types": "./lib/providers/index.d.ts",
+      "default": "./lib/providers/index.js"
+    },
+    "./hooks/init": {
+      "types": "./lib/cli/hooks/init.d.ts",
+      "default": "./lib/cli/hooks/init.js"
+    },
+    "./hooks/prerun": {
+      "types": "./lib/cli/hooks/prerun.d.ts",
+      "default": "./lib/cli/hooks/prerun.js"
+    },
+    "./hooks/finally": {
+      "types": "./lib/cli/hooks/finally.d.ts",
+      "default": "./lib/cli/hooks/finally.js"
+    },
+    "./package.json": "./package.json"
+  }
+}

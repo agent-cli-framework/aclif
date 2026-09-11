@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/agent-cli-framework/aclif/security/advisories/new
+    about: Report privately; see SECURITY.md
+  - name: Building a CLI on aclif
+    url: https://github.com/agent-cli-framework/aclif/blob/main/docs/BUILDING_A_CLI.md
+    about: How to name your own CLI and pick its providers

@@ -1,0 +1,9 @@
+{
+  "command": "salesforce:apex:deploy-class",
+  "examples": [
+    {
+      "description": "No examples defined yet",
+      "command": "aclif salesforce apex deploy-class --help"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "command": "agentforce:sessions:start",
+  "responseShape": {
+    "description": "Session-start envelope returned by the Agent API",
+    "fields": {
+      "sessionId": {
+        "type": "string",
+        "description": "Opaque session ID used in subsequent message/end calls"
+      },
+      "agentId": {
+        "type": "string",
+        "description": "The agent the session was started against"
+      },
+      "messages": {
+        "type": "array",
+        "description": "Initial messages emitted by the agent (often empty)"
+      }
+    },
+    "example": {
+      "sessionId": "5e3a1c8c-...",
+      "agentId": "0XxAB000000XXXXAB1",
+      "messages": []
+    }
+  }
+}

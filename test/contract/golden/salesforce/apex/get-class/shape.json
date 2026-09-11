@@ -1,0 +1,30 @@
+{
+  "command": "salesforce:apex:get-class",
+  "responseShape": {
+    "description": "Apex class source code and metadata",
+    "fields": {
+      "name": {
+        "type": "string",
+        "description": "Class name"
+      },
+      "body": {
+        "type": "string",
+        "description": "Source code"
+      },
+      "apiVersion": {
+        "type": "string",
+        "description": "API version"
+      },
+      "status": {
+        "type": "string",
+        "description": "Active/Deleted"
+      }
+    },
+    "example": {
+      "name": "MyController",
+      "apiVersion": "59.0",
+      "status": "Active",
+      "body": "public class MyController { }"
+    }
+  }
+}

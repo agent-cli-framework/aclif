@@ -1,0 +1,128 @@
+{
+  "currentCommand": "google:gmail:import",
+  "topic": "google:gmail",
+  "siblingCommands": [
+    {
+      "command": "google:gmail:get",
+      "description": "Get a single Gmail message by ID",
+      "aciMetadata": {
+        "mutability": "read",
+        "idempotent": true,
+        "reversible": false,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 1,
+        "requiresConfirmation": false,
+        "prerequisites": []
+      }
+    },
+    {
+      "command": "google:gmail:get-attachment",
+      "description": "Fetch one attachment from a Gmail message by attachment id",
+      "aciMetadata": {
+        "mutability": "read",
+        "idempotent": true,
+        "reversible": false,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 2,
+        "requiresConfirmation": false,
+        "prerequisites": []
+      }
+    },
+    {
+      "command": "google:gmail:import",
+      "description": "Insert an RFC 2822 message into the mailbox without sending it",
+      "aciMetadata": {
+        "mutability": "create",
+        "idempotent": false,
+        "reversible": true,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 1,
+        "requiresConfirmation": false,
+        "prerequisites": []
+      }
+    },
+    {
+      "command": "google:gmail:profile",
+      "description": "Return the authenticated user's Gmail profile (email address + aggregate counts)",
+      "aciMetadata": {
+        "mutability": "read",
+        "idempotent": true,
+        "reversible": true,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 1,
+        "requiresConfirmation": false,
+        "prerequisites": []
+      }
+    },
+    {
+      "command": "google:gmail:query",
+      "description": "Search Gmail messages using Gmail search operators",
+      "aciMetadata": {
+        "mutability": "read",
+        "idempotent": true,
+        "reversible": false,
+        "blastRadius": "filtered_set",
+        "apiCallsConsumed": 2,
+        "requiresConfirmation": false,
+        "prerequisites": []
+      }
+    },
+    {
+      "command": "google:gmail:reply",
+      "description": "Reply to a Gmail thread",
+      "aciMetadata": {
+        "mutability": "create",
+        "idempotent": false,
+        "reversible": false,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 2,
+        "requiresConfirmation": true,
+        "prerequisites": []
+      }
+    },
+    {
+      "command": "google:gmail:send",
+      "description": "Compose and send a Gmail message",
+      "aciMetadata": {
+        "mutability": "create",
+        "idempotent": false,
+        "reversible": false,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 1,
+        "requiresConfirmation": true,
+        "prerequisites": []
+      }
+    }
+  ],
+  "childTopics": [
+    {
+      "topic": "google:gmail:get",
+      "description": "Get a single Gmail message by ID"
+    },
+    {
+      "topic": "google:gmail:get-attachment",
+      "description": "Fetch one attachment from a Gmail message by attachment id"
+    },
+    {
+      "topic": "google:gmail:import",
+      "description": "Insert an RFC 2822 message into the mailbox without sending it"
+    },
+    {
+      "topic": "google:gmail:profile",
+      "description": "Return the authenticated user's Gmail profile (email address + aggregate counts)"
+    },
+    {
+      "topic": "google:gmail:query",
+      "description": "Search Gmail messages using Gmail search operators"
+    },
+    {
+      "topic": "google:gmail:reply",
+      "description": "Reply to a Gmail thread"
+    },
+    {
+      "topic": "google:gmail:send",
+      "description": "Compose and send a Gmail message"
+    }
+  ],
+  "suggestedStart": "aclif google gmail get --schema --json"
+}

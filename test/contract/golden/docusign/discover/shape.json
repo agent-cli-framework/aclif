@@ -1,0 +1,51 @@
+{
+  "command": "docusign:discover",
+  "responseShape": {
+    "description": "DocuSign account reachability and the command topics available",
+    "fields": {
+      "discoveredAt": {
+        "type": "string",
+        "description": "ISO timestamp"
+      },
+      "baseUri": {
+        "type": "string",
+        "description": "account base URI"
+      },
+      "accountId": {
+        "type": "string",
+        "description": "API account id"
+      },
+      "topics": {
+        "type": "array",
+        "description": "array of {name, description, commands, keyFields}"
+      },
+      "reachable": {
+        "type": "boolean",
+        "description": "the account answered the probe"
+      },
+      "envelopesVisible": {
+        "type": "number",
+        "description": "envelopes the probe could list"
+      }
+    },
+    "example": {
+      "discoveredAt": "2026-09-11T00:00:00.000Z",
+      "baseUri": "https://demo.docusign.net",
+      "accountId": "00000000-0000-0000-0000-000000000000",
+      "topics": [
+        {
+          "name": "envelopes",
+          "description": "Envelopes",
+          "commands": [
+            "list"
+          ],
+          "keyFields": [
+            "envelopeId"
+          ]
+        }
+      ],
+      "reachable": true,
+      "envelopesVisible": 3
+    }
+  }
+}

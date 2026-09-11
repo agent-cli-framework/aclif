@@ -1,0 +1,22 @@
+{
+  "command": "agentforce:sessions:message",
+  "examples": [
+    {
+      "description": "Ask an active session a question",
+      "command": "aclif agentforce sessions message --session-id 5e3a1c8c-... --message \"Summarize Acme Corp's open opportunities\" --json",
+      "responseShape": {
+        "messages": [
+          {
+            "type": "Inform",
+            "message": "Acme Corp has 3 open opportunities...",
+            "result": {}
+          }
+        ]
+      }
+    },
+    {
+      "description": "Continue a multi-turn conversation (advance sequenceId per turn)",
+      "command": "aclif agentforce sessions message --session-id 5e3a1c8c-... --message \"Draft outreach for the top one\" --sequence-id 2 --json"
+    }
+  ]
+}

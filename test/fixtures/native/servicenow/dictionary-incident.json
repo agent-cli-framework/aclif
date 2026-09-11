@@ -1,0 +1,7 @@
+{"result": [
+  {"element": "number", "column_label": "Number", "internal_type": "string", "max_length": "40", "mandatory": "false", "read_only": "true", "choice": "0", "default_value": "", "reference": ""},
+  {"element": "short_description", "column_label": "Short description", "internal_type": "string", "max_length": "160", "mandatory": "true", "read_only": "false", "choice": "0", "default_value": "", "reference": ""},
+  {"element": "state", "column_label": "State", "internal_type": "integer", "max_length": "40", "mandatory": "false", "read_only": "false", "choice": "2", "default_value": "1", "reference": ""},
+  {"element": "assigned_to", "column_label": "Assigned to", "internal_type": "reference", "max_length": "32", "mandatory": "false", "read_only": "false", "choice": "0", "default_value": "", "reference": "sys_user"},
+  {"element": "u_region", "column_label": "Region", "internal_type": "string", "max_length": "40", "mandatory": "false", "read_only": "false", "choice": "0", "default_value": "", "reference": ""}
+]}

@@ -1,0 +1,28 @@
+{
+  "command": "salesforce:data:dml",
+  "examples": [
+    {
+      "description": "Insert a new account",
+      "command": "aclif salesforce data dml insert Account --values '{\"Name\":\"Test Corp\",\"Industry\":\"Technology\"}'",
+      "responseShape": {
+        "operation": "insert",
+        "result": {
+          "id": "001xx...",
+          "success": true
+        }
+      }
+    },
+    {
+      "description": "Update a record",
+      "command": "aclif salesforce data dml update Account --record-id 001xx000003GYRA --values '{\"Industry\":\"Finance\"}'"
+    },
+    {
+      "description": "Delete a record",
+      "command": "aclif salesforce data dml delete Account --record-id 001xx000003GYRA"
+    },
+    {
+      "description": "Upsert with external ID",
+      "command": "aclif salesforce data dml upsert Account --external-id-field ExtId__c --values '[{\"ExtId__c\":\"A1\",\"Name\":\"Corp A\"}]'"
+    }
+  ]
+}

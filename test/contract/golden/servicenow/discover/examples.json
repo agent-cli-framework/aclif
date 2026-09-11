@@ -1,0 +1,9 @@
+{
+  "command": "servicenow:discover",
+  "examples": [
+    {
+      "description": "No examples defined yet",
+      "command": "aclif servicenow discover --help"
+    }
+  ]
+}

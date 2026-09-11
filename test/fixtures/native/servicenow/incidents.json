@@ -1,0 +1,4 @@
+{"result": [
+  {"sys_id": "1c741bd70b2322007518a91f0c4a1b5c", "number": "INC0010001", "short_description": "Email server down", "state": "2", "priority": "1", "assigned_to": {"link": "https://example.service-now.com/api/now/table/sys_user/62826bf03710200044e0bfc8bcbe5df1", "value": "62826bf03710200044e0bfc8bcbe5df1"}},
+  {"sys_id": "2d852ce80c3433118629b02f1d5b2c6d", "number": "INC0010002", "short_description": "VPN flapping", "state": "1", "priority": "3", "assigned_to": ""}
+]}

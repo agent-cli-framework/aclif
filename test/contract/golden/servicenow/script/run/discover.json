@@ -1,0 +1,31 @@
+{
+  "currentCommand": "servicenow:script:run",
+  "topic": "servicenow:script",
+  "siblingCommands": [
+    {
+      "command": "servicenow:script:run",
+      "description": "Execute a ServiceNow background script",
+      "aciMetadata": {
+        "mutability": "update",
+        "idempotent": false,
+        "reversible": false,
+        "blastRadius": "all_records",
+        "apiCallsConsumed": 1,
+        "requiresConfirmation": true,
+        "prerequisites": [
+          "admin role or script execution permissions"
+        ],
+        "capabilities": [
+          "code_exec"
+        ]
+      }
+    }
+  ],
+  "childTopics": [
+    {
+      "topic": "servicenow:script:run",
+      "description": "Execute a ServiceNow background script"
+    }
+  ],
+  "suggestedStart": "aclif servicenow script run --schema --json"
+}

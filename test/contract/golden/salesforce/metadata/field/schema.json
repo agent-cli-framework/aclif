@@ -1,0 +1,289 @@
+{
+  "command": "salesforce:metadata:field",
+  "description": "Create or update custom fields with auto Field Level Security",
+  "flags": {
+    "json": {
+      "type": "boolean",
+      "description": "Output as JSON",
+      "required": false,
+      "default": true
+    },
+    "fields": {
+      "type": "option",
+      "description": "Comma-separated fields to return",
+      "required": false
+    },
+    "dry-run": {
+      "type": "boolean",
+      "description": "Preview the operation without executing",
+      "required": false,
+      "default": false
+    },
+    "estimate": {
+      "type": "boolean",
+      "description": "Estimate response size without executing",
+      "required": false,
+      "default": false
+    },
+    "diff": {
+      "type": "boolean",
+      "description": "Show only changed fields (for mutations)",
+      "required": false,
+      "default": false
+    },
+    "truncate": {
+      "type": "option",
+      "description": "Max records to return",
+      "required": false
+    },
+    "full": {
+      "type": "boolean",
+      "description": "Include sensitive values in output (passwords, tokens)",
+      "required": false,
+      "default": false
+    },
+    "pretty": {
+      "type": "boolean",
+      "description": "Colored output for human reading",
+      "required": false,
+      "default": false
+    },
+    "schema": {
+      "type": "boolean",
+      "description": "Output command schema as JSON",
+      "required": false,
+      "default": false
+    },
+    "changelog": {
+      "type": "boolean",
+      "description": "Output command version history",
+      "required": false,
+      "default": false
+    },
+    "discover": {
+      "type": "boolean",
+      "description": "List available sub-topics and commands",
+      "required": false,
+      "default": false
+    },
+    "examples": {
+      "type": "boolean",
+      "description": "Show usage examples with response shapes",
+      "required": false,
+      "default": false
+    },
+    "shape": {
+      "type": "boolean",
+      "description": "Preview response structure without executing",
+      "required": false,
+      "default": false
+    },
+    "flags-for": {
+      "type": "option",
+      "description": "Show flags for a use case: filtering, output, pagination, auth, bulk",
+      "required": false,
+      "options": [
+        "filtering",
+        "output",
+        "pagination",
+        "auth",
+        "bulk"
+      ]
+    },
+    "profile": {
+      "type": "option",
+      "description": "Named profile from the config file",
+      "required": false
+    },
+    "instance": {
+      "type": "option",
+      "description": "Named instance within the profile, for providers with more than one; embedding hosts pass it through",
+      "required": false
+    },
+    "confirm": {
+      "type": "boolean",
+      "description": "Confirm a command that requires explicit confirmation",
+      "required": false,
+      "default": false
+    },
+    "identity-token": {
+      "type": "option",
+      "description": "Identity token verified by the configured identity provider",
+      "required": false
+    },
+    "instance-url": {
+      "type": "option",
+      "description": "Salesforce instance URL",
+      "required": false
+    },
+    "access-token": {
+      "type": "option",
+      "description": "Salesforce access/session token",
+      "required": false
+    },
+    "sf-username": {
+      "type": "option",
+      "description": "Salesforce username",
+      "required": false
+    },
+    "sf-password": {
+      "type": "option",
+      "description": "Salesforce password",
+      "required": false
+    },
+    "security-token": {
+      "type": "option",
+      "description": "Salesforce security token",
+      "required": false
+    },
+    "client-id": {
+      "type": "option",
+      "description": "OAuth2 client ID",
+      "required": false
+    },
+    "client-secret": {
+      "type": "option",
+      "description": "OAuth2 client secret",
+      "required": false
+    },
+    "login-url": {
+      "type": "option",
+      "description": "Login URL for username/password auth (default https://login.salesforce.com; use https://test.salesforce.com for sandboxes or the My Domain URL)",
+      "required": false
+    },
+    "field-name": {
+      "type": "option",
+      "description": "Field API name (without __c suffix)",
+      "required": true
+    },
+    "label": {
+      "type": "option",
+      "description": "Field label",
+      "required": false
+    },
+    "type": {
+      "type": "option",
+      "description": "Field type",
+      "required": false,
+      "options": [
+        "Checkbox",
+        "Currency",
+        "Date",
+        "DateTime",
+        "Email",
+        "Number",
+        "Percent",
+        "Phone",
+        "Picklist",
+        "MultiselectPicklist",
+        "Text",
+        "TextArea",
+        "LongTextArea",
+        "Html",
+        "Url",
+        "Lookup",
+        "MasterDetail"
+      ]
+    },
+    "required": {
+      "type": "boolean",
+      "description": "Make field required",
+      "required": false,
+      "default": false
+    },
+    "unique": {
+      "type": "boolean",
+      "description": "Make field unique",
+      "required": false,
+      "default": false
+    },
+    "external-id": {
+      "type": "boolean",
+      "description": "Mark as external ID",
+      "required": false,
+      "default": false
+    },
+    "length": {
+      "type": "option",
+      "description": "Field length (for Text fields)",
+      "required": false
+    },
+    "precision": {
+      "type": "option",
+      "description": "Decimal precision (for Number fields)",
+      "required": false
+    },
+    "scale": {
+      "type": "option",
+      "description": "Decimal scale (for Number fields)",
+      "required": false
+    },
+    "reference-to": {
+      "type": "option",
+      "description": "Related object (for Lookup/MasterDetail)",
+      "required": false
+    },
+    "relationship-label": {
+      "type": "option",
+      "description": "Relationship label",
+      "required": false
+    },
+    "relationship-name": {
+      "type": "option",
+      "description": "Relationship API name",
+      "required": false
+    },
+    "delete-constraint": {
+      "type": "option",
+      "description": "Delete constraint (Lookup only)",
+      "required": false,
+      "options": [
+        "Cascade",
+        "Restrict",
+        "SetNull"
+      ]
+    },
+    "picklist-values": {
+      "type": "option",
+      "description": "Comma-separated picklist values",
+      "required": false
+    },
+    "description": {
+      "type": "option",
+      "description": "Field description",
+      "required": false
+    },
+    "grant-access-to": {
+      "type": "option",
+      "description": "Comma-separated profile names for FLS",
+      "required": false,
+      "default": "System Administrator"
+    }
+  },
+  "args": {
+    "operation": {
+      "description": "Operation to perform",
+      "required": true,
+      "options": [
+        "create",
+        "update"
+      ]
+    },
+    "objectName": {
+      "description": "Object API name (e.g., Account or MyObject__c)",
+      "required": true
+    }
+  },
+  "aciMetadata": {
+    "mutability": "create",
+    "idempotent": false,
+    "reversible": true,
+    "blastRadius": "single_record",
+    "apiCallsConsumed": 3,
+    "requiresConfirmation": false,
+    "prerequisites": [],
+    "capabilities": [
+      "metadata_change"
+    ]
+  }
+}

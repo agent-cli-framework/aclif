@@ -1,0 +1,69 @@
+{
+  "currentCommand": "salesforce:metadata:field",
+  "topic": "salesforce:metadata",
+  "siblingCommands": [
+    {
+      "command": "salesforce:metadata:field",
+      "description": "Create or update custom fields with auto Field Level Security",
+      "aciMetadata": {
+        "mutability": "create",
+        "idempotent": false,
+        "reversible": true,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 3,
+        "requiresConfirmation": false,
+        "prerequisites": [],
+        "capabilities": [
+          "metadata_change"
+        ]
+      }
+    },
+    {
+      "command": "salesforce:metadata:object",
+      "description": "Create or update custom Salesforce objects via Metadata API",
+      "aciMetadata": {
+        "mutability": "create",
+        "idempotent": false,
+        "reversible": true,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 2,
+        "requiresConfirmation": false,
+        "prerequisites": [],
+        "capabilities": [
+          "metadata_change"
+        ]
+      }
+    },
+    {
+      "command": "salesforce:metadata:permissions",
+      "description": "Manage Field Level Security for custom fields",
+      "aciMetadata": {
+        "mutability": "update",
+        "idempotent": true,
+        "reversible": true,
+        "blastRadius": "filtered_set",
+        "apiCallsConsumed": 3,
+        "requiresConfirmation": false,
+        "prerequisites": [],
+        "capabilities": [
+          "metadata_change"
+        ]
+      }
+    }
+  ],
+  "childTopics": [
+    {
+      "topic": "salesforce:metadata:field",
+      "description": "Create or update custom fields with auto Field Level Security"
+    },
+    {
+      "topic": "salesforce:metadata:object",
+      "description": "Create or update custom Salesforce objects via Metadata API"
+    },
+    {
+      "topic": "salesforce:metadata:permissions",
+      "description": "Manage Field Level Security for custom fields"
+    }
+  ],
+  "suggestedStart": "aclif salesforce metadata field --schema --json"
+}

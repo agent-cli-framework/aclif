@@ -1,0 +1,14 @@
+{
+  "command": "aliases:validate",
+  "estimate": {
+    "fieldsPerRecord": 5,
+    "tokensPerRecord": 75,
+    "envelopeOverhead": 50,
+    "note": "Actual size depends on record count and field content. Use --truncate to limit records.",
+    "suggestion": "Add --truncate 10 to cap at ~800 tokens"
+  },
+  "aciMetadata": {
+    "apiCallsConsumed": 0,
+    "mutability": "read"
+  }
+}

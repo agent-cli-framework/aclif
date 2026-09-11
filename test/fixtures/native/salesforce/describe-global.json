@@ -1,0 +1,7 @@
+{"encoding": "UTF-8", "maxBatchSize": 200, "sobjects": [
+  {"name": "Account", "label": "Account", "custom": false, "queryable": true, "createable": true, "updateable": true, "deletable": true, "keyPrefix": "001"},
+  {"name": "Contact", "label": "Contact", "custom": false, "queryable": true, "createable": true, "updateable": true, "deletable": true, "keyPrefix": "003"},
+  {"name": "Task", "label": "Task", "custom": false, "queryable": true, "createable": true, "updateable": true, "deletable": true, "keyPrefix": "00T"},
+  {"name": "Warranty__c", "label": "Warranty", "custom": true, "queryable": true, "createable": true, "updateable": true, "deletable": true, "keyPrefix": "a0X"},
+  {"name": "AccountHistory", "label": "Account History", "custom": false, "queryable": true, "createable": false, "updateable": false, "deletable": false, "keyPrefix": "017"}
+]}

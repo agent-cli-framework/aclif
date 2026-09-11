@@ -1,0 +1,22 @@
+{
+  "command": "google:calendar:update",
+  "examples": [
+    {
+      "description": "Update event title",
+      "command": "aclif google calendar update --event-id evt123 --summary \"Updated Meeting\"",
+      "responseShape": {
+        "id": "evt123",
+        "summary": "Updated Meeting",
+        "status": "confirmed"
+      }
+    },
+    {
+      "description": "Reschedule an event",
+      "command": "aclif google calendar update --event-id evt123 --start \"2026-04-12T14:00:00Z\" --end \"2026-04-12T15:00:00Z\""
+    },
+    {
+      "description": "Add attendees",
+      "command": "aclif google calendar update --event-id evt123 --attendees \"newperson@example.com\""
+    }
+  ]
+}

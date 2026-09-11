@@ -1,0 +1,47 @@
+{
+  "currentCommand": "docusign:discover",
+  "topic": "docusign",
+  "siblingCommands": [
+    {
+      "command": "docusign:discover",
+      "description": "List DocuSign resources exposed by aclif and verify account reachability",
+      "aciMetadata": {
+        "mutability": "read",
+        "idempotent": true,
+        "reversible": false,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 1,
+        "requiresConfirmation": false,
+        "prerequisites": []
+      }
+    },
+    {
+      "command": "docusign:introspect",
+      "description": "Introspect DocuSign permissions: entity CRUD from the effective Permission Profile, and optional full profile/group listings",
+      "aciMetadata": {
+        "mutability": "read",
+        "idempotent": true,
+        "reversible": false,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 4,
+        "requiresConfirmation": false,
+        "prerequisites": []
+      }
+    }
+  ],
+  "childTopics": [
+    {
+      "topic": "docusign:discover",
+      "description": "List DocuSign resources exposed by aclif and verify account reachability"
+    },
+    {
+      "topic": "docusign:envelopes",
+      "description": "Create, list, inspect, and download signature envelopes"
+    },
+    {
+      "topic": "docusign:introspect",
+      "description": "Introspect DocuSign permissions: entity CRUD from the effective Permission Profile, and optional full profile/group listings"
+    }
+  ],
+  "suggestedStart": "aclif docusign discover --schema --json"
+}

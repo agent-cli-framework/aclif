@@ -1,0 +1,9 @@
+{
+  "command": "manifests:list",
+  "examples": [
+    {
+      "description": "No examples defined yet",
+      "command": "aclif manifests list --help"
+    }
+  ]
+}

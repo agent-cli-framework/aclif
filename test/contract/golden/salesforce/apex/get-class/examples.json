@@ -1,0 +1,13 @@
+{
+  "command": "salesforce:apex:get-class",
+  "examples": [
+    {
+      "description": "Get class by name",
+      "command": "aclif salesforce apex get-class --name MyController"
+    },
+    {
+      "description": "Search by pattern",
+      "command": "aclif salesforce apex get-class --pattern \"Account*\" --include-metadata"
+    }
+  ]
+}

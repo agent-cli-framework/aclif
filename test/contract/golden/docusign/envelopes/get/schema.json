@@ -1,0 +1,161 @@
+{
+  "command": "docusign:envelopes:get",
+  "description": "Get a DocuSign envelope by ID",
+  "flags": {
+    "json": {
+      "type": "boolean",
+      "description": "Output as JSON",
+      "required": false,
+      "default": true
+    },
+    "fields": {
+      "type": "option",
+      "description": "Comma-separated fields to return",
+      "required": false
+    },
+    "dry-run": {
+      "type": "boolean",
+      "description": "Preview the operation without executing",
+      "required": false,
+      "default": false
+    },
+    "estimate": {
+      "type": "boolean",
+      "description": "Estimate response size without executing",
+      "required": false,
+      "default": false
+    },
+    "diff": {
+      "type": "boolean",
+      "description": "Show only changed fields (for mutations)",
+      "required": false,
+      "default": false
+    },
+    "truncate": {
+      "type": "option",
+      "description": "Max records to return",
+      "required": false
+    },
+    "full": {
+      "type": "boolean",
+      "description": "Include sensitive values in output (passwords, tokens)",
+      "required": false,
+      "default": false
+    },
+    "pretty": {
+      "type": "boolean",
+      "description": "Colored output for human reading",
+      "required": false,
+      "default": false
+    },
+    "schema": {
+      "type": "boolean",
+      "description": "Output command schema as JSON",
+      "required": false,
+      "default": false
+    },
+    "changelog": {
+      "type": "boolean",
+      "description": "Output command version history",
+      "required": false,
+      "default": false
+    },
+    "discover": {
+      "type": "boolean",
+      "description": "List available sub-topics and commands",
+      "required": false,
+      "default": false
+    },
+    "examples": {
+      "type": "boolean",
+      "description": "Show usage examples with response shapes",
+      "required": false,
+      "default": false
+    },
+    "shape": {
+      "type": "boolean",
+      "description": "Preview response structure without executing",
+      "required": false,
+      "default": false
+    },
+    "flags-for": {
+      "type": "option",
+      "description": "Show flags for a use case: filtering, output, pagination, auth, bulk",
+      "required": false,
+      "options": [
+        "filtering",
+        "output",
+        "pagination",
+        "auth",
+        "bulk"
+      ]
+    },
+    "profile": {
+      "type": "option",
+      "description": "Named profile from the config file",
+      "required": false
+    },
+    "instance": {
+      "type": "option",
+      "description": "Named instance within the profile, for providers with more than one; embedding hosts pass it through",
+      "required": false
+    },
+    "confirm": {
+      "type": "boolean",
+      "description": "Confirm a command that requires explicit confirmation",
+      "required": false,
+      "default": false
+    },
+    "identity-token": {
+      "type": "option",
+      "description": "Identity token verified by the configured identity provider",
+      "required": false
+    },
+    "integration-key": {
+      "type": "option",
+      "description": "DocuSign Integration Key (OAuth client_id)",
+      "required": false
+    },
+    "user-id": {
+      "type": "option",
+      "description": "Impersonated DocuSign user GUID (API Username)",
+      "required": false
+    },
+    "account-id": {
+      "type": "option",
+      "description": "DocuSign API Account GUID",
+      "required": false
+    },
+    "private-key": {
+      "type": "option",
+      "description": "RSA private key PEM — inline value or @/path/to/key.pem",
+      "required": false
+    },
+    "base-uri": {
+      "type": "option",
+      "description": "DocuSign API base URI (default: https://demo.docusign.net, auto-discovered on first call)",
+      "required": false
+    },
+    "auth-server": {
+      "type": "option",
+      "description": "OAuth auth server host (account-d.docusign.com | account.docusign.com)",
+      "required": false,
+      "default": "account-d.docusign.com"
+    },
+    "envelope-id": {
+      "type": "option",
+      "description": "Envelope GUID",
+      "required": true
+    }
+  },
+  "args": {},
+  "aciMetadata": {
+    "mutability": "read",
+    "idempotent": true,
+    "reversible": false,
+    "blastRadius": "single_record",
+    "apiCallsConsumed": 1,
+    "requiresConfirmation": false,
+    "prerequisites": []
+  }
+}

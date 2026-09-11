@@ -1,0 +1,21 @@
+{
+  "command": "servicenow:data:aggregate",
+  "examples": [
+    {
+      "description": "Count incidents by priority",
+      "command": "aclif servicenow data aggregate --table incident --count --group-by priority",
+      "responseShape": {
+        "records": [
+          {
+            "priority": "1",
+            "count": 12
+          }
+        ]
+      }
+    },
+    {
+      "description": "Average reassignment count by category",
+      "command": "aclif servicenow data aggregate --table incident --query \"active=true\" --avg reassignment_count --group-by category"
+    }
+  ]
+}

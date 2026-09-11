@@ -1,0 +1,43 @@
+{
+  "currentCommand": "manifests:list",
+  "topic": "manifests",
+  "siblingCommands": [
+    {
+      "command": "manifests:list",
+      "description": "List the command manifests loaded for the current profile",
+      "aciMetadata": {
+        "mutability": "read",
+        "idempotent": true,
+        "reversible": false,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 0,
+        "requiresConfirmation": false,
+        "prerequisites": []
+      }
+    },
+    {
+      "command": "manifests:validate",
+      "description": "Validate a command manifest file (structure, metadata, placeholders, provider)",
+      "aciMetadata": {
+        "mutability": "read",
+        "idempotent": true,
+        "reversible": false,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 0,
+        "requiresConfirmation": false,
+        "prerequisites": []
+      }
+    }
+  ],
+  "childTopics": [
+    {
+      "topic": "manifests:list",
+      "description": "List the command manifests loaded for the current profile"
+    },
+    {
+      "topic": "manifests:validate",
+      "description": "Validate a command manifest file (structure, metadata, placeholders, provider)"
+    }
+  ],
+  "suggestedStart": "aclif manifests list --schema --json"
+}

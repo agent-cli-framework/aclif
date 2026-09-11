@@ -1,0 +1,13 @@
+{
+  "command": "agentforce:sessions:end",
+  "examples": [
+    {
+      "description": "Close a session when the conversation is finished",
+      "command": "aclif agentforce sessions end --session-id 5e3a1c8c-... --confirm --json",
+      "responseShape": {
+        "success": true,
+        "sessionId": "5e3a1c8c-..."
+      }
+    }
+  ]
+}

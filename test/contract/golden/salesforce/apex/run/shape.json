@@ -1,0 +1,31 @@
+{
+  "command": "salesforce:apex:run",
+  "responseShape": {
+    "description": "Apex execution result with compile/runtime status",
+    "fields": {
+      "success": {
+        "type": "boolean",
+        "description": "Whether execution succeeded"
+      },
+      "compiled": {
+        "type": "boolean",
+        "description": "Whether code compiled successfully"
+      },
+      "compileProblem": {
+        "type": "string",
+        "nullable": true,
+        "description": "Compilation error if any"
+      },
+      "exceptionMessage": {
+        "type": "string",
+        "nullable": true,
+        "description": "Runtime exception if any"
+      }
+    },
+    "example": {
+      "success": true,
+      "compiled": true,
+      "executed": true
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "command": "salesforce:apex:deploy-trigger",
+  "examples": [
+    {
+      "description": "Create a before-insert trigger",
+      "command": "aclif salesforce apex deploy-trigger --name AccountTrigger --object Account --body \"trigger AccountTrigger on Account (before insert) { }\" --json"
+    },
+    {
+      "description": "Update an existing trigger body",
+      "command": "aclif salesforce apex deploy-trigger --name AccountTrigger --body \"trigger AccountTrigger on Account (before insert, before update) { }\" --update --json"
+    },
+    {
+      "description": "Preview without deploying",
+      "command": "aclif salesforce apex deploy-trigger --name AccountTrigger --object Account --body \"trigger AccountTrigger on Account (before insert) { }\" --dry-run"
+    }
+  ]
+}

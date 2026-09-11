@@ -1,0 +1,9 @@
+{
+  "command": "discover",
+  "examples": [
+    {
+      "description": "No examples defined yet",
+      "command": "aclif discover --help"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "command": "aliases:resolve",
+  "examples": [
+    {
+      "description": "No examples defined yet",
+      "command": "aclif aliases resolve --help"
+    }
+  ]
+}

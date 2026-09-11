@@ -1,0 +1,9 @@
+{
+  "command": "aliases:import",
+  "examples": [
+    {
+      "description": "No examples defined yet",
+      "command": "aclif aliases import --help"
+    }
+  ]
+}

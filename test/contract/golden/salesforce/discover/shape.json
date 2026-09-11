@@ -1,0 +1,58 @@
+{
+  "command": "salesforce:discover",
+  "responseShape": {
+    "description": "Custom objects and standard objects with custom fields in the org, or one object in full with --object",
+    "fields": {
+      "discoveredAt": {
+        "type": "string",
+        "description": "ISO timestamp"
+      },
+      "orgId": {
+        "type": "string",
+        "description": "org id"
+      },
+      "apiVersion": {
+        "type": "string",
+        "description": "API version used"
+      },
+      "customObjectCount": {
+        "type": "number",
+        "description": "custom objects found"
+      },
+      "standardObjectsWithCustomFields": {
+        "type": "number",
+        "description": "standard objects carrying custom fields"
+      },
+      "customObjects": {
+        "type": "array",
+        "description": "array of {apiName, label, commandName, fieldCount, queryable, createable}"
+      },
+      "standardObjectCustomFields": {
+        "type": "object",
+        "description": "standard object to its custom field names"
+      }
+    },
+    "example": {
+      "discoveredAt": "2026-09-11T00:00:00.000Z",
+      "orgId": "00Dxx0000000000",
+      "apiVersion": "59.0",
+      "customObjectCount": 1,
+      "standardObjectsWithCustomFields": 1,
+      "customObjects": [
+        {
+          "apiName": "Warranty__c",
+          "label": "Warranty",
+          "commandName": "warranty",
+          "fieldCount": 12,
+          "queryable": true,
+          "createable": true
+        }
+      ],
+      "standardObjectCustomFields": {
+        "Account": [
+          "Tier__c"
+        ]
+      }
+    }
+  }
+}

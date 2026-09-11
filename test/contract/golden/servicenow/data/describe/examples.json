@@ -1,0 +1,31 @@
+{
+  "command": "servicenow:data:describe",
+  "examples": [
+    {
+      "description": "Describe incident table",
+      "command": "aclif servicenow data describe incident",
+      "responseShape": {
+        "table": "incident",
+        "fieldCount": 85,
+        "fields": [
+          {
+            "name": "number",
+            "type": "string"
+          },
+          {
+            "name": "priority",
+            "type": "picklist"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Describe with choice values",
+      "command": "aclif servicenow data describe sys_user --include-choices"
+    },
+    {
+      "description": "Filter to reference fields only",
+      "command": "aclif servicenow data describe change_request --field-filter reference"
+    }
+  ]
+}

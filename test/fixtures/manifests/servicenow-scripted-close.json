@@ -1,0 +1,24 @@
+{
+  "id": "servicenow:scripted:close-incident",
+  "description": "Close an incident through the x_acme scripted REST API",
+  "aciMetadata": {
+    "mutability": "update",
+    "idempotent": true,
+    "reversible": false,
+    "blastRadius": "single_record",
+    "apiCallsConsumed": 1,
+    "requiresConfirmation": true,
+    "prerequisites": []
+  },
+  "request": {
+    "method": "POST",
+    "path": "/api/x_acme/incident/{sys-id}/close",
+    "body": {"resolution_code": "{code}", "notes": "Closed by agent: {notes}", "tags": "{tags}"}
+  },
+  "flags": {
+    "sys-id": {"type": "string", "description": "Incident sys_id", "required": true},
+    "code": {"type": "string", "description": "Resolution code", "options": ["Solved", "Duplicate", "Not Solved"], "default": "Solved"},
+    "notes": {"type": "string", "description": "Close notes", "required": true},
+    "tags": {"type": "json", "description": "JSON array of tags"}
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "command": "google:gmail:query",
+  "estimate": {
+    "fieldsPerRecord": 3,
+    "tokensPerRecord": 45,
+    "envelopeOverhead": 50,
+    "note": "Actual size depends on record count and field content. Use --truncate to limit records.",
+    "suggestion": "Add --truncate 10 to cap at ~500 tokens"
+  },
+  "aciMetadata": {
+    "apiCallsConsumed": 2,
+    "mutability": "read"
+  }
+}

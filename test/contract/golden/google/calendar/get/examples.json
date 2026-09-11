@@ -1,0 +1,15 @@
+{
+  "command": "google:calendar:get",
+  "examples": [
+    {
+      "description": "Get event details",
+      "command": "aclif google calendar get --event-id evt123",
+      "responseShape": {
+        "id": "evt123",
+        "summary": "Team Meeting",
+        "start": "2026-04-10T10:00:00Z",
+        "end": "2026-04-10T11:00:00Z"
+      }
+    }
+  ]
+}

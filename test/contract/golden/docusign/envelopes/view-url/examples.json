@@ -1,0 +1,13 @@
+{
+  "command": "docusign:envelopes:view-url",
+  "examples": [
+    {
+      "description": "Get a click-through URL for an envelope in the DocuSign web UI",
+      "command": "aclif docusign envelopes view-url --envelope-id abc-123-def --json",
+      "responseShape": {
+        "envelopeId": "abc-123-def",
+        "url": "https://apps-d.docusign.com/send/documents/details/abc-123-def"
+      }
+    }
+  ]
+}
