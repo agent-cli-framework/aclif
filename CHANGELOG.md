@@ -4,6 +4,14 @@ All notable changes to this project are recorded here. The format follows [Keep 
 
 ## Unreleased
 
+## [1.0.1] - 2026-09-11
+
+### Fixed (from commits)
+
+- **deps**: hold jsforce at 3.10.14 (da280ed)
+- **deps**: bump lru-cache from 11.2.7 to 11.5.2 (#7) (eddf6dc)
+- **deps**: bump jsforce from 3.10.14 to 3.10.25 (#6) (e77fc40)
+
 ## [1.0.0] - 2026-09-11
 
 ### Added

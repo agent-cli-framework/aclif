@@ -1,6 +1,6 @@
 {
   "name": "@aclif/core",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Agent CLI Framework: a self-describing command surface over SaaS APIs for compiled workflow agents",
   "license": "MIT",
   "author": "Prompt One",
