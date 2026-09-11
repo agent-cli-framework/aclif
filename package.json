@@ -73,9 +73,9 @@
     "@oclif/plugin-plugins": "^5.4.0",
     "google-auth-library": "^9.0.0",
     "js-yaml": "^4.1.0",
-    "jsforce": "^3.6.2",
+    "jsforce": "^3.10.25",
     "jsonwebtoken": "^9.0.2",
-    "lru-cache": "^11.0.0",
+    "lru-cache": "^11.5.2",
     "marked": "^14.1.4"
   },
   "devDependencies": {
