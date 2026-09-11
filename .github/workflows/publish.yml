@@ -6,6 +6,12 @@
 on:
   release:
     types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to publish (vX.Y.Z)"
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -17,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.release.tag_name }}
+          ref: ${{ inputs.tag || github.event.release.tag_name }}
       - uses: actions/setup-node@v4
         with:
           node-version: 24
@@ -27,7 +33,7 @@ jobs:
       - name: the tag matches package.json
         run: |
           v=$(node -p "require('./package.json').version")
-          [[ "v$v" == "${{ github.event.release.tag_name }}" ]] || { echo "package.json is $v, tag is ${{ github.event.release.tag_name }}"; exit 1; }
+          [[ "v$v" == "${{ inputs.tag || github.event.release.tag_name }}" ]] || { echo "package.json is $v, tag is ${{ inputs.tag || github.event.release.tag_name }}"; exit 1; }
       - name: npm 11.5.1 or later, required for trusted publishing
         run: npm install -g npm@latest && npm --version
       - name: publish

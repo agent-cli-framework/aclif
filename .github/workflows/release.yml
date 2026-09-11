@@ -74,3 +74,11 @@ jobs:
           extra=""
           [[ "$PRERELEASE" == "true" ]] && extra="--prerelease"
           gh release create "v$VERSION" --title "v$VERSION" --notes-file RELEASE_NOTES.md $extra
+      - name: dispatch the publish workflow
+        # A release created with GITHUB_TOKEN does not fire other workflows'
+        # `release` triggers; workflow_dispatch is the one trigger it may fire.
+        if: steps.version.outputs.version != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: gh workflow run publish.yml -f tag="v$VERSION"
