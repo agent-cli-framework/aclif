@@ -3,7 +3,7 @@
 // Copyright (c) 2026 Prompt One, Inc.
 // Scaffold a CLI package built on aclif, the way `oclif generate` scaffolds an oclif CLI.
 //
-//   npx --package aclif aclif-scaffold-cli --name mycli --dir ../mycli [--providers salesforce,servicenow] [--aclif ^0.1.0]
+//   npx --package @aclif/core aclif-scaffold-cli --name mycli --dir ../mycli [--providers salesforce,servicenow] [--aclif npm:@aclif/core@^1.0.0]
 //
 // Writes a complete package: package.json with the oclif block pointing at
 // the CLI's own command target and hooks, bin/run.js, src/index.ts calling
@@ -24,7 +24,7 @@ if (existsSync(join(dir, 'package.json'))) {
   process.exit(1)
 }
 const providers = (args.providers ?? 'salesforce,servicenow,docusign,agentforce').split(',').map((s) => s.trim()).filter(Boolean)
-const aclifSpec = args.aclif ?? '^0.1.0'
+const aclifSpec = args.aclif ?? 'npm:@aclif/core@^1.0.0'
 const sym = (p) => p.replace(/-([a-z])/g, (_, c) => c.toUpperCase()) + 'Plugin'
 const Scope = name.replace(/-/g, '_').toUpperCase()
 

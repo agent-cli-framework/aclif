@@ -92,7 +92,7 @@ Errors carry a code, a message, a hint that names the command that fixes the pro
 The reference CLI is the `aclif` binary in this repository, built with every built-in provider:
 
 ```bash
-npm install -g aclif
+npm install -g @aclif/core
 export SF_INSTANCE_URL=https://example.my.salesforce.com SF_ACCESS_TOKEN=...
 aclif salesforce data query --query "SELECT Id, Name FROM Account LIMIT 3" --json
 ```
@@ -104,7 +104,7 @@ Or from a checkout: `npm install && npm run build && node bin/run.js discover --
 aclif is a framework; the binary you ship is yours. It names itself, picks its providers, and gets everything else from the framework:
 
 ```bash
-npx --package aclif aclif-scaffold-cli --name mycli --dir ../mycli --providers salesforce,servicenow
+npx --package @aclif/core aclif-scaffold-cli --name mycli --dir ../mycli --providers salesforce,servicenow
 cd ../mycli && npm install && npm run build && ./bin/run.js discover --json
 ```
 

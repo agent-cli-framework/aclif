@@ -10,7 +10,7 @@ is one such CLI, kept as the reference.
 ## Scaffold
 
 ```bash
-npx --package aclif aclif-scaffold-cli --name mycli --dir ../mycli --providers salesforce,servicenow
+npx --package @aclif/core aclif-scaffold-cli --name mycli --dir ../mycli --providers salesforce,servicenow
 cd ../mycli && npm install && npm run build
 ./bin/run.js discover --json
 ```

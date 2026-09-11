@@ -4,7 +4,7 @@ There are two ways to add a provider that upstream will never see, and one way t
 
 ## Route 1: a CLI package (recommended)
 
-Most teams do not need a fork at all. A CLI package depends on `aclif` from npm, names itself, picks its providers, and declares its own in its own tree:
+Most teams do not need a fork at all. A CLI package depends on `@aclif/core` from npm (aliased as `aclif` in its package.json), names itself, picks its providers, and declares its own in its own tree:
 
 ```ts
 // src/index.ts of the mycli package
@@ -15,7 +15,7 @@ import {acmePlugin} from './providers/acme/plugin.js'
 export const {COMMANDS, registry} = defineCli({bin: 'mycli', providers: [salesforcePlugin, servicenowPlugin, acmePlugin]})
 ```
 
-`npx --package aclif aclif-scaffold-cli --name mycli --dir ../mycli --providers salesforce,servicenow` writes the package. Upgrading the framework is `npm update aclif`. Your providers are written exactly as described in [PROVIDER_AUTHORING.md](PROVIDER_AUTHORING.md) and are tier `private` in that CLI. See [BUILDING_A_CLI.md](BUILDING_A_CLI.md).
+`npx --package @aclif/core aclif-scaffold-cli --name mycli --dir ../mycli --providers salesforce,servicenow` writes the package. Upgrading the framework is `npm update aclif`. Your providers are written exactly as described in [PROVIDER_AUTHORING.md](PROVIDER_AUTHORING.md) and are tier `private` in that CLI. See [BUILDING_A_CLI.md](BUILDING_A_CLI.md).
 
 Take this route unless you also need to change the framework's core.
 
