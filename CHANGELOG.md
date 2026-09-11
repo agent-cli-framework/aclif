@@ -4,6 +4,8 @@ All notable changes to this project are recorded here. The format follows [Keep 
 
 ## Unreleased
 
+## [1.0.0] - 2026-09-11
+
 ### Added
 
 - The framework: `defineCli()`, `AciBaseCommand`, the init, prerun, and finally hooks, the embedded `Runtime`, the provider plugin API with native, contributed, and private tiers, and the `aclif` reference binary.
@@ -13,3 +15,7 @@ All notable changes to this project are recorded here. The format follows [Keep 
 - Introspection on every command (`--schema`, `--examples`, `--shape`, `--changelog`, `--discover`, `--flags-for`, `--estimate`), a `version` command, and published JSON Schemas for the envelope, `aciMetadata`, tenant catalogues, manifests, and alias sets (contract 1.0.0).
 - Test suite: unit, conformance, provider fixtures over msw, end-to-end binary, contract goldens, a fork simulation, and an opt-in live smoke.
 - CLI scaffold (`aclif-scaffold-cli`) and provider scaffold (`scaffold-provider`).
+
+### Added (from commits)
+
+- aclif 1.0.0 (32473bd)
