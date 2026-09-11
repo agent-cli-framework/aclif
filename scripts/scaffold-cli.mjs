@@ -35,7 +35,7 @@ const files = {
     description: `${name}: a command-line interface for agents, built on aclif`,
     type: 'module',
     license: 'MIT',
-    bin: {[name]: './bin/run.js'},
+    bin: {[name]: 'bin/run.js'},
     main: 'lib/index.js',
     types: 'lib/index.d.ts',
     files: ['/bin', '/lib', '/oclif.manifest.json'],

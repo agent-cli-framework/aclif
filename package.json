@@ -29,8 +29,8 @@
   },
   "type": "module",
   "bin": {
-    "aclif": "./bin/run.js",
-    "aclif-scaffold-cli": "./scripts/scaffold-cli.mjs"
+    "aclif": "bin/run.js",
+    "aclif-scaffold-cli": "scripts/scaffold-cli.mjs"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
