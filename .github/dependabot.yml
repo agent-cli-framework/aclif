@@ -1,6 +1,11 @@
 version: 2
 updates:
   - package-ecosystem: npm
+    ignore:
+      # 3.10.15 and later break the Salesforce provider fixture suite (15 tests):
+      # every request classifies as AUTHENTICATION_FAILED. Adapt the provider, then lift this.
+      - dependency-name: "jsforce"
+        versions: [">3.10.14"]
     directory: /
     schedule:
       interval: weekly
