@@ -56,13 +56,13 @@ jobs:
           node scripts/release-notes.mjs "$VERSION" "$PREVIOUS"
           if [[ "$PRERELEASE" == "true" ]]; then
             git checkout -- CHANGELOG.md
-            git tag "v$VERSION"
+            git tag -a "v$VERSION" -m "v$VERSION"
             git push origin "v$VERSION"
           else
             git add package.json package-lock.json CHANGELOG.md
             git commit -m "chore(release): v$VERSION"
-            git tag "v$VERSION"
-            git push --follow-tags
+            git tag -a "v$VERSION" -m "v$VERSION"
+            git push origin HEAD "v$VERSION"
           fi
       - name: create the GitHub release
         if: steps.version.outputs.version != ''
