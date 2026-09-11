@@ -1,9 +1,8 @@
-name: publish
-
-# Publishing a GitHub release publishes the package to npm with provenance.
-# The dist-tag is the prerelease identifier of the version (beta, dev) or
-# latest. Requires the NPM_TOKEN secret (an automation token) in the
-# repository, or npm trusted publishing configured for this workflow.
+# Publishing a GitHub release publishes the package to npm through trusted
+# publishing (OIDC). No npm token: npm trusts this repository and this
+# workflow file, configured once in the package's settings on npmjs.com.
+# Provenance is attested automatically. The dist-tag is the prerelease
+# identifier of the version (beta, dev) or latest.
 on:
   release:
     types: [published]
@@ -29,12 +28,13 @@ jobs:
         run: |
           v=$(node -p "require('./package.json').version")
           [[ "v$v" == "${{ github.event.release.tag_name }}" ]] || { echo "package.json is $v, tag is ${{ github.event.release.tag_name }}"; exit 1; }
+      - name: npm 11.5.1 or later, required for trusted publishing
+        run: npm install -g npm@latest && npm --version
       - name: publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           v=$(node -p "require('./package.json').version")
           tag=latest
           if [[ "$v" == *-* ]]; then tag="${v#*-}"; tag="${tag%%.*}"; fi
-          # prepack rebuilds lib/ and writes the oclif manifest.
-          npm publish --provenance --access public --tag "$tag"
+          # prepack rebuilds lib/ and writes the oclif manifest. Provenance is
+          # automatic under trusted publishing; no --provenance flag needed.
+          npm publish --access public --tag "$tag"
