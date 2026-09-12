@@ -1,6 +1,6 @@
 {
   "name": "@aclif/core",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Agent CLI Framework: a self-describing command surface over SaaS APIs for compiled workflow agents",
   "type": "module",
   "license": "MIT",

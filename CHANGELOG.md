@@ -4,10 +4,25 @@ All notable changes to this project are recorded here. The format follows [Keep 
 
 ## Unreleased
 
+## [1.1.0] - 2026-09-12
+
 ### Added
 
 - `aclif/testing`: the conformance suite (`conformanceSuite` and its four parts), golden capture, the in-process and binary runners, the msw harness, and the schema validators, importable by a CLI package built on the framework. vitest, msw, and ajv become optional peer dependencies. The CLI scaffold writes a `test/conformance.test.ts` and a vitest config.
 - The package root exports `inferType`, `inferFieldsFromRecord`, `humanizeLabel`, `InferredField`, and `withDnsRetry`, so a provider in a downstream package imports everything it needs from `aclif`.
+
+### Added (from commits)
+
+- aclif/testing, the conformance suite as a library (8917a84)
+- export the schema-inference helpers and withDnsRetry from the package root (a6292c1)
+
+### Fixed (from commits)
+
+- **testing**: http fakes are a function of the provider name (288ea9e)
+
+### Changed (from commits)
+
+- contributor AGENTS.md, CLAUDE.md, and the add-provider skill (ecb5d2a)
 
 ## [1.0.1] - 2026-09-11
 
