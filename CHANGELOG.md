@@ -4,9 +4,15 @@ All notable changes to this project are recorded here. The format follows [Keep 
 
 ## Unreleased
 
+## [1.1.1] - 2026-09-12
+
 ### Fixed
 
 - `aclif/testing` switches off oclif's lib-to-src path mapping when imported (`settings.enableAutoTranspile = false`). Under vitest NODE_ENV is `test`, and oclif then resolved a downstream CLI's commands to `src/*.ts` and failed `Config.load` with "Unknown file extension .ts" in any package without tsx. The `OCLIF_TS_NODE` variable the suite set is not read by oclif.
+
+### Fixed (from commits)
+
+- **testing**: run the compiled package under vitest; OCLIF_TS_NODE is not read by oclif (5ef60df)
 
 ## [1.1.0] - 2026-09-12
 
