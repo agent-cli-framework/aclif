@@ -24,7 +24,7 @@ Provider code is responsible for three things only:
 
 Tier is a property of the path. The index generator reads the directories, the registry records the tier, and `discover` and `learn` show it. A plugin cannot declare its own tier, and the obligations are the same in every tier: the conformance suite runs over every registered provider. A private provider in a fork is exactly as much a provider as a native one. See [FORKING.md](FORKING.md) for the fork mechanics and the promotion path from private to contributed.
 
-If you are building a CLI on the framework instead of contributing to this repository, the same files go in your CLI package and you pass the plugin to `defineCli()`. See [BUILDING_A_CLI.md](BUILDING_A_CLI.md); everything below applies unchanged.
+If you are building a CLI on the framework instead of contributing to this repository, the same files go in your CLI package and you pass the plugin to `defineCli()`. See [BUILDING_A_CLI.md](BUILDING_A_CLI.md); everything below applies unchanged. The conformance suite runs there too, from `aclif/testing`; the scaffold writes the test file.
 
 ## Authoring philosophy
 

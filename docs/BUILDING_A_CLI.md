@@ -67,6 +67,27 @@ written to the same contract as the built-in ones (see
 same way. Nothing in the CLI needs the framework's fork machinery: the
 private tier of a CLI package consists of the providers it declares.
 
+## Testing your providers
+
+The framework's conformance suite is importable from `aclif/testing`, and the scaffold writes a test that runs it:
+
+```ts
+// test/conformance.test.ts
+import {conformanceSuite} from 'aclif/testing'
+import {registry} from '../src/index.js'
+
+conformanceSuite({
+  registry,
+  cliRoot: process.cwd(),
+  sourceDirs: [{dir: 'src/providers', tier: 'private'}],
+  dependencyAllowlist: 'src/providers/dependency-allowlist.json',
+})
+```
+
+`npm run build && npm test` checks every provider whose directory sits under `src/providers/`: complete safety metadata, `--dry-run` before any client use, exit 3 with every auth path named when credentials are absent, a `SETUP.md` per provider under `docs/providers/<name>/`, examples that parse, and the source rules in [PROVIDER_AUTHORING.md](PROVIDER_AUTHORING.md). Providers imported from `aclif/providers` are checked upstream and skipped here. A provider with a tenant walk, an http adapter, or session support needs a fake in the options (`tenantFakes`, `httpFakes`, `sessionFakes`); the failing test names which.
+
+The same module exports `providerHarness` for fixture tests over an msw server, `captureGoldens` for golden introspection files, and `runBinary` for end-to-end runs of your built binary. vitest, msw, and ajv are optional peer dependencies of the framework; the scaffold adds them to `devDependencies`.
+
 ## Embedding
 
 A host that embeds the runtime loads the CLI package, which gives it that CLI's providers and name:

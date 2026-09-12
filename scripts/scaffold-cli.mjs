@@ -44,10 +44,10 @@ const files = {
       build: 'tsc -b && node scripts/gen-topics.mjs',
       prepack: 'npm run build && oclif manifest',
       postpack: 'node -e "require(\'fs\').rmSync(\'oclif.manifest.json\',{force:true})"',
-      test: 'node bin/run.js discover --json',
+      test: 'vitest run',
     },
     dependencies: {aclif: aclifSpec, '@oclif/core': '^4.2.0', '@oclif/plugin-help': '^6.2.0', '@oclif/plugin-plugins': '^5.4.0'},
-    devDependencies: {'@types/node': '^22.0.0', oclif: '^4.17.0', typescript: '^5.7.0'},
+    devDependencies: {'@types/node': '^22.0.0', ajv: '^8.12.0', msw: '^2.0.0', oclif: '^4.17.0', typescript: '^5.7.0', vitest: '^5.0.0'},
     oclif: {
       bin: name,
       dirname: name,
@@ -84,6 +84,25 @@ export const registry: DefinedCli['registry'] = cli.registry
   'src/hooks/init.ts': "export {default} from 'aclif/hooks/init'\n",
   'src/hooks/prerun.ts': "export {default} from 'aclif/hooks/prerun'\n",
   'src/hooks/finally.ts': "export {default} from 'aclif/hooks/finally'\n",
+  'src/providers/dependency-allowlist.json': '{\n  "packages": {}\n}\n',
+  'vitest.config.ts': "import {defineConfig} from 'vitest/config'\n\nexport default defineConfig({\n  test: {\n    include: ['test/**/*.test.ts'],\n    // oclif captures stdout/stderr itself; vitest's interception breaks that.\n    disableConsoleIntercept: true,\n    testTimeout: 30_000,\n    hookTimeout: 30_000,\n  },\n})\n",
+  'test/conformance.test.ts': `/**
+ * The framework's conformance suite over this CLI's own providers (the
+ * directories under src/providers). Providers imported from aclif are
+ * checked upstream. Every rule id is documented in the framework's
+ * docs/PROVIDER_AUTHORING.md. Run with \`npm test\` after \`npm run build\`.
+ */
+import {conformanceSuite} from 'aclif/testing'
+
+import {registry} from '../src/index.js'
+
+conformanceSuite({
+  registry,
+  cliRoot: process.cwd(),
+  sourceDirs: [{dir: 'src/providers', tier: 'private'}],
+  dependencyAllowlist: 'src/providers/dependency-allowlist.json',
+})
+`,
   'src/providers/README.md': `# ${name} providers\n\nProviders that belong to this CLI. Scaffold one with the framework's provider layout (see aclif's docs/PROVIDER_AUTHORING.md), import its plugin in src/index.ts, and add it to the providers list.\n`,
   'scripts/gen-topics.mjs': `// Emit the oclif topic table into package.json from this CLI's registry. Runs after build.
 import {readFileSync, writeFileSync} from 'node:fs'

@@ -2,6 +2,7 @@
   "name": "@aclif/core",
   "version": "1.0.1",
   "description": "Agent CLI Framework: a self-describing command surface over SaaS APIs for compiled workflow agents",
+  "type": "module",
   "license": "MIT",
   "author": "Prompt One",
   "repository": {
@@ -23,17 +24,39 @@
     "agentforce",
     "framework"
   ],
-  "publishConfig": {
-    "access": "public",
-    "provenance": true
-  },
-  "type": "module",
   "bin": {
     "aclif": "bin/run.js",
     "aclif-scaffold-cli": "scripts/scaffold-cli.mjs"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./providers": {
+      "types": "./lib/providers/index.d.ts",
+      "default": "./lib/providers/index.js"
+    },
+    "./testing": {
+      "types": "./lib/testing/index.d.ts",
+      "default": "./lib/testing/index.js"
+    },
+    "./hooks/init": {
+      "types": "./lib/cli/hooks/init.d.ts",
+      "default": "./lib/cli/hooks/init.js"
+    },
+    "./hooks/prerun": {
+      "types": "./lib/cli/hooks/prerun.d.ts",
+      "default": "./lib/cli/hooks/prerun.js"
+    },
+    "./hooks/finally": {
+      "types": "./lib/cli/hooks/finally.d.ts",
+      "default": "./lib/cli/hooks/finally.js"
+    },
+    "./package.json": "./package.json"
+  },
   "files": [
     "/bin",
     "/lib",
@@ -42,6 +65,9 @@
     "/scripts/scaffold-cli.mjs",
     "/oclif.manifest.json"
   ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "scripts": {
     "build": "tsc -b && node scripts/copy-data.mjs && node scripts/gen-topics.mjs",
     "check-sync-boundary": "node scripts/check-sync-boundary.mjs",
@@ -78,6 +104,22 @@
     "lru-cache": "^11.5.2",
     "marked": "^14.1.4"
   },
+  "peerDependencies": {
+    "ajv": "^8.12.0",
+    "msw": "^2.0.0",
+    "vitest": ">=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "ajv": {
+      "optional": true
+    },
+    "msw": {
+      "optional": true
+    },
+    "vitest": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@commitlint/cli": "^21.2.2",
     "@commitlint/config-conventional": "^21.2.2",
@@ -101,8 +143,9 @@
     "typescript-eslint": "^8.70.0",
     "vitest": "^5.0.0"
   },
-  "engines": {
-    "node": ">=22.0.0"
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   },
   "oclif": {
     "bin": "aclif",
@@ -203,28 +246,5 @@
       "prerun": "./lib/cli/hooks/prerun",
       "finally": "./lib/cli/hooks/finally"
     }
-  },
-  "exports": {
-    ".": {
-      "types": "./lib/index.d.ts",
-      "default": "./lib/index.js"
-    },
-    "./providers": {
-      "types": "./lib/providers/index.d.ts",
-      "default": "./lib/providers/index.js"
-    },
-    "./hooks/init": {
-      "types": "./lib/cli/hooks/init.d.ts",
-      "default": "./lib/cli/hooks/init.js"
-    },
-    "./hooks/prerun": {
-      "types": "./lib/cli/hooks/prerun.d.ts",
-      "default": "./lib/cli/hooks/prerun.js"
-    },
-    "./hooks/finally": {
-      "types": "./lib/cli/hooks/finally.d.ts",
-      "default": "./lib/cli/hooks/finally.js"
-    },
-    "./package.json": "./package.json"
   }
 }

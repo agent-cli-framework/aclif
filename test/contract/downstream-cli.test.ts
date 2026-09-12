@@ -65,6 +65,11 @@ describe.skipIf(!RUN)('K-11 downstream CLI built on the framework', () => {
     expect((JSON.parse(learn.stdout) as {auth_status: string}).auth_status).toMatch(/^configured/)
   }, 300_000)
 
+  it('runs the framework conformance suite from aclif/testing over its own providers', () => {
+    const out = execFileSync('npm', ['test', '--silent'], {cwd: cli, encoding: 'utf8', shell: process.platform === 'win32', env: {...process.env, CI: '1'}})
+    expect(out).toMatch(/Test Files\s+1 passed/)
+  }, 300_000)
+
   it('hooks run in the downstream binary: audit line on stderr', async () => {
     const out = await run(['discover', '--json'])
     expect(out.stderr).toMatch(/\[AUDIT\] .*"command":"discover"/)
