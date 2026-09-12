@@ -4,6 +4,16 @@ All notable changes to this project are recorded here. The format follows [Keep 
 
 ## Unreleased
 
+### Changed
+
+- oclif core 5 (`@oclif/core` `^5.0.0`), with `oclif` 6 and `@oclif/test` 5 in development. oclif 5 changes nothing in the API the framework uses; its one breaking change is the Node 22 floor the framework already had. One copy of oclif core in the tree again.
+- The `@oclif/plugin-help` and `@oclif/plugin-plugins` plugins are no longer part of the framework or of a scaffolded CLI. `--help` on the root and on every command is rendered by oclif core as before; the `help` topic command and the `plugins` commands are gone, and the root topic listings (`--discover` on the core commands) no longer show them. A CLI declares its providers in `defineCli()`; runtime plugin installation was never part of the design, and the two plugins brought `npm`, `yarn`, and about 200 packages with them. A production install of the framework drops from 471 packages (165 MB) to 270 (140 MB).
+- The CLI scaffold writes `@oclif/core` `^5.0.0`, `oclif` `^6.0.0`, and a framework dependency of `^1.2.0`. An existing downstream CLI follows by making the same three edits to its `package.json` and removing `oclif.plugins`.
+
+### Removed
+
+- `ts-node` from the development dependencies; `tsx` is the loader the scripts use.
+
 ## [1.1.3] - 2026-09-12
 
 ### Fixed (from commits)

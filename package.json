@@ -94,10 +94,8 @@
   "dependencies": {
     "@googleapis/calendar": "^16.0.0",
     "@googleapis/gmail": "^18.0.0",
-    "@oclif/core": "^4.2.0",
-    "@oclif/plugin-help": "^6.2.0",
-    "@oclif/plugin-plugins": "^6.0.1",
-    "google-auth-library": "^9.0.0",
+    "@oclif/core": "^5.0.0",
+    "google-auth-library": "^10.0.0",
     "js-yaml": "^5.4.1",
     "jsforce": "^3.6.2",
     "jsonwebtoken": "^9.0.2",
@@ -124,7 +122,7 @@
     "@commitlint/cli": "^21.2.2",
     "@commitlint/config-conventional": "^21.2.2",
     "@eslint/js": "^10.0.1",
-    "@oclif/test": "^4.2.0",
+    "@oclif/test": "^5.0.0",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.0.0",
     "@vitest/coverage-v8": "^5.0.0",
@@ -135,8 +133,7 @@
     "husky": "^9.1.7",
     "madge": "^8.0.0",
     "msw": "^2.15.0",
-    "oclif": "^4.17.0",
-    "ts-node": "^10.9.2",
+    "oclif": "^6.0.0",
     "tsx": "^4.23.13",
     "typescript": "^5.7.0",
     "typescript-eslint": "^8.70.0",
@@ -155,10 +152,6 @@
       "identifier": "COMMANDS"
     },
     "topicSeparator": " ",
-    "plugins": [
-      "@oclif/plugin-help",
-      "@oclif/plugin-plugins"
-    ],
     "jitPlugins": {},
     "topics": {
       "agentforce": {

@@ -3,7 +3,7 @@
 // Copyright (c) 2026 Prompt One, Inc.
 // Scaffold a CLI package built on aclif, the way `oclif generate` scaffolds an oclif CLI.
 //
-//   npx --package @aclif/core aclif-scaffold-cli --name mycli --dir ../mycli [--providers salesforce,servicenow] [--aclif npm:@aclif/core@^1.0.0]
+//   npx --package @aclif/core aclif-scaffold-cli --name mycli --dir ../mycli [--providers salesforce,servicenow] [--aclif npm:@aclif/core@^1.2.0]
 //
 // Writes a complete package: package.json with the oclif block pointing at
 // the CLI's own command target and hooks, bin/run.js, src/index.ts calling
@@ -24,7 +24,7 @@ if (existsSync(join(dir, 'package.json'))) {
   process.exit(1)
 }
 const providers = (args.providers ?? 'salesforce,servicenow,docusign,agentforce').split(',').map((s) => s.trim()).filter(Boolean)
-const aclifSpec = args.aclif ?? 'npm:@aclif/core@^1.0.0'
+const aclifSpec = args.aclif ?? 'npm:@aclif/core@^1.2.0'
 const sym = (p) => p.replace(/-([a-z])/g, (_, c) => c.toUpperCase()) + 'Plugin'
 const Scope = name.replace(/-/g, '_').toUpperCase()
 
@@ -46,14 +46,13 @@ const files = {
       postpack: 'node -e "require(\'fs\').rmSync(\'oclif.manifest.json\',{force:true})"',
       test: 'vitest run',
     },
-    dependencies: {aclif: aclifSpec, '@oclif/core': '^4.2.0', '@oclif/plugin-help': '^6.2.0', '@oclif/plugin-plugins': '^5.4.0'},
-    devDependencies: {'@types/node': '^22.0.0', ajv: '^8.12.0', msw: '^2.0.0', oclif: '^4.17.0', typescript: '^5.7.0', vitest: '^5.0.0'},
+    dependencies: {aclif: aclifSpec, '@oclif/core': '^5.0.0'},
+    devDependencies: {'@types/node': '^22.0.0', ajv: '^8.12.0', msw: '^2.0.0', oclif: '^6.0.0', typescript: '^5.7.0', vitest: '^5.0.0'},
     oclif: {
       bin: name,
       dirname: name,
       commands: {strategy: 'explicit', target: './lib/index.js', identifier: 'COMMANDS'},
       topicSeparator: ' ',
-      plugins: ['@oclif/plugin-help', '@oclif/plugin-plugins'],
       hooks: {init: './lib/hooks/init', prerun: './lib/hooks/prerun', finally: './lib/hooks/finally'},
       topics: {},
     },

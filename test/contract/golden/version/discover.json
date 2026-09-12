@@ -16,11 +16,6 @@
       }
     },
     {
-      "command": "help",
-      "description": "Display help for <%= config.bin %>.",
-      "aciMetadata": null
-    },
-    {
       "command": "learn",
       "description": "Compact agent briefing for a provider: overview, topics, key fields, common patterns",
       "aciMetadata": {
@@ -32,11 +27,6 @@
         "requiresConfirmation": false,
         "prerequisites": []
       }
-    },
-    {
-      "command": "plugins",
-      "description": "List installed plugins.",
-      "aciMetadata": null
     },
     {
       "command": "version",
@@ -78,20 +68,12 @@
       "description": "Google Workspace: Gmail, Calendar, Drive"
     },
     {
-      "topic": "help",
-      "description": "Display help for <%= config.bin %>."
-    },
-    {
       "topic": "learn",
       "description": "Compact agent briefing for a provider"
     },
     {
       "topic": "manifests",
       "description": "Validate and list declarative command manifests"
-    },
-    {
-      "topic": "plugins",
-      "description": "List installed plugins."
     },
     {
       "topic": "salesforce",
