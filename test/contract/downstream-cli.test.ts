@@ -66,8 +66,13 @@ describe.skipIf(!RUN)('K-11 downstream CLI built on the framework', () => {
   }, 300_000)
 
   it('runs the framework conformance suite from aclif/testing over its own providers', () => {
-    const out = execFileSync('npm', ['test', '--silent'], {cwd: cli, encoding: 'utf8', shell: process.platform === 'win32', env: {...process.env, CI: '1'}})
+    // NO_COLOR for vitest's summary; the escape codes it emits on CI runners
+    // otherwise sit between the words the assertion looks for.
+    const raw = execFileSync('npm', ['test', '--silent'], {cwd: cli, encoding: 'utf8', shell: process.platform === 'win32', env: {...process.env, CI: '1', NO_COLOR: '1', FORCE_COLOR: '0'}})
+    const out = raw.replace(/\u001b\[[0-9;]*m/g, '')
     expect(out).toMatch(/Test Files\s+1 passed/)
+    expect(out).toMatch(/Tests\s+\d+ passed/)
+    expect(out).not.toMatch(/failed/)
   }, 300_000)
 
   it('hooks run in the downstream binary: audit line on stderr', async () => {
