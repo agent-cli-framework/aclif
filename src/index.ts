@@ -33,6 +33,11 @@ export {ConfigError, loadConfigFile, resolvePolicy, selectProfile, applyProfileT
 export {discoverSchema, apiNameToCommandName, fieldsToFlags} from './providers/native/salesforce/discovery.js'
 export {streamSalesforceContentVersion} from './providers/native/salesforce/client.js'
 export * from './core/contract/aci.js'
+// Used by providers to type inferred schemas and to retry transient DNS failures;
+// exported so a provider that lives in a downstream CLI package can import them
+// from 'aclif' instead of a relative path into the framework.
+export * from './core/discovery/schema-inference.js'
+export {withDnsRetry} from './util/dns-retry.js'
 export {CONTRACT_VERSION} from './core/contract/version.js'
 
 // Embedded runtime exports, used by hosts that embed the CLI in their own
