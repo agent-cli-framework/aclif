@@ -11,6 +11,7 @@ on:
 
 permissions:
   contents: write
+  actions: write # gh workflow run publish.yml in the last step
 
 concurrency:
   group: release-${{ github.ref }}
