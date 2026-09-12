@@ -64,7 +64,7 @@ export function loadConfigFile(configDir: string): LoadedConfig {
   }
   let parsed: unknown
   try {
-    parsed = yaml.load(raw)
+    parsed = raw.trim() === '' ? undefined : yaml.load(raw)
   } catch (err) {
     throw new ConfigError(`${file}: ${(err as Error).message}`)
   }
