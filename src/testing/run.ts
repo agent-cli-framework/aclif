@@ -7,13 +7,21 @@
  * suite a downstream CLI package runs over its providers.
  *
  * The environment is empty apart from PATH and a temporary HOME, so output
- * reflects no credentials, no config file, and no identity. OCLIF_TS_NODE=0
- * keeps oclif from loading .ts sources when a developer's shell has
- * NODE_ENV=development.
+ * reflects no credentials, no config file, and no identity.
+ *
+ * Commands run from the compiled lib/, never from src/*.ts. Under vitest
+ * NODE_ENV is "test", and oclif then maps lib/ back to src/ and tries to
+ * register a TypeScript loader; a CLI package without tsx cannot load the
+ * .ts files, and one with a ts-node in a parent directory fails the same
+ * way. The flag on oclif's settings object is the only switch oclif reads
+ * (OCLIF_TS_NODE is not), so importing this module turns it off.
  */
-import type {Config} from '@oclif/core'
+import {settings, type Config} from '@oclif/core'
 import {spawn} from 'node:child_process'
 import {dirname, join} from 'node:path'
+
+settings.enableAutoTranspile = false
+settings.tsnodeEnabled = false
 
 export interface RunOutput {
   stdout: string
