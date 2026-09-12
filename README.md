@@ -19,7 +19,7 @@ aclif is one package whose command classes run unchanged in three deployments, a
 
 ### 1. In the agent's own environment
 
-The binary sits on the agent's PATH and the agent shells out to it, the way a coding agent runs `git` or `gh`. Credentials come from flags, environment variables, or a profile in `config.yaml`, in that order; policy comes from the same file; the audit line lands on stderr. The agent needs no documentation beyond the binary, because every command answers `--schema`, `--examples`, and `--shape` without credentials and without executing. This is the deployment [docs/AGENTS.md](docs/AGENTS.md) is written for, and the repository [Dockerfile](Dockerfile) builds a standalone image for it.
+The binary sits on the agent's PATH and the agent shells out to it, the way a coding agent runs `git` or `gh`. Credentials come from flags, environment variables, or a profile in `config.yaml`, in that order; policy comes from the same file; the audit line lands on stderr. The agent needs no documentation beyond the binary, because every command answers `--schema`, `--examples`, and `--shape` without credentials and without executing. This is the deployment [docs/USING_WITH_AGENTS.md](docs/USING_WITH_AGENTS.md) is written for, and the repository [Dockerfile](Dockerfile) builds a standalone image for it.
 
 Use this when one agent, one operator, and one set of credentials live in the same trust boundary.
 
@@ -85,7 +85,7 @@ Every result is one JSON envelope:
 }
 ```
 
-Errors carry a code, a message, a hint that names the command that fixes the problem, and where possible a corrected value ready to resend. Exit codes are 0, 1 (API), 2 (usage), 3 (authentication). The full contract, with the JSON Schemas that back it, is in [docs/CONTRACT.md](docs/CONTRACT.md). The agent-facing quick start is [docs/AGENTS.md](docs/AGENTS.md).
+Errors carry a code, a message, a hint that names the command that fixes the problem, and where possible a corrected value ready to resend. Exit codes are 0, 1 (API), 2 (usage), 3 (authentication). The full contract, with the JSON Schemas that back it, is in [docs/CONTRACT.md](docs/CONTRACT.md). The agent-facing quick start is [docs/USING_WITH_AGENTS.md](docs/USING_WITH_AGENTS.md).
 
 ## Thirty-second install
 

@@ -27,3 +27,6 @@ Thumbs.db
 src/providers/index.generated.ts
 coverage/
 RELEASE_NOTES.md
+
+# Personal Claude Code settings; the shared skills under .claude/skills are tracked
+.claude/settings.local.json
