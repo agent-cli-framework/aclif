@@ -10,7 +10,7 @@
 import {existsSync, readdirSync, readFileSync} from 'node:fs'
 import {createRequire} from 'node:module'
 import {isAbsolute, join, resolve} from 'node:path'
-import yaml from 'js-yaml'
+import * as yaml from 'js-yaml'
 
 import {AliasResolver, validateAliasSet, type AliasSet, type AliasStore} from '../../core/alias/alias-set.js'
 import {loadConfigFile} from './profiles.js'
