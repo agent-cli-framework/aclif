@@ -86,14 +86,6 @@ export function httpFake(name: string): {client: Record<string, unknown>; reques
   return {client, requests}
 }
 
-export const HTTP_FAKES: Record<string, () => {client: Record<string, unknown>; requests: unknown[][]}> = {
-  salesforce: () => httpFake('salesforce'),
-  servicenow: () => httpFake('servicenow'),
-  docusign: () => httpFake('docusign'),
-  agentforce: () => httpFake('agentforce'),
-  google: () => httpFake('google'),
-}
-
 export const SESSION_FAKES: Record<string, {live: () => unknown; fresh: () => unknown}> = {
   salesforce: {live: () => ({accessToken: 'tok', instanceUrl: 'https://example.invalid'}), fresh: () => ({})},
   docusign: {live: () => ({exportSession: () => ({accessToken: 'tok', expiresAt: Math.floor(Date.now() / 1000) + 3600})}), fresh: () => ({exportSession: () => undefined})},

@@ -57,8 +57,12 @@ export interface ConformanceOptions {
   /** Per provider: a recording fake client for its tenant walk, and the read-only members it may touch. */
   tenantFakes?: Record<string, () => RecordingFake>
   readOnlyMembers?: Record<string, string[]>
-  /** Per provider: a fake client whose request calls are recorded, for the http adapter rules. */
-  httpFakes?: Record<string, () => {client: Record<string, unknown>; requests: unknown[][]}>
+  /**
+   * A fake client for a provider's http adapter, with its request calls
+   * recorded, for the http adapter rules. Called with the provider name;
+   * return undefined for a provider you have no fake for and the suite says so.
+   */
+  httpFakes?: (provider: string) => {client: Record<string, unknown>; requests: unknown[][]} | undefined
   /** Per provider: a client with a live session and one without, for the session snapshot rules. */
   sessionFakes?: Record<string, {live: () => unknown; fresh: () => unknown}>
 }

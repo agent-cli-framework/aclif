@@ -27,7 +27,7 @@ export function tenantSuite(opts: ConformanceOptions): void {
   const entries = ownEntries(opts)
   const tenantFakes = opts.tenantFakes ?? {}
   const readOnly = opts.readOnlyMembers ?? {}
-  const httpFakes = opts.httpFakes ?? {}
+  const httpFakes = opts.httpFakes ?? (() => undefined)
   const sessionFakes = opts.sessionFakes ?? {}
 
   describe('C-TEN-1, C-TEN-2, C-TEN-3 tenant walks', () => {
@@ -83,11 +83,11 @@ export function tenantSuite(opts: ConformanceOptions): void {
     })
 
     it('every http provider has a recording fake in the conformance options', () => {
-      for (const {plugin} of withHttp) expect(httpFakes[plugin.name], `add an http fake for ${plugin.name} to the conformance options (httpFakes)`).toBeDefined()
+      for (const {plugin} of withHttp) expect(httpFakes(plugin.name), `add an http fake for ${plugin.name} to the conformance options (httpFakes)`).toBeDefined()
     })
 
     eachRow(withHttp, '%s: a GET manifest issues exactly one request with the resolved path and query', async ({plugin}) => {
-      const fake = httpFakes[plugin.name]()
+      const fake = httpFakes(plugin.name)!
       originalCreate.set(plugin.name, plugin.createClient)
       plugin.createClient = async () => fake.client
       resetProcessPool()
@@ -121,8 +121,8 @@ export function tenantSuite(opts: ConformanceOptions): void {
 
     it('every http adapter forwards method, path, query, and body', async () => {
       for (const {plugin} of withHttp) {
-        if (!httpFakes[plugin.name]) continue
-        const fake = httpFakes[plugin.name]()
+        const fake = httpFakes(plugin.name)
+        if (!fake) continue
         const adapter = plugin.http!(fake.client)
         await adapter.request({method: 'POST', path: '/a/b', query: {c: 'd'}, body: {e: 1}})
         expect(fake.requests, plugin.name).toHaveLength(1)
