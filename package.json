@@ -93,7 +93,7 @@
   },
   "dependencies": {
     "@googleapis/calendar": "^9.0.0",
-    "@googleapis/gmail": "^8.0.0",
+    "@googleapis/gmail": "^18.0.0",
     "@oclif/core": "^4.2.0",
     "@oclif/plugin-help": "^6.2.0",
     "@oclif/plugin-plugins": "^5.4.0",
