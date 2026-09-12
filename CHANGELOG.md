@@ -4,6 +4,8 @@ All notable changes to this project are recorded here. The format follows [Keep 
 
 ## Unreleased
 
+## [1.2.0] - 2026-09-12
+
 ### Changed
 
 - oclif core 5 (`@oclif/core` `^5.0.0`), with `oclif` 6 and `@oclif/test` 5 in development. oclif 5 changes nothing in the API the framework uses; its one breaking change is the Node 22 floor the framework already had. One copy of oclif core in the tree again.
@@ -13,6 +15,10 @@ All notable changes to this project are recorded here. The format follows [Keep 
 ### Removed
 
 - `ts-node` from the development dependencies; `tsx` is the loader the scripts use.
+
+### Added (from commits)
+
+- oclif core 5; drop the help and plugins oclif plugins from the framework and the scaffold (18de8d9)
 
 ## [1.1.3] - 2026-09-12
 
