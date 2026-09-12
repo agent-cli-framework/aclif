@@ -14,7 +14,7 @@
  */
 import {readFileSync} from 'node:fs'
 import {isAbsolute, resolve} from 'node:path'
-import yaml from 'js-yaml'
+import * as yaml from 'js-yaml'
 
 import {providerOf, validateManifest, type CommandManifest, type ManifestStore} from '../../core/manifest/manifest.js'
 import {loadConfigFile, selectProfile} from './profiles.js'

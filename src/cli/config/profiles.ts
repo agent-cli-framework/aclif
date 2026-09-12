@@ -12,7 +12,7 @@
  */
 import {readFileSync, statSync} from 'node:fs'
 import {join} from 'node:path'
-import yaml from 'js-yaml'
+import * as yaml from 'js-yaml'
 
 import {
   BLAST_RADII,
@@ -64,7 +64,7 @@ export function loadConfigFile(configDir: string): LoadedConfig {
   }
   let parsed: unknown
   try {
-    parsed = yaml.load(raw)
+    parsed = raw.trim() === '' ? undefined : yaml.load(raw)
   } catch (err) {
     throw new ConfigError(`${file}: ${(err as Error).message}`)
   }
