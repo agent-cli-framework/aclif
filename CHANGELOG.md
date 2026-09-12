@@ -4,6 +4,14 @@ All notable changes to this project are recorded here. The format follows [Keep 
 
 ## Unreleased
 
+## [1.1.3] - 2026-09-12
+
+### Fixed (from commits)
+
+- **deps**: bump js-yaml from 4.1.1 to 5.4.1 (#8) (69b977a)
+- **deps**: bump @googleapis/calendar from 9.8.0 to 16.0.0 (#6) (35f68b7)
+- **deps**: bump @oclif/plugin-plugins from 5.4.59 to 6.0.1 (#5) (8e73231)
+
 ## [1.1.2] - 2026-09-12
 
 ### Fixed (from commits)
