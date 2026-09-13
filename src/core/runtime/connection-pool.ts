@@ -188,7 +188,7 @@ export class ConnectionPool {
     }
   }
 
-  /** Same key the tenant cache uses, so catalogue and connection agree on what an instance is. */
+  /** Same key the tenant cache uses, so catalog and connection agree on what an instance is. */
   private cacheKey(provider: string, creds: ServiceAccountCredentials): string {
     const override = this.factories.get(provider)?.cacheKey
     return override ? `${provider}:${override(creds)}` : instanceKey(provider, creds)

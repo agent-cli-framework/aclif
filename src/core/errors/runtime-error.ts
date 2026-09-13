@@ -55,7 +55,7 @@ export function exitCodeToCategory(exitCode: number): 'invalid_usage' | 'auth_fa
 /**
  * Structural check for AciRuntimeError. instanceof fails when a host
  * process holds two copies of the package (or lib/ and src/ under test),
- * and an unrecognised runtime error would be reported as a generic
+ * and an unrecognized runtime error would be reported as a generic
  * COMMAND_ERROR with the wrong exit code.
  */
 export function isAciRuntimeError(err: unknown): err is AciRuntimeError {

@@ -16,7 +16,7 @@ import type {AciError} from '../../../core/contract/aci.js'
  * This detector returns a refined hint only when (a) the query has an
  * aggregate function, (b) the missing-column name appears in the ORDER
  * BY clause, and (c) an aggregate alias with that exact name is declared
- * in the SELECT list. When a match is found we synthesise a corrected
+ * in the SELECT list. When a match is found we synthesize a corrected
  * query so the caller can replay immediately. Returns ``undefined`` when
  * the pattern doesn't match so the generic INVALID_FIELD hint keeps
  * applying.

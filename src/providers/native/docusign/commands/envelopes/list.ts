@@ -93,7 +93,7 @@ export default class EnvelopesList extends DocuSignBaseCommand {
         || new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
 
       // DocuSign's list combines `status` and `folder_ids` poorly when both
-      // are comma-lists — the intersection only honours a single status.
+      // are comma-lists — the intersection only honors a single status.
       // To work around that, we prefer the folder-based filter: passing
       // folder_ids alone returns every envelope in those folders across
       // all statuses. Use status only when the caller explicitly asks.
@@ -104,7 +104,7 @@ export default class EnvelopesList extends DocuSignBaseCommand {
       const folderIds = flags['folder-ids']
         ?? (flags['include-deleted'] ? undefined : NON_TRASH_FOLDERS)
 
-      // If the caller passed --status explicitly, honour it (understanding
+      // If the caller passed --status explicitly, honor it (understanding
       // the single-status interaction quirk). Otherwise omit status and
       // let folder_ids widen the list to every active envelope.
       const status = flags.status

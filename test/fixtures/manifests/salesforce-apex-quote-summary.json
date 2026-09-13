@@ -1,6 +1,6 @@
 {
   "id": "salesforce:apex:quote-summary",
-  "description": "Summarise a quote through the QuoteSummary Apex REST class",
+  "description": "Summarize a quote through the QuoteSummary Apex REST class",
   "aciMetadata": {
     "mutability": "read",
     "idempotent": true,
@@ -25,6 +25,6 @@
     "example": {"quoteId": "0Q0xx", "total": 1200.5}
   },
   "aciExamples": [
-    {"description": "Summarise one quote in euros", "command": "$BIN salesforce apex quote-summary --quote-id 0Q0xx --currency EUR --json"}
+    {"description": "Summarize one quote in euros", "command": "$BIN salesforce apex quote-summary --quote-id 0Q0xx --currency EUR --json"}
   ]
 }

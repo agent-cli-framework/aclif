@@ -11,9 +11,9 @@ import {builtinRegistry} from '../../src/providers/index.js'
 import {assertEnvelope} from '../helpers/envelope.js'
 
 /**
- * U-RT-1 to U-RT-5 against the built catalogue (lib/), with EventReporter
- * so nothing reaches stdout. Synthetic behaviour is injected by swapping
- * the loader of one catalogue entry.
+ * U-RT-1 to U-RT-5 against the built catalog (lib/), with EventReporter
+ * so nothing reaches stdout. Synthetic behavior is injected by swapping
+ * the loader of one catalog entry.
  */
 let runtime: Runtime
 const saved: Record<string, string | undefined> = {}
@@ -43,7 +43,7 @@ function invocation(argv: string[], over: Partial<Invocation> = {}): Invocation 
 
 const meta: AciMetadata = {mutability: 'read', idempotent: true, reversible: false, blastRadius: 'single_record', apiCallsConsumed: 0, requiresConfirmation: false, prerequisites: []}
 
-/** Replace the loader of a catalogue entry for the duration of fn. */
+/** Replace the loader of a catalog entry for the duration of fn. */
 async function withLoader(id: string, cls: unknown, fn: () => Promise<void>): Promise<void> {
   const entry = runtime.config.commands.find((c) => c.id === id)!
   const original = entry.load

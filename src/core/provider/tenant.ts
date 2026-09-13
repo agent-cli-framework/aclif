@@ -5,7 +5,7 @@
  * (custom objects, custom fields, enumerations, relationships, permissions).
  * Captured by an explicit bootstrap against live credentials, cached per
  * instance key, never fetched as a side effect of another command.
- * See docs/CONTRACT.md, Tenant catalogue.
+ * See docs/CONTRACT.md, Tenant catalog.
  */
 import {createHash} from 'node:crypto'
 
@@ -70,7 +70,7 @@ export interface TenantWalk<TClient = unknown> {
 
 /**
  * The key both the connection pool and the tenant cache use, so a
- * catalogue can never be served for a different tenant than the
+ * catalog can never be served for a different tenant than the
  * connection it came from. Includes the provider so equal instance URLs on
  * different providers do not collide, and the identity so two users of
  * one org are kept apart.
@@ -81,7 +81,7 @@ export function instanceKey(provider: string, creds: ServiceAccountCredentials):
   return createHash('sha256').update(raw).digest('hex')
 }
 
-/** Structural problems; empty when the catalogue is sound. Mirrors schemas/tenant-catalog.schema.json. */
+/** Structural problems; empty when the catalog is sound. Mirrors schemas/tenant-catalog.schema.json. */
 export function validateTenantCatalog(c: unknown): string[] {
   const errors: string[] = []
   if (!c || typeof c !== 'object') return ['catalog is not an object']

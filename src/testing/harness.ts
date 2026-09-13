@@ -23,7 +23,7 @@ export interface ProviderHarness {
   home: string
   /** Run a provider command class directly (no hooks). */
   run(id: string, argv: string[]): Promise<RunOutput>
-  /** Run through the oclif catalogue so the prerun policy hook applies. */
+  /** Run through the oclif catalog so the prerun policy hook applies. */
   runWithHooks(id: string, argv: string[]): Promise<RunOutput>
   setEnv(vars: Record<string, string | undefined>): void
   /** Forget cached clients and sessions so the next command authenticates again. */

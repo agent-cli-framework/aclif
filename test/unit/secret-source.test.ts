@@ -18,7 +18,7 @@ afterAll(async () => {
 })
 
 describe('U-CFG-2 secret sources', () => {
-  it('recognises the three source shapes and nothing else', () => {
+  it('recognizes the three source shapes and nothing else', () => {
     expect(isSecretSourceObject({env: 'X'})).toBe(true)
     expect(isSecretSourceObject({file: 'x'})).toBe(true)
     expect(isSecretSourceObject({exec: 'x'})).toBe(true)

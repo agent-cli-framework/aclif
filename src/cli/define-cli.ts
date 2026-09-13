@@ -3,7 +3,7 @@
 /**
  * defineCli(): what a CLI built on this framework calls from its oclif
  * command target module. It names the CLI, picks the providers, and
- * returns the command catalogue oclif loads. The framework's reference
+ * returns the command catalog oclif loads. The framework's reference
  * binary calls it too (src/commands-index.ts), so there is one path.
  *
  *   // src/index.ts of the mycli package
@@ -64,7 +64,7 @@ export interface CliDefinition {
   providers: Array<ProviderPlugin | ProviderEntry>
   /** Include discover, learn, aliases, auth, manifests. Default true. */
   coreCommands?: boolean
-  /** Load the `manifests:` section of the CLI's config.yaml at catalogue build. Default true. */
+  /** Load the `manifests:` section of the CLI's config.yaml at catalog build. Default true. */
   manifests?: boolean
   /** Extra commands of the CLI's own, keyed by id. */
   commands?: Record<string, CommandClass>

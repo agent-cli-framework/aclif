@@ -37,7 +37,7 @@ describe('U-TEN-1 tenant cache and key', () => {
     await rm(dir, {recursive: true, force: true})
   })
 
-  it('round-trips a catalogue and isolates instance keys', async () => {
+  it('round-trips a catalog and isolates instance keys', async () => {
     const cache = new FileTenantCache(dir)
     await cache.save('salesforce', 'key-a', catalog)
     expect(await cache.load('salesforce', 'key-a')).toEqual(catalog)
@@ -75,8 +75,8 @@ describe('U-TEN-1 tenant cache and key', () => {
   })
 })
 
-describe('C-TEN-2 catalogue shape', () => {
-  it('the published JSON schema and the validator agree on a good catalogue', async () => {
+describe('C-TEN-2 catalog shape', () => {
+  it('the published JSON schema and the validator agree on a good catalog', async () => {
     const schema = JSON.parse(await readFile('schemas/tenant-catalog.schema.json', 'utf8'))
     const ajv = new Ajv({strict: false})
     const validate = ajv.compile(schema)
@@ -84,7 +84,7 @@ describe('C-TEN-2 catalogue shape', () => {
     expect(validateTenantCatalog(catalog)).toEqual([])
   })
 
-  it('both reject a catalogue that stores field values or lacks provenance', async () => {
+  it('both reject a catalog that stores field values or lacks provenance', async () => {
     const schema = JSON.parse(await readFile('schemas/tenant-catalog.schema.json', 'utf8'))
     const validate = new Ajv({strict: false}).compile(schema)
     const bad = JSON.parse(JSON.stringify(catalog)) as TenantCatalog

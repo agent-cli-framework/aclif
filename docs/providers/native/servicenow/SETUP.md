@@ -42,5 +42,5 @@ Change the user's password (or mint a new OAuth token), update the stored value,
 | `AUTHENTICATION_FAILED` | wrong user or password, expired token | check the values |
 | `INSUFFICIENT_ACCESS` | an ACL denies the table or field | `servicenow introspect --json`; adjust roles |
 | `RECORD_NOT_FOUND` | wrong `sys_id` | `servicenow data query` to find it |
-| `INVALID_TABLE` | a table that does not exist on this instance | `servicenow discover --json` or the tenant catalogue |
+| `INVALID_TABLE` | a table that does not exist on this instance | `servicenow discover --json` or the tenant catalog |
 | `INVALID_QUERY` | encoded query syntax | `field=value^field2!=value2`; operators `=`, `!=`, `LIKE`, `>`, `<`, `>=`, `<=` |

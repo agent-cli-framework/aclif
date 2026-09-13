@@ -149,7 +149,7 @@
     },
     "folder-id": {
       "type": "option",
-      "description": "Destination folder (default: recyclebin, which is DocuSign's delete behaviour)",
+      "description": "Destination folder (default: recyclebin, which is DocuSign's delete behavior)",
       "required": false,
       "default": "recyclebin"
     }

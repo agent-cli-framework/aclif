@@ -65,7 +65,7 @@ export default class EnvelopesDelete extends DocuSignBaseCommand {
       required: true,
     }),
     'folder-id': Flags.string({
-      description: 'Destination folder (default: recyclebin, which is DocuSign\'s delete behaviour)',
+      description: 'Destination folder (default: recyclebin, which is DocuSign\'s delete behavior)',
       default: 'recyclebin',
     }),
     confirm: Flags.boolean({

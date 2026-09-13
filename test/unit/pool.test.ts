@@ -49,7 +49,7 @@ describe('U-POOL-1 ConnectionPool', () => {
 })
 
 describe('U-POOL-2 cache key', () => {
-  it('separates instanceUrl, identity, and authType; honours a plugin cacheKey override', async () => {
+  it('separates instanceUrl, identity, and authType; honors a plugin cacheKey override', async () => {
     const pool = new ConnectionPool()
     let n = 0
     pool.registerFactory('acme', {create: async () => ({n: ++n})})

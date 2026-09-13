@@ -1,6 +1,6 @@
 # Motivation
 
-aclif exists because of two published arguments about how an AI agent should reach external services. This document restates each argument, with links to the source, and then states what the two together require of a CLI framework. The README summarises the conclusion; this is the reasoning behind it.
+aclif exists because of two published arguments about how an AI agent should reach external services. This document restates each argument, with links to the source, and then states what the two together require of a CLI framework. The README summarizes the conclusion; this is the reasoning behind it.
 
 ## Argument one: every abstraction layer between an agent and an API loses fidelity
 
@@ -50,7 +50,7 @@ Both arguments describe the same interface from different directions. Poehnelt a
 
 ## oclif: the starting point and its limit
 
-oclif, the framework under the Salesforce and Heroku CLIs, is the starting point, and the name aclif is one letter away from it deliberately. oclif is an ordinary dependency, unforked and unpatched. It parses every flag, routes every command through its topic tree, loads the catalogue from a build-time manifest, and runs the hook lifecycle. aclif's commands are oclif commands. oclif also brought a mature set of conventions for how a CLI project accepts contributions and ships releases, which aclif adopts where they fit.
+oclif, the framework under the Salesforce and Heroku CLIs, is the starting point, and the name aclif is one letter away from it deliberately. oclif is an ordinary dependency, unforked and unpatched. It parses every flag, routes every command through its topic tree, loads the catalog from a build-time manifest, and runs the hook lifecycle. aclif's commands are oclif commands. oclif also brought a mature set of conventions for how a CLI project accepts contributions and ships releases, which aclif adopts where they fit.
 
 oclif does not supply the third principle. It is designed for one person running one command: one process, arguments from the shell, output to the terminal, exit when done. The gateway described in the Prompt One post runs the same commands thousands of times for many agents at once, with identity and credentials arriving per request and connections that must stay open between calls. The first version of that gateway spawned a process per command, and a modest seed job took minutes, most of it process startup and repeated logins.
 

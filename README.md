@@ -129,7 +129,7 @@ Adding a provider is a mechanical projection of the platform's API specification
 - **Introspection without execution**: `--schema`, `--examples`, `--shape`, `--changelog`, `--discover`, `--flags-for`, `--estimate`. No credentials needed.
 - **Safety metadata**: mutability, blast radius, reversibility, idempotency, capabilities, and whether confirmation is required, declared on every command and enforced by the policy layer.
 - **Dry run** on every mutation, `--confirm` where the metadata demands it, and an audit line on stderr after every run.
-- **Tenant catalogue**: `introspect --bootstrap` captures an instance's custom objects, fields, and enumerations so `learn` and `--schema` speak the customer's names.
+- **Tenant catalog**: `introspect --bootstrap` captures an instance's custom objects, fields, and enumerations so `learn` and `--schema` speak the customer's names.
 - **Canonical names**: alias sets map `customer` to `Account` in one org, `core_company` in another; `--canonical` resolves them.
 - **Manifests**: a declarative JSON file turns one HTTP endpoint into a command with the same contract as a static one.
 - **Sessions**: expensive logins are cached per instance with `auth status` and `auth logout` to manage them.
@@ -181,4 +181,4 @@ Contributions: [CONTRIBUTING.md](CONTRIBUTING.md). Security reports: [SECURITY.m
 
 ## License
 
-MIT. See [LICENSE](LICENSE). Copyright (c) 2026 Prompt One, Inc. Every source file carries an SPDX identifier; provider directories under `private/` belong to the fork that adds them and may carry their own terms.
+MIT. See [LICENSE](LICENSE). Copyright (c) 2026 Prompt One, Inc. Every shipped source file carries an SPDX identifier; provider directories under `private/` belong to the fork that adds them and may carry their own terms.

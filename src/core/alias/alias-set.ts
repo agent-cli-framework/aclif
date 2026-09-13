@@ -3,7 +3,7 @@
 /**
  * Canonical names: one vocabulary over many providers and instances.
  * Resolution is a lookup and lives here; generation (comparing two
- * instances' catalogues) stays outside the CLI. See
+ * instances' catalogs) stays outside the CLI. See
  * docs/CONTRACT.md, Alias sets.
  */
 

@@ -9,9 +9,9 @@ import {instanceKey, type TenantCatalog} from '../../src/core/provider/tenant.js
 import {runInProcess} from '../../scripts/capture-golden.js'
 
 /**
- * U-TEN-2: with a catalogue cached for the instance the environment points
+ * U-TEN-2: with a catalog cached for the instance the environment points
  * at, `learn` appends the instance block and `--schema` lists
- * availableEntities. No network: the catalogue is seeded directly.
+ * availableEntities. No network: the catalog is seeded directly.
  */
 const creds = {instanceUrl: 'https://example.my.salesforce.com', accessToken: 'tok', authType: 'session' as const}
 const catalog: TenantCatalog = {
@@ -47,8 +47,8 @@ afterAll(async () => {
   await rm(home, {recursive: true, force: true})
 })
 
-describe('U-TEN-2 catalogue consumers', () => {
-  it('learn appends the instance block from the cached catalogue', async () => {
+describe('U-TEN-2 catalog consumers', () => {
+  it('learn appends the instance block from the cached catalog', async () => {
     const out = await runInProcess(config, 'learn', ['salesforce', '--json'])
     expect(out.code, out.stderr).toBe(0)
     const body = JSON.parse(out.stdout) as {auth_status: string; instance: {entities: string[]; custom_entities: string[]}}
@@ -66,7 +66,7 @@ describe('U-TEN-2 catalogue consumers', () => {
     expect(JSON.parse(core.stdout)).not.toHaveProperty('availableEntities')
   })
 
-  it('learn for a provider with a tenant walk but no catalogue points at --bootstrap', async () => {
+  it('learn for a provider with a tenant walk but no catalog points at --bootstrap', async () => {
     const out = await runInProcess(config, 'learn', ['servicenow', '--json'])
     const body = JSON.parse(out.stdout) as {instance: {captured_at: null; bootstrap: string}}
     expect(body.instance.captured_at).toBeNull()

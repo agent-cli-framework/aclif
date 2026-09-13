@@ -34,7 +34,7 @@ export interface ProviderPlugin<TClient = unknown> {
   /** Map a thrown error to an AciError with provider hints; undefined means use the generic mapping. */
   classifyError?(error: unknown, context?: {query?: string}): AciError | undefined
   /**
-   * Optional tenant walk: enumerate the live instance's customisations.
+   * Optional tenant walk: enumerate the live instance's customizations.
    * Read-only; run by `introspect --bootstrap` and by hosts, never as a side
    * effect of another command.
    */

@@ -143,13 +143,13 @@
     },
     "bootstrap": {
       "type": "boolean",
-      "description": "Capture this instance's tenant catalogue (custom entities, fields, enumerations) into the cache",
+      "description": "Capture this instance's tenant catalog (custom entities, fields, enumerations) into the cache",
       "required": false,
       "default": false
     },
     "refresh": {
       "type": "boolean",
-      "description": "Recapture the tenant catalogue even if one is cached",
+      "description": "Recapture the tenant catalog even if one is cached",
       "required": false,
       "default": false
     },

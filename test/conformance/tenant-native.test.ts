@@ -6,7 +6,7 @@ import {httpFake, salesforceFake, servicenowFake} from './fakes.js'
 /**
  * Provider-specific assertions for the built-in tenant walks, http
  * adapters, and session restore. The generic rules live in the conformance
- * suite; these pin the exact behaviour of the framework's own providers.
+ * suite; these pin the exact behavior of the framework's own providers.
  */
 const registry = builtinRegistry()
 

@@ -1,4 +1,4 @@
-import {behaviourSuite} from '../../src/testing/index.js'
+import {behaviorSuite} from '../../src/testing/index.js'
 import {frameworkOptions} from './options.js'
 
-behaviourSuite(frameworkOptions)
+behaviorSuite(frameworkOptions)

@@ -151,7 +151,7 @@ export interface GmailAttachmentMeta {
 /**
  * Walk a Gmail message payload once and return both the text body and a
  * flat list of every attachment part's metadata. Body picking prefers
- * text/plain over text/html (matching Gmail web client behaviour);
+ * text/plain over text/html (matching Gmail web client behavior);
  * attachments are any part with a non-empty `body.attachmentId`,
  * including ones nested inside `multipart/related` (inline images get
  * surfaced; callers can filter by mime_type if they only want

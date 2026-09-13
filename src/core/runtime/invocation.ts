@@ -114,7 +114,7 @@ export interface Invocation {
   /** Optional pre-execution hooks (capability gate, rate limit) */
   hooks?: InvocationHooks
 
-  /** Host-owned tenant catalogue store; the binary uses a file cache when absent. */
+  /** Host-owned tenant catalog store; the binary uses a file cache when absent. */
   tenantCache?: TenantCache
 
   /** Host-owned canonical alias store; the binary reads config.yaml and the starter vocabulary when absent. */

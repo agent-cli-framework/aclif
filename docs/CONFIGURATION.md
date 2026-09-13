@@ -9,7 +9,7 @@ How a standalone CLI built on aclif finds credentials, profiles, aliases, manife
 | Config file | `~/.config/<dirname>/config.yaml` (`%LOCALAPPDATA%\<dirname>\config.yaml` on Windows) | `XDG_CONFIG_HOME`, or `<BIN>_CONFIG_DIR` for the directory |
 | Imported alias sets | `<config dir>/aliases/*.json` or `.yaml` | |
 | Session cache | `~/.cache/<dirname>/sessions/<provider>/<instance key>.json`, mode 0600 | `XDG_CACHE_HOME` |
-| Tenant catalogue cache | `~/.cache/<dirname>/tenant/<provider>/<instance key>.json` | `XDG_CACHE_HOME` |
+| Tenant catalog cache | `~/.cache/<dirname>/tenant/<provider>/<instance key>.json` | `XDG_CACHE_HOME` |
 
 `dirname` is the CLI's oclif `dirname`, normally its bin name. `$BIN auth status --json` prints the config file path and the cached sessions.
 
@@ -76,7 +76,7 @@ identity:
 
 A credential value in a profile may be a literal or one of:
 
-| Form | Behaviour |
+| Form | Behavior |
 |---|---|
 | `{env: NAME}` | read `NAME` from the environment; an unset variable is an error that names it |
 | `{file: path}` | read the file and trim it; a missing file is an error that names the field, never the path contents; `~` expands |
@@ -116,7 +116,7 @@ Introspection flags and `--dry-run` are exempt from confirmation.
 | `<BIN>_NO_MANIFESTS` | `1` disables manifest loading |
 | `<BIN>_CONFIG_DIR` | config directory override (oclif) |
 | `XDG_CONFIG_HOME`, `XDG_CACHE_HOME` | base directories |
-| `FORCE_COLOR` | colour for `--pretty` when stdout is not a terminal |
+| `FORCE_COLOR` | color for `--pretty` when stdout is not a terminal |
 
 The framework's own names (`ACLIF_PROFILE`, and so on) also work for any CLI, as a fallback. Provider credential variables are declared by each provider and do not change with the CLI's name.
 
@@ -124,6 +124,6 @@ The framework's own names (`ACLIF_PROFILE`, and so on) also work for any CLI, as
 
 Providers whose login is expensive (Salesforce username and password, DocuSign JWT grant) cache the resulting session under the cache directory, keyed by provider, instance URL, identity, and auth type. The next command reuses it without logging in; a 401 invalidates it. `$BIN auth status --json` lists cached sessions without their secrets; `$BIN auth logout [provider]` clears them.
 
-## Tenant catalogue
+## Tenant catalog
 
-`$BIN <provider> introspect --bootstrap` walks the instance's custom entities plus the provider's core entities and caches the catalogue; `--refresh` recaptures; `--all` widens the walk to every entity. `learn` and `--schema` then list the instance's entities. The catalogue holds names, types, labels, enumerations, and relationships, never record data.
+`$BIN <provider> introspect --bootstrap` walks the instance's custom entities plus the provider's core entities and caches the catalog; `--refresh` recaptures; `--all` widens the walk to every entity. `learn` and `--schema` then list the instance's entities. The catalog holds names, types, labels, enumerations, and relationships, never record data.

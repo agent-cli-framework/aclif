@@ -15,7 +15,7 @@ export function classifyAgentforceError(error: unknown): AciError | undefined {
   if (msg.includes('invalid_client_id') || msg.includes('invalid_client')) {
     return hint(
       'INVALID_CLIENT',
-      'The External Client App credentials are not recognised. ' +
+      'The External Client App credentials are not recognized. ' +
         'A freshly-created ECA needs ~10 minutes to propagate before its consumer key is usable. ' +
         'See docs/providers/native/agentforce/SETUP.md.',
     )
