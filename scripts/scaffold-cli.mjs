@@ -3,11 +3,12 @@
 // Copyright (c) 2026 Prompt One, Inc.
 // Scaffold a CLI package built on aclif, the way `oclif generate` scaffolds an oclif CLI.
 //
-//   npx --package @aclif/core aclif-scaffold-cli --name mycli --dir ../mycli [--providers salesforce,servicenow] [--aclif npm:@aclif/core@^1.2.0]
+//   npx --package @aclif/core aclif-scaffold-cli --name mycli --dir ../mycli [--providers salesforce,servicenow] [--author 'Acme, Inc.'] [--aclif npm:@aclif/core@^1.2.0]
 //
 // Writes a complete package: package.json with the oclif block pointing at
 // the CLI's own command target and hooks, bin/run.js, src/index.ts calling
-// defineCli(), hook re-exports, a topic generator, and a README. Build it
+// defineCli(), hook re-exports, a topic generator, a README, and an MIT
+// LICENSE naming --author (default: '<name> authors') as the holder. Build it
 // with `npm install && npm run build`, then run `./bin/run.js discover`.
 import {chmodSync, existsSync, mkdirSync, writeFileSync} from 'node:fs'
 import {join, resolve} from 'node:path'
@@ -15,7 +16,7 @@ import {join, resolve} from 'node:path'
 const args = Object.fromEntries(process.argv.slice(2).map((a, i, all) => (a.startsWith('--') ? [a.slice(2), all[i + 1]] : [])).filter((e) => e.length))
 const name = args.name
 if (!/^[a-z][a-z0-9-]*$/.test(name ?? '')) {
-  console.error('usage: aclif-scaffold-cli --name <bin> [--dir <path>] [--providers a,b] [--aclif <version-or-path>]')
+  console.error('usage: aclif-scaffold-cli --name <bin> [--dir <path>] [--providers a,b] [--author <copyright holder>] [--aclif <version-or-path>]')
   process.exit(2)
 }
 const dir = resolve(args.dir ?? name)
@@ -27,6 +28,8 @@ const providers = (args.providers ?? 'salesforce,servicenow,docusign,agentforce'
 const aclifSpec = args.aclif ?? 'npm:@aclif/core@^1.2.0'
 const sym = (p) => p.replace(/-([a-z])/g, (_, c) => c.toUpperCase()) + 'Plugin'
 const Scope = name.replace(/-/g, '_').toUpperCase()
+const author = args.author ?? `${name} authors`
+const year = new Date().getFullYear()
 
 const files = {
   'package.json': JSON.stringify({
@@ -35,6 +38,7 @@ const files = {
     description: `${name}: a command-line interface for agents, built on aclif`,
     type: 'module',
     license: 'MIT',
+    author,
     bin: {[name]: 'bin/run.js'},
     main: 'lib/index.js',
     types: 'lib/index.d.ts',
@@ -61,6 +65,28 @@ const files = {
     compilerOptions: {declaration: true, module: 'Node16', moduleResolution: 'Node16', outDir: './lib', rootDir: './src', strict: true, target: 'ES2022', esModuleInterop: true, skipLibCheck: true, resolveJsonModule: true},
     include: ['src/**/*'],
   }, null, 2) + '\n',
+  'LICENSE': `MIT License
+
+Copyright (c) ${year} ${author}
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+`,
   '.gitignore': 'node_modules/\n/lib/\ntsconfig.tsbuildinfo\noclif.manifest.json\n',
   'bin/run.js': "#!/usr/bin/env node\n\nimport {execute} from '@oclif/core'\n\nawait execute({dir: import.meta.url})\n",
   'src/index.ts': `/**

@@ -4,7 +4,7 @@
   "description": "Agent CLI Framework: a self-describing command surface over SaaS APIs for compiled workflow agents",
   "type": "module",
   "license": "MIT",
-  "author": "Prompt One",
+  "author": "Prompt One, Inc.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/agent-cli-framework/aclif.git"

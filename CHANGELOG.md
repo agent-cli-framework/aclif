@@ -4,6 +4,15 @@ All notable changes to this project are recorded here. The format follows [Keep 
 
 ## Unreleased
 
+### Added
+
+- The CLI scaffold writes an MIT `LICENSE` and sets `author` in `package.json`, both naming `--author` (default: `<name> authors`) as the copyright holder. A scaffolded package previously declared `license: MIT` without shipping the license text.
+
+### Changed
+
+- The generated provider index carries the same SPDX header as the rest of the shipped source.
+- `package.json` names the author as `Prompt One, Inc.`, matching `LICENSE` and the source headers.
+
 ## [1.2.0] - 2026-09-12
 
 ### Changed
