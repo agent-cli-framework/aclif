@@ -1,63 +1,31 @@
 # aclif
 
-**Agent CLI Framework.** [oclif](https://oclif.io) is the framework behind the Salesforce, Shopify, Adobe, and Twilio CLIs. It solved the hard parts of building a command-line tool for people: parsing flags, routing commands, generating help, loading plugins, etc. aclif takes this foundation and builds on it to address the unique requirements of agent access to external services. Agents need their own cli for serval reasons. MCP protocol servers add an abstraction layer between an agent and an API which loses fidelity and increases token and context costs.  And workflow agents, because of their pre-defined execution paths, do not (and should not) select their own [tools](docs/MOTIVATION.md). In addition, a unified CLI, enabled by aclif, avoids the operational problems with cli sprawl. 
+**Agent CLI Framework.** aclif builds command-line tools for AI agents. An agent gets a single tool that provides a unified abstraction across every SaaS provider: one grammar, and canonical names that reach the same record by the same name on any platform.
 
-An agent that works across several SaaS platforms needs a different tool for each one, each with its own command grammar, login, error format, and names for the same things. Every one of those differences takes up context on every call. The agent also needs to know what a command will do before it runs it, needs results and errors it can act on without parsing chat response prose, and should never hold live credentials while it reads untrusted content. When many agents run through one gateway, the tool also has to stay fast and keep an audit record of who did what.
+## Why agents need their own CLI
 
-aclif provides one grammar, one response format, and one error format across every provider, so an agent learns the tool once. Every command describes its own flags and examples on request, declares whether it reads, writes, or deletes, and can be refused by policy before it runs. Canonical names let an agent ask for customers and let the CLI map that to each platform's own field names. The same commands run from a shell or inside a gateway that holds the credentials, pools connections, and records every call.
+An MCP server publishes a fixed list of tools, and every tool on the list occupies the agent's context on every turn. The server's author trades coverage for cost when the server is built, and an agent that spans several platforms needs a server, a login, and a grammar for each platform. A host can lower the cost with tool filtering or deferred loading, and a server can publish a generic call tool, but each of those is a design-time decision made per server, and it fixes which operations the agent can ever reach.
 
-## Deployment flexibility
+aclif loads a command's definition only when the agent asks for it, so the whole API of every provider is reachable at no standing cost in context. One grammar, one envelope, and one error vocabulary cover every provider, so the agent's context stays about the same size whether it reaches one platform or five.
 
-A vendor CLI is built for one deployment: installed on a machine, logged in by the person at the keyboard, run as a process per command, with credentials in its own config file and output meant for a terminal. Giving an agent access to three platforms, for example, requires three binaries to install and patch, three login flows, three credential stores, and three output formats to parse. Running them behind a server or security gateway, where every call is checked and recorded, is impractical for several reasons.
+An agent that runs a defined workflow can leave the model out of the call altogether. An authoring tool works out the exact command at design time and embeds it in the workflow as a string. At run time the agent executes that string as ordinary code, with no tool definition loaded and no inference.
 
-- Every call spawns a process, logs in again, and needs its credentials written where that process can read them.
-- Each CLI acts as whoever logged it in, so the acting user's identity cannot be forwarded.
-- Nothing declares what a command will do before it runs, so policy has nothing to check.
-- Every tool reports in its own format, so there is nothing uniform to audit.
+The reasoning behind this, with its sources and the measured token and cost figures, is in [docs/MOTIVATION.md](docs/MOTIVATION.md).
 
-aclif is one package whose command classes run unchanged in three deployments, and the host decides what changes between them: who supplies the credentials, who enforces policy, and who keeps the audit trail.
+## What every command gives you
 
-### 1. In the agent's own environment
+- **One grammar.** One command structure, one JSON envelope, and one error vocabulary across every provider. An agent learns the tool once, and a new platform adds commands without adding grammar.
+- **Canonical names.** Alias sets map `customer` to `Account` in one Salesforce instance and `core_company` in ServiceNow; `--canonical` resolves them. A tenant catalog, captured from each instance at deploy time, teaches the CLI each instance's custom objects and fields with no change to the provider.
+- **Errors an agent can act on.** Every error names the failure, the command that fixes it, and, where the provider's classifier has a rewrite rule for the mistake, the corrected input ready to resend. The classifier is plain code with no model behind it.
+- **Introspection without execution.** `--schema`, `--examples`, `--shape`, `--changelog`, `--discover`, `--flags-for`, and `--estimate` return before the command runs, need no credentials, and count against no API quota. An agent can discover, learn, introspect, and preview against a rate-limited instance and spend nothing.
+- **An embeddable runtime.** The same command classes run in-process inside a host that supplies credentials, identity, and policy per request, keeps connections warm, and caches expensive logins per instance. A gateway built on it works with the enterprise's own identity provider and secrets vault.
+- **Declared safety.** Mutability, blast radius, reversibility, idempotency, and whether confirmation is required are declared on every command. A policy gate can refuse it before its code loads. Every mutation accepts `--dry-run`, demands `--confirm` where its metadata says so, and writes an audit line after every run.
 
-The binary sits on the agent's PATH and the agent shells out to it, the way a coding agent runs `git` or `gh`. Credentials come from flags, environment variables, or a profile in `config.yaml`, in that order; policy comes from the same file; the audit line lands on stderr. The agent needs no documentation beyond the binary, because every command answers `--schema`, `--examples`, and `--shape` without credentials and without executing. This is the deployment [docs/USING_WITH_AGENTS.md](docs/USING_WITH_AGENTS.md) is written for, and the repository [Dockerfile](Dockerfile) builds a standalone image for it.
-
-Use this when one agent, one operator, and one set of credentials live in the same trust boundary.
-
-### 2. As a tool call
-
-A host binds commands as functions the model can call. There are two forms.
-
-In-process: the host imports the package, starts one `Runtime`, and calls `runtime.run({argv, context, credentials, pool, reporter})` from inside its tool handler. No process is spawned, the connection pool stays warm between calls, and the result is the same JSON envelope the binary prints. See [Embedding](#embedding) below.
-
-Through an agent application: the model is given a single tool whose arguments are a command string, its flags, and a tenant instance. The model composes the command exactly as it would on a shell, using `--schema` and `--examples` first, and the application forwards it. This is how Prompt One's AppMaker agents work: their `gateway_execute(command, instance, flags)` tool carries a command such as `salesforce data query` and its flags, and the agent process holds no SaaS credentials at all, only a key identifying the application and the active user's identity.
-
-Use this when tool definitions must stay out of the model's context. One tool describing the grammar replaces one tool per operation, and the model loads a command's definition only when it asks for it.
-
-### 3. As a gateway serving a collection of agents
-
-A long-lived process starts one `Runtime` and listens for commands from many agents at once. Each request becomes an `Invocation` carrying:
-
-- the command as argv;
-- an `ExecutionContext` with a request id, the user's identity and profile, forwarded SSO claims, an abort signal, and free-form audit metadata such as the calling application;
-- a `CredentialResolver` the host implements over its secrets store, resolved per request, so credentials never leave the gateway;
-- a `capabilityGate` hook that runs on the command's declared metadata before the command class is loaded, so a denied command costs nothing;
-- a `rateLimit` hook, a reporter that collects the envelope, and the shared connection pool, which caches clients by provider, instance, identity, and auth type so two tenants never share a connection.
-
-The agents on the other side of the socket send a command, an application key, and a user id. They hold no provider credentials, cannot reach the provider directly, and cannot widen their own scope, because scope is decided by the gate from metadata on the command. Prompt One's service gateway runs this way: an Express server calls `Runtime.start` once, builds an invocation per HTTP request, resolves credentials from a vault by application mode (shared org-level service account or the individual user's own entry), and applies its capability gate on every call. The first version of that gateway spawned a process per command, and a modest seed job took minutes, most of it process startup and repeated logins; the embedded runtime is what replaced it. Details in [docs/EMBEDDING.md](docs/EMBEDDING.md).
-
-Use this when many agents share providers, credentials must stay external to every agent, and one place must hold the policy and the audit trail.
-
-| | Binary on PATH | Tool call, in-process | Gateway |
-|---|---|---|---|
-| Credentials | flags, env, `config.yaml` | host-supplied `CredentialResolver` | vault-backed resolver, per request |
-| Policy | `config.yaml` | `capabilityGate` hook | `capabilityGate` hook plus the host's own middleware |
-| Identity | `--identity-token` or env | `context.user` | `context.user` and `context.sso` from the request |
-| Audit | stderr line per run | reporter events | reporter events, recorded by the host |
-| Connections | file session cache | runtime pool | runtime pool, keyed per tenant and identity |
+Under the same contract: a **tenant catalog** (`introspect --bootstrap`) so `learn` and `--schema` speak the instance's own names, **manifests** that turn one HTTP endpoint into a command from a JSON file, and **sessions** that cache expensive logins per instance, managed with `auth status` and `auth logout`.
 
 ## The introspection-first workflow
 
-An agent needs no documentation beyond the binary:
+An agent needs no documentation beyond the binary, and nothing before the last step touches the API:
 
 ```bash
 aclif discover --json                                   # every provider, its tier, whether credentials are configured
@@ -85,7 +53,49 @@ Every result is one JSON envelope:
 }
 ```
 
-Errors carry a code, a message, a hint that names the command that fixes the problem, and where possible a corrected value ready to resend. Exit codes are 0, 1 (API), 2 (usage), 3 (authentication). The full contract, with the JSON Schemas that back it, is in [docs/CONTRACT.md](docs/CONTRACT.md). The agent-facing quick start is [docs/USING_WITH_AGENTS.md](docs/USING_WITH_AGENTS.md).
+`_context.pagination.nextCommand` is the complete command for the next page. Errors carry a code, a message, a `syntaxGuide` naming the command that fixes the problem, and where possible a `workingExample` and a `correctedValue` ready to resend. Exit codes are 0, 1 (API), 2 (usage), 3 (authentication), so an agent can branch without parsing prose. The full contract, with the JSON Schemas that validate every envelope, is in [docs/CONTRACT.md](docs/CONTRACT.md). The agent-facing skill is [skills/aclif/](skills/aclif/); [docs/USING_WITH_AGENTS.md](docs/USING_WITH_AGENTS.md) says how to install it.
+
+For an agent that executes a defined workflow, do the discovery once. Run `learn`, `--schema`, and `--examples` at design time, embed the exact command string in the workflow, and the agent executes it at run time as ordinary code, with no model in the loop and no inference cost for the call.
+
+## Three ways to run it
+
+A vendor CLI is built for one deployment: installed on a machine, logged in by the person at the keyboard, one process per command, with credentials in its own config file and output meant for a terminal. Behind a gateway that fails. Every call spawns a process and logs in again, the acting user's identity cannot be forwarded, nothing declares what a command will do before it runs, and every tool reports in its own format, so there is nothing uniform to audit.
+
+aclif's command classes run unchanged in three places, and whoever runs them decides who supplies the credentials, who enforces policy, and who keeps the audit trail.
+
+### 1. Run by the agent
+
+The agent process spawns the binary, executes the command, and reads the JSON it returns, the way a coding agent runs `git` or `gh`. Credentials come from flags, environment variables, or a profile in `config.yaml`, in that order; policy comes from the same file; the audit line writes to stderr. The agent learns each command from the binary, because every command returns `--schema`, `--examples`, and `--shape` without credentials and without executing; the workflow and rules it follows are packaged as a skill in [skills/aclif/](skills/aclif/). This is the deployment [docs/USING_WITH_AGENTS.md](docs/USING_WITH_AGENTS.md) describes, and the repository [Dockerfile](Dockerfile) builds a standalone image for it.
+
+Use this when one agent, one operator, and one set of credentials share a trust boundary.
+
+### 2. Run by a host application, the design-time case
+
+An application sits between the model and aclif and holds the credentials. The model calls a tool the application defines, and the application executes the command, in-process through the embedded runtime or by passing a command string to the CLI. In-process, the host imports the package, starts one `Runtime`, and calls `runtime.run({argv, context, credentials, pool, reporter})` from inside its tool handler; no process is spawned, the connection pool stays warm between calls, and the result is the same JSON envelope the binary prints. An authoring tool uses this to let a model discover providers, introspect commands, and validate the exact command it will write into an agent. One tool describing the grammar replaces one tool per operation, and the model loads a command's definition only when it asks for it.
+
+Use this when the model must never hold credentials and tool definitions must stay out of its context.
+
+### 3. Run by a gateway, the runtime case
+
+A deployed agent submits commands, and one long-lived process serves many such agents. The gateway starts one `Runtime` and turns each request into an `Invocation` carrying:
+
+- the command as argv;
+- an `ExecutionContext` with a request id, the user's identity and profile, forwarded SSO claims, an abort signal, and free-form audit metadata such as the calling application;
+- a `CredentialResolver` the host implements over its secrets store, resolved per request, so credentials never leave the gateway;
+- a `capabilityGate` hook that runs on the command's declared metadata before the command class is loaded, so a denied command costs nothing;
+- a `rateLimit` hook, a reporter that collects the envelope, and the shared connection pool, which caches clients by provider, instance, identity, and auth type so two instances never share a connection.
+
+The agents on the other side of the socket send a command, an application key, and the acting user's identity token. They hold no provider credentials, cannot reach the provider directly, and cannot widen their own scope, because scope is decided by the gate from metadata on the command. Prompt One's service gateway runs this way, resolving credentials from a vault per request and applying its capability gate on every call; its first version spawned a process per command, and a modest seed job took minutes, most of it process startup and repeated logins. The embedded runtime is what replaced it. Details in [docs/EMBEDDING.md](docs/EMBEDDING.md).
+
+Use this when many agents share providers and one place must hold policy and audit.
+
+| | Run by the agent | Run by a host application | Run by a gateway |
+|---|---|---|---|
+| Credentials | flags, env, `config.yaml` | host-supplied `CredentialResolver` | vault-backed resolver, per request |
+| Policy | `config.yaml` | `capabilityGate` hook | `capabilityGate` hook plus the host's own middleware |
+| Identity | `--identity-token` or env | `context.user` on the invocation | `context.user` and `context.sso` from the request |
+| Audit | stderr line per run | reporter events | reporter events, recorded by the host |
+| Connections | file session cache | runtime pool | runtime pool, keyed per instance and identity |
 
 ## Thirty-second install
 
@@ -93,7 +103,20 @@ The reference CLI is the `aclif` binary in this repository, built with every bui
 
 ```bash
 npm install -g @aclif/core
-export SF_INSTANCE_URL=https://example.my.salesforce.com SF_ACCESS_TOKEN=...
+
+# Your org's My Domain URL, no trailing slash
+export SF_INSTANCE_URL=https://example.my.salesforce.com
+
+# A session token from the Salesforce CLI (sf org login web first if needed)
+export SF_ACCESS_TOKEN=$(sf org auth show-access-token -o me@example.com --json | jq -r .result.accessToken)
+
+aclif salesforce data query --query "SELECT Id, Name FROM Account LIMIT 3" --json
+```
+
+Without the Salesforce CLI, use an API user. Salesforce emails the security token when the password is set or reset:
+
+```bash
+export SF_INSTANCE_URL=https://example.my.salesforce.com SF_USERNAME=me@example.com SF_PASSWORD=... SF_SECURITY_TOKEN=...
 aclif salesforce data query --query "SELECT Id, Name FROM Account LIMIT 3" --json
 ```
 
@@ -120,23 +143,13 @@ Here `mycli` stands for whatever you name yours. The result is a CLI called `myc
 | Agentforce | native | External Client App client credentials | [SETUP](docs/providers/native/agentforce/SETUP.md) |
 | Google Workspace (Gmail, Calendar) | contributed | OAuth refresh token; service account with domain-wide delegation; access token | [SETUP](docs/providers/contributed/google/SETUP.md) |
 
-Native providers are maintained by the project and gate every release. Contributed providers are maintained by the people named in their plugin. A third tier, private, is for providers a fork keeps to itself; upstream never touches it. Credentials come from flags, environment variables, or a profile in `config.yaml`, in that order; see [docs/CONFIGURATION.md](docs/CONFIGURATION.md).
+Native providers are maintained by the project and are included in every release, with live smoke tests against real instances. Contributed providers are maintained by the people named in their plugin and are packaged with the release. A third tier, private, is for providers a fork keeps to itself; upstream never touches it. Credentials come from flags, environment variables, or a profile in `config.yaml`, in that order; see [docs/CONFIGURATION.md](docs/CONFIGURATION.md).
 
-Adding a provider is a mechanical projection of the platform's API specification onto the command surface, which a coding agent does well and the conformance suite checks: [docs/PROVIDER_AUTHORING.md](docs/PROVIDER_AUTHORING.md).
-
-## What every command gives you
-
-- **Introspection without execution**: `--schema`, `--examples`, `--shape`, `--changelog`, `--discover`, `--flags-for`, `--estimate`. No credentials needed.
-- **Safety metadata**: mutability, blast radius, reversibility, idempotency, capabilities, and whether confirmation is required, declared on every command and enforced by the policy layer.
-- **Dry run** on every mutation, `--confirm` where the metadata demands it, and an audit line on stderr after every run.
-- **Tenant catalog**: `introspect --bootstrap` captures an instance's custom objects, fields, and enumerations so `learn` and `--schema` speak the customer's names.
-- **Canonical names**: alias sets map `customer` to `Account` in one org, `core_company` in another; `--canonical` resolves them.
-- **Manifests**: a declarative JSON file turns one HTTP endpoint into a command with the same contract as a static one.
-- **Sessions**: expensive logins are cached per instance with `auth status` and `auth logout` to manage them.
+Writing a provider takes little effort when a coding agent does the work. A provider is a direct translation of the platform's API specification onto the command surface: each operation becomes a command, its parameters become flags, its enumerations become flag options, and its method and path decide the safety metadata. [docs/PROVIDER_AUTHORING.md](docs/PROVIDER_AUTHORING.md) includes a sample generation prompt, [AGENTS.md](AGENTS.md) is the guide written for the coding agent, and the repository ships an `add-provider` skill for Claude Code under [.claude/skills/](.claude/skills/add-provider/SKILL.md) that follows the same steps. The agent generates the provider and runs the conformance suite; you review the result.
 
 ## Embedding
 
-A host process runs commands in-process instead of spawning the binary, supplying credentials, identity, and policy per invocation:
+A host process runs commands in-process instead of spawning the binary, supplying credentials, identity, and policy per invocation. The samples import from `aclif`; a CLI scaffolded from aclif installs `@aclif/core` under that alias, and a project of your own does the same with `npm install aclif@npm:@aclif/core`.
 
 ```ts
 import {Runtime, EventReporter, StaticCredentialResolver} from 'aclif'
@@ -166,6 +179,8 @@ console.log(result.exitCode, reporter.envelope())
 Most teams that want a private provider should build a CLI package (above) and never fork. A team that also changes the framework's core forks it and keeps its providers under `src/providers/private/`, a prefix upstream never commits to and upstream CI refuses to accept, so pulling upstream stays conflict-free and core fixes go back upstream from a clean branch. [docs/FORKING.md](docs/FORKING.md).
 
 ## Development
+
+aclif is built on [oclif](https://oclif.io), the framework under the Salesforce and Heroku CLIs, taken as an ordinary dependency. oclif parses every flag, routes every command, and runs the hook lifecycle; aclif adds the agent contract, the safety metadata, the introspection flags, and the embedded runtime. [docs/MOTIVATION.md](docs/MOTIVATION.md#oclif-the-starting-point-and-its-limit) says where oclif stops and aclif starts.
 
 ```bash
 npm install            # generates the provider index

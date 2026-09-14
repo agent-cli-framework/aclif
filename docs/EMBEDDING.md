@@ -70,7 +70,7 @@ A `CredentialResolver` answers `get(provider)` with `ServiceAccountCredentials` 
 | `ProfileCredentialResolver(registry, profile)` | one profile section from a config file |
 | `ChainCredentialResolver([...])` | first resolver that answers |
 
-A host that keeps credentials in a vault implements the interface and resolves per request; the pool caches the client by provider, instance URL, identity, and auth type, so two tenants never share a connection.
+A host that keeps credentials in a vault implements the interface and resolves per request; the pool caches the client by provider, instance URL, identity, and auth type, so two instances never share a connection.
 
 ## Hooks
 
@@ -108,7 +108,7 @@ app.post('/execute', async (req, res) => {
   const result = await runtime.run({
     argv: req.body.argv,
     context: {requestId: req.id, user: req.user},
-    credentials: vaultResolver.for(req.tenant),
+    credentials: vaultResolver.for(req.instance),
     pool: runtime.pool,
     reporter,
     hooks: {capabilityGate: gateFor(req.app)},

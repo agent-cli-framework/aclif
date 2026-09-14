@@ -32,7 +32,7 @@ If you are building a CLI on the framework instead of contributing to this repos
 
 Almost every SaaS API you will want to expose publishes a machine-readable description of itself. Most publish OpenAPI. The rest publish something equivalent that can be converted or read directly: Salesforce has `describeGlobal` and per-object `describe`, ServiceNow generates OpenAPI from its REST API Explorer, GraphQL APIs carry their own introspection. That document is the authoritative statement of paths, operations, parameters, request and response schemas, auth schemes, and often pagination and rate-limit conventions.
 
-A provider is a mechanical projection of that document onto the command surface this framework defines. The projection is what an authoring agent is good at; the judgment calls are what you review.
+A provider is a mechanical mapping of that document onto the command surface this framework defines. The mapping is what an authoring agent is good at; the judgment calls are what you review.
 
 ### Why not the vendor SDK
 
@@ -62,7 +62,7 @@ The mechanical column is a job for a modern AI coding platform working in this r
 
 ### A sample generation prompt
 
-Adapt the bracketed parts. Keep the rest; the constraints are what make the output pass conformance on the first or second attempt.
+Adapt the bracketed parts. Keep the rest; the constraints are what make the output pass conformance on the first or second attempt. The repository also ships the same steps as an `add-provider` skill for Claude Code, in [.claude/skills/add-provider/SKILL.md](../.claude/skills/add-provider/SKILL.md); invoke it with `/add-provider` from a checkout.
 
 ```text
 You are adding a provider to this repository. Read these before writing any code:

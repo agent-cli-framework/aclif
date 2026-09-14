@@ -132,7 +132,7 @@ The golden test in `test/contract/golden/` freezes the introspection output of e
 | `--confirm` | acknowledge a command that requires confirmation |
 | `--profile`, `--instance` | select credentials from the config file ([CONFIGURATION.md](CONFIGURATION.md)) |
 | `--identity-token` | present an identity to the policy layer |
-| `--canonical` | treat entity and field names as canonical names and resolve them through the alias sets in force |
+| `--canonical` | treat entity and field names as canonical names and resolve them through the alias sets in use |
 | `--bootstrap`, `--refresh`, `--all` | on `introspect`: capture, recapture, or widen the tenant catalog |
 
 Provider credential flags are generated from each provider's credential schema and listed by `--flags-for auth`.
@@ -157,7 +157,7 @@ A declarative manifest turns one HTTP endpoint into a command with the same cont
 
 ## Alias sets
 
-An alias set maps canonical entity and field names to each provider and instance's native names. `schemas/alias-set.schema.json` defines its structure: `id`, `entities[]` with `canonical`, `mappings[]` (`provider`, `instance`, `native`), and `fields[]` mapped the same way. `--canonical` resolves through the sets in force; `aliases resolve`, `aliases list`, `aliases validate`, `aliases import`, and `aliases export` manage them. A starter vocabulary ships with the framework.
+An alias set maps canonical entity and field names to each provider and instance's native names. `schemas/alias-set.schema.json` defines its structure: `id`, `entities[]` with `canonical`, `mappings[]` (`provider`, `instance`, `native`), and `fields[]` mapped the same way. `--canonical` resolves through the sets in use; `aliases resolve`, `aliases list`, `aliases validate`, `aliases import`, and `aliases export` manage them. A starter vocabulary ships with the framework.
 
 ## What bumps the version
 

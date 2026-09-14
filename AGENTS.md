@@ -1,10 +1,10 @@
 # Working in this repository
 
-Instructions for coding agents changing aclif. If you are an agent that *uses* the `aclif` binary to reach SaaS platforms, read [docs/USING_WITH_AGENTS.md](docs/USING_WITH_AGENTS.md) instead.
+Instructions for coding agents changing aclif. If you are an agent that *uses* the `aclif` binary to reach SaaS platforms, read the skill in [skills/aclif/](skills/aclif/) instead; [docs/USING_WITH_AGENTS.md](docs/USING_WITH_AGENTS.md) says how to install it.
 
 ## What this is
 
-aclif is a framework, built on oclif, for command-line tools that AI agents drive: one grammar and one JSON envelope across every provider, self-describing commands, declared safety metadata, and an embeddable runtime. The package is `@aclif/core`; the binary is `aclif`. Node 22 or later.
+aclif builds command-line tools for AI agents. An agent gets a single tool that provides a unified abstraction across every SaaS provider: one grammar, and canonical names that reach the same record by the same name on any platform. Every command describes itself on request, declares its safety metadata, and runs unchanged from a shell or inside the embedded runtime. It is built on oclif as an ordinary dependency. The package is `@aclif/core`; the binary is `aclif`. Node 22 or later.
 
 ## Commands
 

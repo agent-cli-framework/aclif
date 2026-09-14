@@ -1,7 +1,7 @@
 {
   "name": "@aclif/core",
   "version": "1.2.0",
-  "description": "Agent CLI Framework: a self-describing command surface over SaaS APIs for compiled workflow agents",
+  "description": "Agent CLI Framework: command-line tools for AI agents, one grammar and canonical names across every SaaS provider",
   "type": "module",
   "license": "MIT",
   "author": "Prompt One, Inc.",
@@ -61,6 +61,7 @@
     "/bin",
     "/lib",
     "/schemas",
+    "/skills",
     "/scripts/gen-provider-index.mjs",
     "/scripts/scaffold-cli.mjs",
     "/oclif.manifest.json"

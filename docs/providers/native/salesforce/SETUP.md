@@ -6,7 +6,7 @@ The `salesforce` provider talks to the REST, SOAP login, Tooling, and Metadata A
 
 | Path | Fields | When to use it |
 |---|---|---|
-| Session token | `--instance-url` + `--access-token` (`SF_INSTANCE_URL`, `SF_ACCESS_TOKEN`) | you already hold a session id or OAuth access token, for example from `sf org display` or an embedding host |
+| Session token | `--instance-url` + `--access-token` (`SF_INSTANCE_URL`, `SF_ACCESS_TOKEN`) | you already hold a session id or OAuth access token, for example from `sf org auth show-access-token -o <org> --json` (`sf org display` redacts it) or an embedding host. A security token is not a session token; it belongs on the username and password path |
 | Username and password | `--instance-url` + `--sf-username` + `--sf-password` (+ `--security-token`, `--login-url`) (`SF_USERNAME`, `SF_PASSWORD`, `SF_SECURITY_TOKEN`, `SF_LOGIN_URL`) | an integration user with API access; the CLI performs the SOAP login once and caches the session |
 | OAuth client credentials | `--instance-url` + `--client-id` + `--client-secret` (`SF_CLIENT_ID`, `SF_CLIENT_SECRET`) | a Connected App or External Client App with the client credentials flow enabled and a run-as user |
 
