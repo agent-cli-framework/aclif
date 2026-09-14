@@ -52,7 +52,7 @@ export function goldenPath(goldenDir: string, id: string, flag: string): string 
   return join(goldenDir, ...id.split(':'), `${flag}.json`)
 }
 
-/** Canonical form: parsed and re-serialised with two-space indent. */
+/** Canonical form: parsed and re-serialized with two-space indent. */
 export function normalize(json: string): string {
   return JSON.stringify(JSON.parse(json), null, 2) + '\n'
 }

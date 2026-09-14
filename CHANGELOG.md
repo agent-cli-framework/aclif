@@ -4,6 +4,17 @@ All notable changes to this project are recorded here. The format follows [Keep 
 
 ## Unreleased
 
+### Added
+
+- `skills/aclif/`, a skill for agents that use the binary: `SKILL.md` holds the workflow and rules, `reference.md` the flags, envelope, exit codes, and command topology. The directory is included in the npm package. `docs/USING_WITH_AGENTS.md` is now the page that says how to install it; the content it held moved into the skill.
+- The CLI scaffold writes an MIT `LICENSE` and sets `author` in `package.json`, both naming `--author` (default: `<name> authors`) as the copyright holder. A scaffolded package previously declared `license: MIT` without shipping the license text.
+
+### Changed
+
+- The generated provider index carries the same SPDX header as the rest of the shipped source.
+- `package.json` names the author as `Prompt One, Inc.`, matching `LICENSE` and the source headers.
+- The package description, the README, and `AGENTS.md` state what aclif is in the same words as the project site: command-line tools for AI agents, one grammar and canonical names across every SaaS provider. The README leads with why agents need their own CLI, lists what every command gives you in the site's order, names the three deployments as the site does (run by the agent, by a host application, by a gateway), and says "instance" where it said "tenant"; "tenant catalog" keeps its name. `PROVIDER_AUTHORING.md` now points at the `add-provider` skill. `MOTIVATION.md` starts from the incentive, no unnecessary tokens and deterministic execution, shows where MCP and run-time inference fall short, and describes the compiled workflow agent at design time and at run time; published work is cited in one closing paragraph.
+
 ## [1.2.0] - 2026-09-12
 
 ### Changed

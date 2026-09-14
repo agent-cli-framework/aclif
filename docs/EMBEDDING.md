@@ -14,7 +14,7 @@ const runtime = await Runtime.start({
   pool: {max: 100, ttl: 30 * 60 * 1000},      // connection pool size and TTL
   health: {degradedThreshold: 3, unhealthyThreshold: 5},
 })
-console.log(runtime.config.commands.length)   // the full command catalogue
+console.log(runtime.config.commands.length)   // the full command catalog
 ```
 
 `Runtime.start` loads the CLI package's oclif `Config`, which imports the command target where `defineCli()` ran, so the registry the runtime uses is the one that CLI declared. Start it once and share it; commands run concurrently on one runtime because every invocation carries its own state. `runtime.stop()` clears the probe timer.
@@ -42,7 +42,7 @@ const result = await runtime.run(invocation)
 
 ### What the runtime replaces
 
-| Standalone behaviour | Embedded behaviour |
+| Standalone behavior | Embedded behavior |
 |---|---|
 | `this.log()` writes stdout | the envelope goes to `reporter.result` or `reporter.error`; other JSON to `reporter.result`; plain text to `reporter.log('info', ...)` |
 | `this.exit(code)` and `this.error()` end the process | they become `AciRuntimeError`s that `run()` turns into `exitCode` and an error envelope |
@@ -70,7 +70,7 @@ A `CredentialResolver` answers `get(provider)` with `ServiceAccountCredentials` 
 | `ProfileCredentialResolver(registry, profile)` | one profile section from a config file |
 | `ChainCredentialResolver([...])` | first resolver that answers |
 
-A host that keeps credentials in a vault implements the interface and resolves per request; the pool caches the client by provider, instance URL, identity, and auth type, so two tenants never share a connection.
+A host that keeps credentials in a vault implements the interface and resolves per request; the pool caches the client by provider, instance URL, identity, and auth type, so two instances never share a connection.
 
 ## Hooks
 
@@ -84,12 +84,12 @@ hooks: {
 }
 ```
 
-The gate runs before the command class is loaded, on the metadata from the catalogue, so a denied command costs nothing. A denial returns exit 3 with the gate's error; a gate that throws returns `CAPABILITY_GATE_ERROR` (or the thrown `AciRuntimeError` as is).
+The gate runs before the command class is loaded, on the metadata from the catalog, so a denied command costs nothing. A denial returns exit 3 with the gate's error; a gate that throws returns `CAPABILITY_GATE_ERROR` (or the thrown `AciRuntimeError` as is).
 
-## Manifests, tenant catalogues, aliases
+## Manifests, tenant catalogs, aliases
 
-- `runtime.addManifestCommands(provider, manifests)` adds declarative commands to the catalogue for the runtime's lifetime; ids must not collide with existing commands.
-- `invocation.tenantCache` implements `TenantCache` (`load`, `save` by provider and instance key). With it, `introspect --bootstrap` persists through the host, and `learn` and `--schema` read the host's catalogue. `instanceKey(provider, creds)` from the package computes the key.
+- `runtime.addManifestCommands(provider, manifests)` adds declarative commands to the catalog for the runtime's lifetime; ids must not collide with existing commands.
+- `invocation.tenantCache` implements `TenantCache` (`load`, `save` by provider and instance key). With it, `introspect --bootstrap` persists through the host, and `learn` and `--schema` read the host's catalog. `instanceKey(provider, creds)` from the package computes the key.
 - `invocation.aliasStore` implements `AliasStore`; `--canonical` resolves through it. `AliasResolver` is the reference implementation over a list of `AliasSet`s.
 
 ## Health
@@ -108,7 +108,7 @@ app.post('/execute', async (req, res) => {
   const result = await runtime.run({
     argv: req.body.argv,
     context: {requestId: req.id, user: req.user},
-    credentials: vaultResolver.for(req.tenant),
+    credentials: vaultResolver.for(req.instance),
     pool: runtime.pool,
     reporter,
     hooks: {capabilityGate: gateFor(req.app)},

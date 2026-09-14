@@ -6,7 +6,7 @@ The `salesforce` provider talks to the REST, SOAP login, Tooling, and Metadata A
 
 | Path | Fields | When to use it |
 |---|---|---|
-| Session token | `--instance-url` + `--access-token` (`SF_INSTANCE_URL`, `SF_ACCESS_TOKEN`) | you already hold a session id or OAuth access token, for example from `sf org display` or an embedding host |
+| Session token | `--instance-url` + `--access-token` (`SF_INSTANCE_URL`, `SF_ACCESS_TOKEN`) | you already hold a session id or OAuth access token, for example from `sf org auth show-access-token -o <org> --json` (`sf org display` redacts it) or an embedding host. A security token is not a session token; it belongs on the username and password path |
 | Username and password | `--instance-url` + `--sf-username` + `--sf-password` (+ `--security-token`, `--login-url`) (`SF_USERNAME`, `SF_PASSWORD`, `SF_SECURITY_TOKEN`, `SF_LOGIN_URL`) | an integration user with API access; the CLI performs the SOAP login once and caches the session |
 | OAuth client credentials | `--instance-url` + `--client-id` + `--client-secret` (`SF_CLIENT_ID`, `SF_CLIENT_SECRET`) | a Connected App or External Client App with the client credentials flow enabled and a run-as user |
 
@@ -31,7 +31,7 @@ The `salesforce` provider talks to the REST, SOAP login, Tooling, and Metadata A
 export SF_INSTANCE_URL=https://example.my.salesforce.com SF_USERNAME=api.user@example.com SF_PASSWORD='...' SF_SECURITY_TOKEN='...'
 $BIN salesforce discover --json                       # org id, API version, custom objects
 $BIN salesforce introspect --json                     # what the credentials can do per object
-$BIN salesforce introspect --bootstrap --json         # capture the tenant catalogue (custom objects + core objects)
+$BIN salesforce introspect --bootstrap --json         # capture the tenant catalog (custom objects + core objects)
 $BIN salesforce data query --query "SELECT Id, Name FROM Account LIMIT 3" --json
 ```
 
@@ -48,5 +48,5 @@ Change the password, collect the new security token, update both values wherever
 | `AUTHENTICATION_FAILED` | expired session, wrong password or token, trailing slash on the instance URL | check the three values, then `auth logout` |
 | `INSUFFICIENT_ACCESS` | the user lacks object or field permission | `salesforce introspect --json` shows per-object CRUD |
 | `RATE_LIMITED` (`REQUEST_LIMIT_EXCEEDED`) | the org's rolling 24-hour API allocation is spent | wait, or narrow the query; `apiCallsConsumed` in `--schema` helps budget |
-| `INVALID_FIELD`, `INVALID_OBJECT`, `MALFORMED_QUERY` | SOQL against a name the org does not have | `salesforce data describe <Object> --json`; the tenant catalogue lists custom names |
+| `INVALID_FIELD`, `INVALID_OBJECT`, `MALFORMED_QUERY` | SOQL against a name the org does not have | `salesforce data describe <Object> --json`; the tenant catalog lists custom names |
 | `SOQL_AGGREGATE_ALIAS_ORDER_BY` | `ORDER BY` on an aggregate alias | the error carries `correctedValue`; resend it |

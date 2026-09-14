@@ -93,6 +93,6 @@ export const SESSION_FAKES: Record<string, {live: () => unknown; fresh: () => un
 
 /** Commands that need no client at all; they answer without credentials by design. */
 export const NO_CLIENT: Record<string, string> = {
-  'google:discover': 'static catalogue of services and auth methods, no API call',
+  'google:discover': 'static catalog of services and auth methods, no API call',
   'google:drive:view-url': 'formats a Drive URL locally, no API call',
 }

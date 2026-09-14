@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2026 Prompt One, Inc.
 /**
- * oclif's explicit command catalogue for the framework's own reference
+ * oclif's explicit command catalog for the framework's own reference
  * binary (package.json oclif.commands.target). It is one CLI built with
  * defineCli(), exactly as a downstream CLI would be, with every built-in
  * provider in its tier.

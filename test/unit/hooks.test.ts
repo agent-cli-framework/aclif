@@ -115,7 +115,7 @@ describe('context and env', () => {
     expect(untouched).toEqual({ACLIF_PROFILE: 'x'})
   })
 
-  it('standaloneConfigDir honours the scoped override, XDG, and the home fallback', () => {
+  it('standaloneConfigDir honors the scoped override, XDG, and the home fallback', () => {
     expect(standaloneConfigDir('mycli', 'mycli', {MYCLI_CONFIG_DIR: '/etc/mycli'})).toBe('/etc/mycli')
     expect(standaloneConfigDir('mycli', 'mycli', {XDG_CONFIG_HOME: '/xdg'})).toBe(join('/xdg', 'mycli'))
     expect(standaloneConfigDir('mycli', 'mycli', {HOME: '/home/u'})).toBe(join('/home/u', '.config', 'mycli'))

@@ -16,7 +16,7 @@ import type {ProviderTier} from '../../core/provider/registry.js'
 import {assertAciMetadata} from '../envelope.js'
 import {commandRows, eachRow, ownEntries, setupDocPath, type Cmd, type ConformanceOptions} from './options.js'
 
-export function catalogueSuite(opts: ConformanceOptions): void {
+export function catalogSuite(opts: ConformanceOptions): void {
   const entries = ownEntries(opts)
   const commands = commandRows(entries)
   const rel = (p: string) => relative(opts.cliRoot, p).split('\\').join('/')

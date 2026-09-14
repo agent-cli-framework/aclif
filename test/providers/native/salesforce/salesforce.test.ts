@@ -233,7 +233,7 @@ describe('P-salesforce TEN', () => {
     }),
   ]
 
-  it('TEN-1: introspect --bootstrap builds the catalogue from the fixture org: custom entity, custom field on a standard entity, enum, reference', async () => {
+  it('TEN-1: introspect --bootstrap builds the catalog from the fixture org: custom entity, custom field on a standard entity, enum, reference', async () => {
     session()
     mock.server.use(...walk())
     const out = await h.run('salesforce:introspect', ['--bootstrap', '--json'])

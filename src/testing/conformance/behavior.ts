@@ -2,7 +2,7 @@
 // Copyright (c) 2026 Prompt One, Inc.
 /**
  * Conformance that runs every provider command in-process:
- * C-META-2, every mutation honours --dry-run before touching its client;
+ * C-META-2, every mutation honors --dry-run before touching its client;
  * C-CRED-2, every command without credentials exits 3 naming every path.
  */
 import {Config} from '@oclif/core'
@@ -22,7 +22,7 @@ import {commandRows, eachRow, ownEntries, type Cmd, type ConformanceOptions} fro
 const throwingClient = new Proxy({}, {
   get: (_t, p) => {
     if (p === 'then') return undefined
-    throw new Error(`client used before --dry-run was honoured: ${String(p)}`)
+    throw new Error(`client used before --dry-run was honored: ${String(p)}`)
   },
 })
 
@@ -93,7 +93,7 @@ function credentialEnv(plugin: ProviderPlugin): Record<string, string> {
   return env
 }
 
-export function behaviourSuite(opts: ConformanceOptions): void {
+export function behaviorSuite(opts: ConformanceOptions): void {
   const entries = ownEntries(opts)
   const commands = commandRows(entries)
   const noClient = opts.noClient ?? {}

@@ -49,7 +49,7 @@ export interface ResponseContext {
   availableFields: string[]
   refinements: string[]
   relatedCommands: string[]
-  /** Set when the command was synthesised from a manifest. */
+  /** Set when the command was synthesized from a manifest. */
   source?: 'manifest'
   /** Set when --canonical resolved the entity through an alias set. */
   canonical?: {set: string; entity: string; native: string; instance: string}

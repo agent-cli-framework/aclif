@@ -39,7 +39,7 @@ describe('C-MAN-1 manifest fixtures', () => {
   })
 })
 
-describe('U-MAN-1 request resolution and synthesised commands', () => {
+describe('U-MAN-1 request resolution and synthesized commands', () => {
   it('resolves path, optional query, and typed body from flags', () => {
     const r = resolveRequest(apex, {'quote-id': '0Q0/xx', currency: 'EUR'})
     expect(r).toEqual({method: 'GET', path: '/services/apexrest/quotes/0Q0%2Fxx/summary', query: {currency: 'EUR'}})
@@ -50,7 +50,7 @@ describe('U-MAN-1 request resolution and synthesised commands', () => {
     expect(() => resolveRequest(apex, {})).toThrow(/--quote-id/)
   })
 
-  it('runs through the runtime: --schema lists manifest flags, a read issues the request, a mutation honours --dry-run and --confirm', async () => {
+  it('runs through the runtime: --schema lists manifest flags, a read issues the request, a mutation honors --dry-run and --confirm', async () => {
     const runtime = await Runtime.start({cliRoot: process.cwd()})
     try {
       runtime.addManifestCommands('salesforce', [apex])

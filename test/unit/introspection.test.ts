@@ -153,7 +153,7 @@ describe('U-INTRO-3 --discover', () => {
 })
 
 describe('U-INTRO-4 --flags-for', () => {
-  it('honours explicit flagCategories', async () => {
+  it('honors explicit flagCategories', async () => {
     const filtering = json<{category: string; flags: Record<string, unknown>}>(await runClass(config, Categorised, ['--flags-for', 'filtering']))
     expect(filtering.category).toBe('filtering')
     expect(Object.keys(filtering.flags).sort()).toEqual(['limit', 'query'])

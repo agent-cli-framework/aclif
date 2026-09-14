@@ -6,7 +6,7 @@ export const agentforceMetadata: ProviderMetadata = {
   name: 'agentforce',
   description: 'Salesforce Agentforce — chat with autonomous AI agents via the Agent API',
   overview:
-    'Salesforce Agentforce agents are session-oriented: start a session against a specific agent, exchange Text messages, then end the session. Agents organise their capabilities into Topics (what the agent will discuss) and Actions (flows / Apex / prompt templates the agent can invoke). Use this provider to delegate complex CRM workflows — multi-object queries, opportunity scoring, approval flows — that would be impractical to express as raw SOQL via the `salesforce` provider.',
+    'Salesforce Agentforce agents are session-oriented: start a session against a specific agent, exchange Text messages, then end the session. Agents organize their capabilities into Topics (what the agent will discuss) and Actions (flows / Apex / prompt templates the agent can invoke). Use this provider to delegate complex CRM workflows — multi-object queries, opportunity scoring, approval flows — that would be impractical to express as raw SOQL via the `salesforce` provider.',
   querySyntax:
     'Free-form natural language. Each `sessions message` call accepts a single Text utterance and returns a structured envelope with reply text plus any action results the agent emitted.',
   providerSpecificFlags: [

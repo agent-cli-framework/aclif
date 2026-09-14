@@ -5,7 +5,7 @@ description: Add a provider to aclif from a platform's API specification, in a c
 
 # Add a provider
 
-A provider is one directory under `src/providers/<tier>/<name>/` that projects a platform's API onto the command surface. The inputs are all files: the API spec, `docs/CONTRACT.md`, `docs/PROVIDER_AUTHORING.md`, a finished provider to imitate, and the conformance suite, which is the acceptance test. When conformance passes, the mechanical work is done and what remains is the human review listed at the end.
+A provider is one directory under `src/providers/<tier>/<name>/` that maps a platform's API onto the command surface. The inputs are all files: the API spec, `docs/CONTRACT.md`, `docs/PROVIDER_AUTHORING.md`, a finished provider to imitate, and the conformance suite, which is the acceptance test. When conformance passes, the mechanical work is done and what remains is the human review listed at the end.
 
 ## Inputs to collect first
 

@@ -86,7 +86,7 @@ describe('standalone binary, envelope and exit codes', () => {
     expect(audit(out.stderr)).toMatchObject({command: 'salesforce:data:query', exitCode: 1, error: {code: 'COMMAND_ERROR'}})
   }, 120_000)
 
-  it('E-7: --pretty produces coloured output when colour is forced; --json is parseable', async () => {
+  it('E-7: --pretty produces colored output when color is forced; --json is parseable', async () => {
     const pretty = await runBinary(['auth', 'status', '--pretty'], home, env({FORCE_COLOR: '1'}))
     expect(pretty.code, pretty.stderr).toBe(0)
     expect(pretty.stdout).toContain('[')

@@ -12,19 +12,19 @@
  * Every rule id (C-META-1, C-CRED-2, ...) is documented in the framework's
  * docs/PROVIDER_AUTHORING.md.
  */
-import {behaviourSuite} from './behaviour.js'
-import {catalogueSuite} from './catalogue.js'
+import {behaviorSuite} from './behavior.js'
+import {catalogSuite} from './catalog.js'
 import type {ConformanceOptions} from './options.js'
 import {sourceSuite} from './source.js'
 import {tenantSuite} from './tenant.js'
 
 export type {ConformanceOptions, RecordingFake, SourceDir} from './options.js'
-export {behaviourSuite, catalogueSuite, sourceSuite, tenantSuite}
+export {behaviorSuite, catalogSuite, sourceSuite, tenantSuite}
 
 /** Register every conformance rule as vitest tests. Call from a test file. */
 export function conformanceSuite(opts: ConformanceOptions): void {
-  catalogueSuite(opts)
+  catalogSuite(opts)
   sourceSuite(opts)
-  behaviourSuite(opts)
+  behaviorSuite(opts)
   tenantSuite(opts)
 }

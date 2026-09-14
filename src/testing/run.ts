@@ -99,13 +99,13 @@ export async function captureRun(fn: () => Promise<unknown>): Promise<RunOutput>
   return {stdout: out.join(''), stderr: err.join(''), code}
 }
 
-/** Run a registered command through the oclif catalogue, so hooks apply. Callers scrub the env first. */
+/** Run a registered command through the oclif catalog, so hooks apply. Callers scrub the env first. */
 export function runInProcess(config: Config, id: string, argv: string[]): Promise<RunOutput> {
   return captureRun(() => config.runCommand(id, argv))
 }
 
 /**
- * Run a command class that may not be registered in the oclif catalogue the
+ * Run a command class that may not be registered in the oclif catalog the
  * way the embedded runtime does: construct, init, run. Introspection
  * short-circuits end with exit(0) inside init, so run() is never reached.
  */

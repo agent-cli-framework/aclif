@@ -34,7 +34,7 @@ export class FileTenantCache implements TenantCache {
       if (errors.length) throw new Error(errors[0])
       return parsed as TenantCatalog
     } catch (err) {
-      this.warn(`Ignoring corrupt tenant catalogue ${file}: ${(err as Error).message}`)
+      this.warn(`Ignoring corrupt tenant catalog ${file}: ${(err as Error).message}`)
       return undefined
     }
   }

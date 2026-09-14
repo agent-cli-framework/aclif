@@ -27,7 +27,7 @@ Fork this repository when you change core as well as add providers. Your provide
 
 1. Nothing under the four `private/` prefixes changes upstream, so a pull never conflicts with your providers.
 2. No upstream file needs editing when you add a provider. The index generator finds the directory; the topic table is regenerated after the build. The one exception is `package.json` dependencies when a provider needs a protocol library, and that merge is trivial.
-3. Core never imports from a provider directory, and providers never import each other (`C-TIER-1`), so upstream reorganising its own providers cannot break yours.
+3. Core never imports from a provider directory, and providers never import each other (`C-TIER-1`), so upstream reorganizing its own providers cannot break yours.
 4. Provider names are unique across tiers. If upstream later adds a provider with the same name as your private one, your build fails at index generation with both paths named; rename or drop your copy. That is the one case a pull can break the build, and it fails loudly.
 
 ### Working in a fork

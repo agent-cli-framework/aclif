@@ -104,7 +104,7 @@ describe('U-ALIAS-2 --canonical through the runtime', () => {
       expect(unknown.exitCode).toBe(2)
       expect(unknown.envelope.error).toMatchObject({code: 'CANONICAL_NOT_FOUND', syntaxGuide: 'Nearest canonical names: customer'})
 
-      const badField = await runtime.run({...base, argv: ['servicenow', 'data', 'query', '--table', 'customer', '--fields', 'name,colour', '--canonical', '--instance', 'primary'], reporter: new EventReporter()})
+      const badField = await runtime.run({...base, argv: ['servicenow', 'data', 'query', '--table', 'customer', '--fields', 'name,color', '--canonical', '--instance', 'primary'], reporter: new EventReporter()})
       expect(badField.exitCode).toBe(2)
       expect(badField.envelope.error?.code).toBe('CANONICAL_FIELD_NOT_FOUND')
     } finally {

@@ -12,7 +12,7 @@ Provider code is responsible for three things only:
 
 1. Talking to the API: a client class and a factory that authenticates it.
 2. Commands: one class per operation, each carrying its safety metadata and examples.
-3. Knowledge: a briefing for agents, error hints, and optionally a tenant walk over the customer's customisations.
+3. Knowledge: a briefing for agents, error hints, and optionally a tenant walk over the customer's customizations.
 
 ### Tiers
 
@@ -32,7 +32,7 @@ If you are building a CLI on the framework instead of contributing to this repos
 
 Almost every SaaS API you will want to expose publishes a machine-readable description of itself. Most publish OpenAPI. The rest publish something equivalent that can be converted or read directly: Salesforce has `describeGlobal` and per-object `describe`, ServiceNow generates OpenAPI from its REST API Explorer, GraphQL APIs carry their own introspection. That document is the authoritative statement of paths, operations, parameters, request and response schemas, auth schemes, and often pagination and rate-limit conventions.
 
-A provider is a mechanical projection of that document onto the command surface this framework defines. The projection is what an authoring agent is good at; the judgement calls are what you review.
+A provider is a mechanical mapping of that document onto the command surface this framework defines. The mapping is what an authoring agent is good at; the judgment calls are what you review.
 
 ### Why not the vendor SDK
 
@@ -43,7 +43,7 @@ Vendor SDKs look like a shortcut and are a liability for this codebase in partic
 3. **They pull in transitive weight.** A CLI that starts in under a second matters when an agent calls it hundreds of times.
 4. **They pin the API version to the SDK release cadence**, which is not yours.
 5. **They lie about pagination.** Auto-paginating iterators hide the cursor the agent needs in `nextCommand`.
-6. **They serialise to their own types**, and the envelope wants plain JSON.
+6. **They serialize to their own types**, and the envelope wants plain JSON.
 7. **Drift.** SDKs lag the API they wrap, and the API itself drifts from its published description. A `fetch` client written against the spec, with recorded fixtures, drifts in one place you control.
 
 **The exception, stated precisely.** Dependencies are allowed for protocol and auth mechanics that are not HTTP: signing a JWT grant, encoding protobufs for a gRPC API, an XML parser for a SOAP endpoint. Each one is listed in `src/providers/dependency-allowlist.json` with its reason, and the conformance rule `C-DEP-1` rejects any import that is not on the list. The Salesforce provider's `jsforce` is grandfathered there and marked as follow-on work. A private provider in a fork may extend the list with `src/providers/private/dependency-allowlist.json`.
@@ -62,7 +62,7 @@ The mechanical column is a job for a modern AI coding platform working in this r
 
 ### A sample generation prompt
 
-Adapt the bracketed parts. Keep the rest; the constraints are what make the output pass conformance on the first or second attempt.
+Adapt the bracketed parts. Keep the rest; the constraints are what make the output pass conformance on the first or second attempt. The repository also ships the same steps as an `add-provider` skill for Claude Code, in [.claude/skills/add-provider/SKILL.md](../.claude/skills/add-provider/SKILL.md); invoke it with `/add-provider` from a checkout.
 
 ```text
 You are adding a provider to this repository. Read these before writing any code:
@@ -147,7 +147,7 @@ field is the record id, stop and ask.
 The generated files that need a human read, in order of risk:
 
 1. `credentials.ts`: path order and which fields are secret.
-2. The metadata table, especially the rows the agent marked for review. An `update` labelled `read`, or a bulk operation labelled `single_record`, is a governance hole the conformance suite cannot detect from code alone, and anything that permits by property will trust these labels.
+2. The metadata table, especially the rows the agent marked for review. An `update` labeled `read`, or a bulk operation labeled `single_record`, is a governance hole the conformance suite cannot detect from code alone, and anything that permits by property will trust these labels.
 3. `errors.ts`: the hints are where product knowledge lives.
 4. `aciExamples`: the agent will write correct examples; you add the ones that document traps.
 5. `metadata.ts`: tone and length. This is what an agent reads first.
@@ -163,7 +163,7 @@ src/providers/<tier>/acme/
 ├── metadata.ts        # ProviderMetadata (learn and discover briefing)
 ├── client.ts          # AcmeClient + createClient (+ destroyClient)
 ├── errors.ts          # classifyAcmeError: API errors to AciError with hints
-├── tenant.ts          # optional: TenantWalk over the customer's customisations
+├── tenant.ts          # optional: TenantWalk over the customer's customizations
 ├── session.ts         # optional: SessionSupport when a login is expensive
 ├── base.ts            # AcmeBaseCommand, under 40 lines
 └── commands/
@@ -217,7 +217,7 @@ Rules:
 
 What the core does with this:
 
-| Derived behaviour | Where it shows up |
+| Derived behavior | Where it shows up |
 |---|---|
 | `--instance-url`, `--acme-username`, `--acme-password`, `--access-token` flags with env bindings | every `acme` command, `--schema`, `--flags-for auth` |
 | `ACME_*` environment resolution, then `profiles.<name>.acme.{instance_url,username,password,access_token}` in `config.yaml` | standalone credential resolution |
@@ -306,7 +306,7 @@ Conventions the classifier and health monitor rely on:
 
 ## 3. Error hints
 
-`errors.ts` turns API failures into errors an agent can act on. Return `undefined` for anything you do not recognise and the generic mapping applies (it already handles "insufficient access", 403, and permission wording). Decide on the HTTP status first; text heuristics run after, and never match on the request URL, which carries the query string.
+`errors.ts` turns API failures into errors an agent can act on. Return `undefined` for anything you do not recognize and the generic mapping applies (it already handles "insufficient access", 403, and permission wording). Decide on the HTTP status first; text heuristics run after, and never match on the request URL, which carries the query string.
 
 ```ts
 import type {AciError} from '../../../core/contract/aci.js'
@@ -524,13 +524,13 @@ Rules for mutations:
 
 ### discover and introspect
 
-Every provider ships `discover` (what is reachable, what topics exist, a permission-light connectivity ping) and `introspect` (an empirical probe of what the credentials can actually do). Both are read commands and both declare a `responseShape` (`C-META-4`). Keep `introspect` read-only unless a permission can only be proven by writing; if you must write a probe record, tag it with a recognisable sentinel and delete it, following the ServiceNow provider, and say so in `prerequisites`.
+Every provider ships `discover` (what is reachable, what topics exist, a permission-light connectivity ping) and `introspect` (an empirical probe of what the credentials can actually do). Both are read commands and both declare a `responseShape` (`C-META-4`). Keep `introspect` read-only unless a permission can only be proven by writing; if you must write a probe record, tag it with a recognizable sentinel and delete it, following the ServiceNow provider, and say so in `prerequisites`.
 
 ## 7. Schema commands
 
 If the API has any way to learn field names, add `schema entities`, `schema describe <entity>`, and `schema sample --entity <name>` commands under `commands/schema/`. They are ordinary read commands; the ServiceNow provider's `commands/schema/` directory is the pattern to copy, and `C-DISC-1` requires all three once any of them exists. Prefer real metadata endpoints. When the API has none, or the role cannot read them, use `inferFieldsFromRecord` from `core/discovery/schema-inference.ts` on one sampled row and report `source: 'sample-inference'` so the agent knows the types are guesses.
 
-## 8. Tenant introspection: discovering the customer's customisations
+## 8. Tenant introspection: discovering the customer's customizations
 
 ### Two layers of knowledge
 
@@ -547,16 +547,16 @@ Real deployments are not the spec. A Salesforce org has custom objects, custom f
 | Enumerations | picklist values and their active flag | choice lists | field describe |
 | Relationships | lookups, master-detail | reference fields | field describe |
 
-Effective permissions are the job of `introspect`; the catalogue holds structure and never holds record data (`C-TEN-2`).
+Effective permissions are the job of `introspect`; the catalog holds structure and never holds record data (`C-TEN-2`).
 
 ### How it bootstraps against live credentials
 
-The tenant catalogue is built once per instance by an explicit command, refreshed on demand, and cached. The sequence is the same for every provider; what differs is the metadata endpoints you call.
+The tenant catalog is built once per instance by an explicit command, refreshed on demand, and cached. The sequence is the same for every provider; what differs is the metadata endpoints you call.
 
 1. **Resolve credentials** through the normal path. Read-only metadata access is enough, so the setup document should say what the least privileged credential is.
 2. **Walk**: enumerate entities, then describe each. Batch the per-entity calls and respect the product's limits. The default walk covers custom entities plus the provider's `coreEntities`; `--all` widens it (`C-TEN-3`). A full describe of a large org is thousands of calls and is never the default.
-3. **Persist** under the binary's cache directory, keyed by the same instance key the connection pool uses (provider, instance URL, identity, auth type), so two tenants never share a catalogue.
-4. **Surface it** everywhere platform knowledge is surfaced: `learn` adds an instance block listing custom entities, `--schema` on generic commands lists `availableEntities`, and the unknown-entity error can name the closest catalogue match.
+3. **Persist** under the binary's cache directory, keyed by the same instance key the connection pool uses (provider, instance URL, identity, auth type), so two tenants never share a catalog.
+4. **Surface it** everywhere platform knowledge is surfaced: `learn` adds an instance block listing custom entities, `--schema` on generic commands lists `availableEntities`, and the unknown-entity error can name the closest catalog match.
 
 Standalone, this is `$BIN acme introspect --bootstrap` followed by any command; `--refresh` rebuilds, `--all` widens. Embedded hosts call the walk directly and keep the result wherever they keep tenant state.
 
@@ -589,15 +589,15 @@ export const acmeTenant: TenantWalk<AcmeClient> = {
 }
 ```
 
-Declare it as `tenant: acmeTenant` on the plugin and spread `AcmeBaseCommand.tenantFlags` into `introspect`'s flags (that adds `--bootstrap`, `--refresh`, `--all`); call `await this.handleTenantFlags(flags, client)` right after obtaining the client and return when it answers `true`. `TenantCatalog` is a core type shared by all providers so that `learn`, `--schema`, and the alias resolver can read any provider's catalogue without provider-specific code; `schemas/tenant-catalog.schema.json` is its published form. If the product has no metadata endpoint, build entries from `inferFieldsFromRecord` on one sampled row and set `provenance: 'sample-inference'`. Do not fabricate a field list from documentation; an absent field is better than an invented one.
+Declare it as `tenant: acmeTenant` on the plugin and spread `AcmeBaseCommand.tenantFlags` into `introspect`'s flags (that adds `--bootstrap`, `--refresh`, `--all`); call `await this.handleTenantFlags(flags, client)` right after obtaining the client and return when it answers `true`. `TenantCatalog` is a core type shared by all providers so that `learn`, `--schema`, and the alias resolver can read any provider's catalog without provider-specific code; `schemas/tenant-catalog.schema.json` is its published form. If the product has no metadata endpoint, build entries from `inferFieldsFromRecord` on one sampled row and set `provenance: 'sample-inference'`. Do not fabricate a field list from documentation; an absent field is better than an invented one.
 
 ### Safety rules for the tenant layer
 
-- Bootstrap is explicit. No command triggers a catalogue walk as a side effect of a query.
+- Bootstrap is explicit. No command triggers a catalog walk as a side effect of a query.
 - Default scope is narrow; `--all` is opt-in.
-- The catalogue stores names, types, labels, enum values, and relationships. It never stores record data, and never stores anything the credential schema marks `secret`.
+- The catalog stores names, types, labels, enum values, and relationships. It never stores record data, and never stores anything the credential schema marks `secret`.
 - The walk is read-only (`C-TEN-1` runs it under a recording client). Write probes belong to `introspect`, use a sentinel, clean up, and are declared in `prerequisites`.
-- One catalogue per instance key. Multi-instance deployments of the same product get separate catalogues, which is what lets an alias set map a canonical entity to each instance's native name.
+- One catalog per instance key. Multi-instance deployments of the same product get separate catalogs, which is what lets an alias set map a canonical entity to each instance's native name.
 
 ## 9. Sessions and manifests
 

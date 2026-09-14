@@ -10,7 +10,7 @@ import {builtinRegistry} from '../../src/providers/index.js'
 
 /**
  * K-6: the packed tarball is a complete CLI root. Runtime.start({cliRoot})
- * on the unpacked package loads the same command catalogue the goldens
+ * on the unpacked package loads the same command catalog the goldens
  * describe, and the package manifest lists what the tarball must ship.
  * The pack skips lifecycle scripts (prepack would rebuild lib/ under the
  * other test files), so the oclif manifest is asserted through package.json

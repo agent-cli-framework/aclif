@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://aclif.dev/schemas/manifest.schema.json",
   "title": "CommandManifest",
-  "description": "One operation on an instance-specific endpoint, described as data and synthesised into a command at load time.",
+  "description": "One operation on an instance-specific endpoint, described as data and synthesized into a command at load time.",
   "type": "object",
   "required": ["id", "description", "aciMetadata", "request", "flags"],
   "additionalProperties": false,

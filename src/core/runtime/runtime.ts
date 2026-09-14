@@ -70,7 +70,7 @@ export class Runtime {
   readonly healthMonitor: HealthMonitor
   readonly probeTimer: ProbeTimer
   readonly registry: ProviderRegistry
-  /** Commands synthesised from manifests the host supplied; resolved alongside the oclif catalogue. */
+  /** Commands synthesized from manifests the host supplied; resolved alongside the oclif catalog. */
   private manifestCommands: import('@oclif/core').Command.Loadable[] = []
   private oclifConfig: Config | null = null
   private cliRoot: string
@@ -98,7 +98,7 @@ export class Runtime {
 
   /**
    * Register manifest commands for a provider. Ids must not collide with
-   * catalogue commands; a manifest that fails validation throws.
+   * catalog commands; a manifest that fails validation throws.
    */
   addManifestCommands(provider: string, manifests: CommandManifest[]): string[] {
     const plugin = this.registry.plugin(provider)

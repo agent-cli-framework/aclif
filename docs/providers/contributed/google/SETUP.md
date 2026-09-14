@@ -14,7 +14,7 @@ The `google` provider covers Gmail and Google Calendar through their REST APIs. 
 
 1. In a Google Cloud project, enable the **Gmail API** and the **Google Calendar API**.
 2. APIs and Services, OAuth consent screen: fill in the app name, support email, and developer contact. While the app is in **Testing**, refresh tokens expire after seven days and only listed test users can consent; publishing the app (Audience, Publish app, "In production", unverified is fine) gives long-lived tokens.
-3. Credentials, Create OAuth client ID (Web application, with `https://developers.google.com/oauthplayground` as an authorised redirect URI if you mint through the playground).
+3. Credentials, Create OAuth client ID (Web application, with `https://developers.google.com/oauthplayground` as an authorized redirect URI if you mint through the playground).
 4. Mint a refresh token with exactly these scopes:
 
 ```

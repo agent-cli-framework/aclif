@@ -43,7 +43,7 @@ import {CONTRACT_VERSION} from '../core/contract/version.js'
  * this check a deliberate exit 3 would be reported as COMMAND_ERROR and
  * the process would exit 0.
  */
-/** Colours for --pretty when the CLI ships no theme of its own. */
+/** Colors for --pretty when the CLI ships no theme of its own. */
 const PRETTY_JSON_THEME = {key: 'cyan', string: 'green', number: 'yellow', boolean: 'magenta', null: 'gray'}
 
 export function isExitError(error: unknown): boolean {
@@ -155,8 +155,8 @@ export abstract class AciBaseCommand extends Command {
 
   /** Flags an `introspect` command spreads in when its provider offers a tenant walk. */
   static tenantFlags = {
-    bootstrap: Flags.boolean({description: 'Capture this instance\'s tenant catalogue (custom entities, fields, enumerations) into the cache', default: false}),
-    refresh: Flags.boolean({description: 'Recapture the tenant catalogue even if one is cached', default: false}),
+    bootstrap: Flags.boolean({description: 'Capture this instance\'s tenant catalog (custom entities, fields, enumerations) into the cache', default: false}),
+    refresh: Flags.boolean({description: 'Recapture the tenant catalog even if one is cached', default: false}),
     all: Flags.boolean({description: 'Widen the tenant walk beyond custom entities and the provider core entities', default: false}),
   }
 
@@ -166,7 +166,7 @@ export abstract class AciBaseCommand extends Command {
   }
 
   /**
-   * How --dry-run is honoured: 'local' commands return the preview from
+   * How --dry-run is honored: 'local' commands return the preview from
    * isDryRun() before any client use (C-META-2 proves it); 'server'
    * commands pass the flag to an API validate-only mode, which is a
    * stronger check when the provider offers one (Google Ads validateOnly).
@@ -308,7 +308,7 @@ export abstract class AciBaseCommand extends Command {
       }
     }
 
-    // When a tenant catalogue is cached for the configured instance, list
+    // When a tenant catalog is cached for the configured instance, list
     // its entities so a design-time reader can name custom objects.
     const catalog = await this.tenantCatalogFromEnv()
 
@@ -625,7 +625,7 @@ export abstract class AciBaseCommand extends Command {
     }
   }
 
-  // --- Tenant catalogue ---
+  // --- Tenant catalog ---
 
   /** The instance key for the credentials getClient() resolved, or undefined before that. */
   protected currentInstanceKey(): string | undefined {
@@ -641,7 +641,7 @@ export abstract class AciBaseCommand extends Command {
   /**
    * Handle --bootstrap / --refresh for an introspect command whose provider
    * offers a tenant walk. Returns true when it handled the invocation (the
-   * caller returns). Prints a summary, never the catalogue itself.
+   * caller returns). Prints a summary, never the catalog itself.
    */
   protected async handleTenantFlags(flags: Record<string, unknown>, client: unknown): Promise<boolean> {
     if (!flags.bootstrap && !flags.refresh) return false
@@ -730,7 +730,7 @@ export abstract class AciBaseCommand extends Command {
   }
 
   /**
-   * The cached catalogue for the instance the environment's credentials
+   * The cached catalog for the instance the environment's credentials
    * point at, if any. Used by introspection consumers (learn, --schema),
    * which run before flags are parsed and must not touch the network.
    */

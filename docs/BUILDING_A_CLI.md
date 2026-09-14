@@ -15,7 +15,7 @@ cd ../mycli && npm install && npm run build
 ./bin/run.js discover --json
 ```
 
-The scaffold writes a complete package. Its heart is one file:
+The scaffold writes a complete package, including an MIT `LICENSE` that names `--author` as the copyright holder (default: `mycli authors`); pass your own name or edit the file if your CLI ships under other terms. Its heart is one file:
 
 ```ts
 // src/index.ts
@@ -107,7 +107,7 @@ invocation as before.
 `defineCli({commands: {'mycli:doctor': Doctor}})` adds commands of the
 CLI's own. `coreCommands: false` drops `discover`, `learn`, `aliases`,
 `auth`, and `manifests`; `manifests: false` skips reading the config
-file's `manifests:` section at catalogue build.
+file's `manifests:` section at catalog build.
 
 ## Releasing
 

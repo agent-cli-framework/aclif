@@ -33,7 +33,7 @@ export function assertAciMetadata(meta: unknown, label: string): void {
   }
 }
 
-/** Validate a tenant catalogue against its schema; returns the error text, empty when valid. */
+/** Validate a tenant catalog against its schema; returns the error text, empty when valid. */
 export function tenantCatalogErrors(catalog: unknown): string {
   return validateTenantCatalog(catalog) ? '' : ajv.errorsText(validateTenantCatalog.errors, {separator: '\n'})
 }
