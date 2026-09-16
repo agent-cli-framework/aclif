@@ -4,6 +4,16 @@ All notable changes to this project are recorded here. The format follows [Keep 
 
 ## Unreleased
 
+## [1.3.1] - 2026-09-16
+
+### Fixed (from commits)
+
+- skip oclif's Windows shell probe; return usage errors as JSON (16df96a)
+
+### Changed (from commits)
+
+- Edits (f72fcf1)
+
 ## [1.3.0] - 2026-09-14
 
 ### Added
