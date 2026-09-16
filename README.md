@@ -1,22 +1,92 @@
 # aclif
 
-**Agent CLI Framework.** aclif builds command-line tools for AI agents. An agent gets a single tool that provides a unified abstraction across every SaaS provider: one grammar, and canonical names that reach the same record by the same name on any platform.
+[![npm](https://img.shields.io/npm/v/@aclif/core)](https://www.npmjs.com/package/@aclif/core) [![ci](https://github.com/agent-cli-framework/aclif/actions/workflows/ci.yml/badge.svg)](https://github.com/agent-cli-framework/aclif/actions/workflows/ci.yml) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+**Agent CLI Framework.** aclif builds command-line tools for AI agents. One binary covers every provider it is built with. A command's schema, examples, and safety metadata load only when the agent asks, so nothing sits in context by default. Every command returns one JSON envelope with one error vocabulary, declares what it will do before it runs, and runs unchanged spawned by an agent, embedded in a host application, or inside a gateway that holds the credentials. MIT, on npm as `@aclif/core`.
 
 ## Why agents need their own CLI
 
-An MCP server publishes a fixed list of tools, and every tool on the list occupies the agent's context on every turn. The server's author trades coverage for cost when the server is built, and an agent that spans several platforms needs a server, a login, and a grammar for each platform. A host can lower the cost with tool filtering or deferred loading, and a server can publish a generic call tool, but each of those is a design-time decision made per server, and it fixes which operations the agent can ever reach.
+MCP is a protocol between a model and a server. aclif is a tool the agent runs directly.
+
+An MCP server publishes a fixed list of tools, and every tool on the list occupies the agent's context on every turn. The server's author trades coverage for cost when the server is built. Publishing every operation (a typical API has hundreds of definitions) keeps the whole API reachable and consumes tokens for all of it on every turn. Publishing a handful of broad operations keeps the token count small, and any operation the author left off the list is out of the agent's reach. A host can lower the cost with tool filtering or deferred loading, and a server can publish a generic call tool, but each of those is a design-time decision made per server, and it fixes which operations the agent can ever reach. Each server is also its own process to deploy, secure, and keep current, so an agent that spans several platforms needs a server, a login, a grammar, an error format, and a set of names for each.
 
 aclif loads a command's definition only when the agent asks for it, so the whole API of every provider is reachable at no standing cost in context. One grammar, one envelope, and one error vocabulary cover every provider, so the agent's context stays about the same size whether it reaches one platform or five.
 
-An agent that runs a defined workflow can leave the model out of the call altogether. An authoring tool works out the exact command at design time and embeds it in the workflow as a string. At run time the agent executes that string as ordinary code, with no tool definition loaded and no inference.
+An agent that runs a defined workflow can leave the model out of the call altogether. A person or an authoring tool works out the exact command at design time and embeds it in the workflow as a string. At run time the agent executes that string as ordinary code, with no tool definition loaded and no inference. The command is chosen at design time, and the authority to run it, the credential, the acting identity, and the policy, is supplied at run time by whatever runs it. Neither side ever holds both.
 
 The reasoning behind this, with its sources and the measured token and cost figures, is in [docs/MOTIVATION.md](docs/MOTIVATION.md).
+
+## Thirty-second install
+
+The reference CLI is the `aclif` binary in this repository, built with every built-in provider. Nothing here needs credentials:
+
+```bash
+npm install -g @aclif/core
+
+aclif discover --json                          # every provider, its commands, whether credentials are configured
+aclif learn salesforce --json                  # a briefing: topics, key fields, query syntax, auth paths
+aclif salesforce data query --schema           # flags, args, and safety metadata, without executing
+aclif salesforce data query --examples         # runnable examples with the responses they produce
+aclif salesforce data query --query "SELECT Id, Name FROM Account LIMIT 3" --dry-run
+```
+
+The dry run prints what the command would do and its declared safety metadata:
+
+```json
+{
+  "dryRun": true,
+  "wouldExecute": {"query": "SELECT Id, Name FROM Account LIMIT 3"},
+  "aciMetadata": {
+    "mutability": "read",
+    "idempotent": true,
+    "reversible": false,
+    "blastRadius": "filtered_set",
+    "apiCallsConsumed": 1,
+    "requiresConfirmation": false,
+    "prerequisites": []
+  }
+}
+```
+
+Run the same command without `--dry-run` and, with no credentials configured, the error names every way to supply them, with exit code 3:
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "NO_CREDENTIALS",
+    "message": "No Salesforce credentials provided.",
+    "syntaxGuide": "Use one of:\n  Session token: --instance-url + --access-token (or SF_INSTANCE_URL, SF_ACCESS_TOKEN)\n  Username + password (+ security token): ...\n  OAuth2 client credentials: --instance-url + --client-id + --client-secret (or SF_INSTANCE_URL, SF_CLIENT_ID, SF_CLIENT_SECRET)"
+  }
+}
+```
+
+To run it for real, point it at an org:
+
+```bash
+# Your org's My Domain URL, no trailing slash
+export SF_INSTANCE_URL=https://example.my.salesforce.com
+
+# A session token from the Salesforce CLI (sf org login web first if needed)
+export SF_ACCESS_TOKEN=$(sf org auth show-access-token -o me@example.com --json | jq -r .result.accessToken)
+
+aclif salesforce data query --query "SELECT Id, Name FROM Account LIMIT 3" --json
+```
+
+Without the Salesforce CLI, use an API user. Salesforce emails the security token when the password is set or reset:
+
+```bash
+export SF_INSTANCE_URL=https://example.my.salesforce.com SF_USERNAME=me@example.com SF_PASSWORD=... SF_SECURITY_TOKEN=...
+aclif salesforce data query --query "SELECT Id, Name FROM Account LIMIT 3" --json
+```
+
+Or from a checkout: `npm install && npm run build && node bin/run.js discover --json`. Node 22 or later.
 
 ## What every command gives you
 
 - **One grammar.** One command structure, one JSON envelope, and one error vocabulary across every provider. An agent learns the tool once, and a new platform adds commands without adding grammar.
 - **Canonical names.** Alias sets map `customer` to `Account` in one Salesforce instance and `core_company` in ServiceNow; `--canonical` resolves them. A tenant catalog, captured from each instance at deploy time, teaches the CLI each instance's custom objects and fields with no change to the provider.
-- **Errors an agent can act on.** Every error names the failure, the command that fixes it, and, where the provider's classifier has a rewrite rule for the mistake, the corrected input ready to resend. The classifier is plain code with no model behind it.
+- **Errors an agent can act on.** An agent recovers in one turn. Every error names the failure, the command that fixes it, and, where the provider's classifier has a rewrite rule for the mistake, the corrected input ready to resend. The classifier is plain code with no model behind it. A command validated in a shell at design time returns the same error at run time under any host, because the same command classes run in both.
 - **Introspection without execution.** `--schema`, `--examples`, `--shape`, `--changelog`, `--discover`, `--flags-for`, and `--estimate` return before the command runs, need no credentials, and count against no API quota. An agent can discover, learn, introspect, and preview against a rate-limited instance and spend nothing.
 - **An embeddable runtime.** The same command classes run in-process inside a host that supplies credentials, identity, and policy per request, keeps connections warm, and caches expensive logins per instance. A gateway built on it works with the enterprise's own identity provider and secrets vault.
 - **Declared safety.** Mutability, blast radius, reversibility, idempotency, and whether confirmation is required are declared on every command. A policy gate can refuse it before its code loads. Every mutation accepts `--dry-run`, demands `--confirm` where its metadata says so, and writes an audit line after every run.
@@ -97,31 +167,6 @@ Use this when many agents share providers and one place must hold policy and aud
 | Audit | stderr line per run | reporter events | reporter events, recorded by the host |
 | Connections | file session cache | runtime pool | runtime pool, keyed per instance and identity |
 
-## Thirty-second install
-
-The reference CLI is the `aclif` binary in this repository, built with every built-in provider:
-
-```bash
-npm install -g @aclif/core
-
-# Your org's My Domain URL, no trailing slash
-export SF_INSTANCE_URL=https://example.my.salesforce.com
-
-# A session token from the Salesforce CLI (sf org login web first if needed)
-export SF_ACCESS_TOKEN=$(sf org auth show-access-token -o me@example.com --json | jq -r .result.accessToken)
-
-aclif salesforce data query --query "SELECT Id, Name FROM Account LIMIT 3" --json
-```
-
-Without the Salesforce CLI, use an API user. Salesforce emails the security token when the password is set or reset:
-
-```bash
-export SF_INSTANCE_URL=https://example.my.salesforce.com SF_USERNAME=me@example.com SF_PASSWORD=... SF_SECURITY_TOKEN=...
-aclif salesforce data query --query "SELECT Id, Name FROM Account LIMIT 3" --json
-```
-
-Or from a checkout: `npm install && npm run build && node bin/run.js discover --json`. Node 22 or later.
-
 ## Build your own CLI
 
 aclif is a framework; the binary you ship is yours. It names itself, picks its providers, and gets everything else from the framework:
@@ -149,34 +194,11 @@ Writing a provider takes little effort when a coding agent does the work. A prov
 
 ## Embedding
 
-A host process runs commands in-process instead of spawning the binary, supplying credentials, identity, and policy per invocation. The samples import from `aclif`; a CLI scaffolded from aclif installs `@aclif/core` under that alias, and a project of your own does the same with `npm install aclif@npm:@aclif/core`.
-
-```ts
-import {Runtime, EventReporter, StaticCredentialResolver} from 'aclif'
-
-const runtime = await Runtime.start({cliRoot: '/path/to/your/cli'})
-const reporter = new EventReporter()
-const result = await runtime.run({
-  argv: ['salesforce', 'data', 'query', '--query', 'SELECT Id FROM Account LIMIT 1'],
-  context: {requestId: 'req-1', user: {id: 'u1', username: 'alice'}},
-  credentials: new StaticCredentialResolver(new Map([['salesforce', {instanceUrl, accessToken, authType: 'session'}]])),
-  pool: runtime.pool,
-  reporter,
-  hooks: {
-    capabilityGate: async ({aciMetadata}, ctx) =>
-      aciMetadata.mutability === 'delete' && !ctx.user
-        ? {allowed: false, error: {code: 'DENIED', message: 'Deletes need a user'}}
-        : {allowed: true},
-  },
-})
-console.log(result.exitCode, reporter.envelope())
-```
-
-`StaticCredentialResolver`, `EnvCredentialResolver`, `ProfileCredentialResolver`, and `ChainCredentialResolver` are built in; a host that keeps credentials in a vault implements the one-method `CredentialResolver` interface and resolves per request. Connection pooling, health monitoring, probe timers, and rate-limit hooks are part of the runtime: [docs/EMBEDDING.md](docs/EMBEDDING.md).
+A host process imports the package, starts one `Runtime`, and calls `runtime.run({argv, context, credentials, pool, reporter, hooks})` from inside its own tool handler, supplying credentials, identity, and policy per invocation. No process is spawned, the connection pool stays warm between calls, and the result is the same envelope the binary prints. Static, environment, profile, and chained credential resolvers are built in; a host that keeps credentials in a vault implements the one-method `CredentialResolver` interface. The full sample, the `capabilityGate` and `rateLimit` hooks, and the pool and health-monitoring API are in [docs/EMBEDDING.md](docs/EMBEDDING.md).
 
 ## Forking
 
-Most teams that want a private provider should build a CLI package (above) and never fork. A team that also changes the framework's core forks it and keeps its providers under `src/providers/private/`, a prefix upstream never commits to and upstream CI refuses to accept, so pulling upstream stays conflict-free and core fixes go back upstream from a clean branch. [docs/FORKING.md](docs/FORKING.md).
+Most teams that want a private provider should build a CLI package (above) and never fork. A team that also changes the framework's core keeps its providers under `src/providers/private/`, a prefix upstream never commits to, so pulling upstream stays conflict-free: [docs/FORKING.md](docs/FORKING.md).
 
 ## Development
 

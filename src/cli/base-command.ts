@@ -46,6 +46,35 @@ import {CONTRACT_VERSION} from '../core/contract/version.js'
 /** Colors for --pretty when the CLI ships no theme of its own. */
 const PRETTY_JSON_THEME = {key: 'cyan', string: 'green', number: 'yellow', boolean: 'magenta', null: 'gray'}
 
+const ANSI = new RegExp(String.fromCharCode(27) + '\\[[0-9;]*m', 'g')
+
+/**
+ * oclif's parse messages carry a preamble ("The following error occurred:"),
+ * indentation, a color code, and a help hint an agent cannot act on. Keep
+ * the reasons, one per failure, on one line.
+ */
+function parseErrorMessage(raw: string): string {
+  const lines = raw
+    .replace(ANSI, '')
+    .split('\n')
+    .map((l) => l.trim())
+    .filter((l) => l && l !== 'See more help with --help')
+  if (/^The following errors? occurred:$/.test(lines[0] ?? '')) return lines.slice(1).join('; ')
+  // A flag value the flag's parser rejected: "Parsing --limit", then the reason.
+  const value = /^Parsing (--\S+)$/.exec(lines[0] ?? '')
+  if (value) return `${value[1]}: ${lines.slice(1).join('; ')}`
+  return lines.join(' ').replace(/\s+/g, ' ')
+}
+
+/**
+ * oclif raises two kinds of parse failure: CLIParseError subclasses carry a
+ * `parse` property; a value rejected by a flag's own parser is a plain error
+ * whose message starts with "Parsing --".
+ */
+function isParseError(err: Error & {parse?: unknown}): boolean {
+  return err.parse !== undefined || /^Parsing --/.test(err.message)
+}
+
 export function isExitError(error: unknown): boolean {
   if (isAciRuntimeError(error)) return true
   return Boolean(error && typeof error === 'object' && 'oclif' in error && typeof (error as {oclif?: {exit?: unknown}}).oclif?.exit === 'number')
@@ -881,16 +910,16 @@ export abstract class AciBaseCommand extends Command {
 
   /**
    * oclif parse failures (unknown flag, missing required flag or arg,
-   * invalid option) become a JSON error envelope on stdout with exit 2, so
+   * invalid option, rejected flag value) become a JSON error envelope on stdout with exit 2, so
    * an agent never has to read help text. Everything else keeps oclif's
    * handling.
    */
   protected override async catch(err: Error & {oclif?: {exit?: number}; parse?: unknown}): Promise<unknown> {
-    if (err.parse !== undefined && typeof err === 'object') {
+    if (typeof err === 'object' && isParseError(err)) {
       const commandId = ((this.constructor as unknown as {id?: string}).id || this.constructor.name).replace(/:/g, ' ')
       this.outputError({
         code: 'INVALID_USAGE',
-        message: err.message.split('\n')[0],
+        message: parseErrorMessage(err.message),
         syntaxGuide: `Run $BIN ${commandId} --schema --json to list the flags and args this command accepts`,
       })
       throw new Errors.ExitError(2)

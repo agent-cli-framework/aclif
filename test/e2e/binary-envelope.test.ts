@@ -69,7 +69,13 @@ describe('standalone binary, envelope and exit codes', () => {
 
     const missing = await runBinary(['salesforce', 'data', 'query'], home, env())
     expect(missing.code).toBe(2)
-    expect(assertEnvelope(JSON.parse(missing.stdout)).error?.code).toBe('INVALID_USAGE')
+    expect(assertEnvelope(JSON.parse(missing.stdout)).error).toMatchObject({code: 'INVALID_USAGE', message: 'Missing required flag query'})
+
+    const badValue = await runBinary(['salesforce', 'data', 'query', '--query', 'SELECT Id FROM Account', '--limit', 'x'], home, env())
+    expect(badValue.code).toBe(2)
+    expect(assertEnvelope(JSON.parse(badValue.stdout)).error).toMatchObject({code: 'INVALID_USAGE', message: '--limit: Expected an integer but received: x'})
+    expect(badValue.stderr).not.toContain('See more help')
+    expect(audit(badValue.stderr)).toMatchObject({command: 'salesforce:data:query', exitCode: 2})
   }, 60_000)
 
   it('E-5: a read against an unreachable instance exits 1 with a COMMAND_ERROR envelope and an audit line with the error code', async () => {
