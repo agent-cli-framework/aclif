@@ -96,7 +96,7 @@
     "@googleapis/calendar": "^16.0.0",
     "@googleapis/gmail": "^18.0.0",
     "@oclif/core": "^5.0.0",
-    "google-auth-library": "^10.0.0",
+    "google-auth-library": "^11.0.2",
     "js-yaml": "^5.4.1",
     "jsforce": "^3.6.2",
     "jsonwebtoken": "^9.0.2",
