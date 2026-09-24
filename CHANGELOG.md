@@ -4,7 +4,13 @@ All notable changes to this project are recorded here. The format follows [Keep 
 
 ## Unreleased
 
+## [1.3.2] - 2026-09-24
+
 - `--help` renders `$BIN` as the binary name in command and topic descriptions and examples. A CLI package built on the framework opts in with `oclif.helpClass` pointing at a file that re-exports `aclif/help`; new scaffolds include it.
+
+### Fixed (from commits)
+
+- **help**: render $BIN in --help output (0f72561)
 
 ## [1.3.1] - 2026-09-16
 
