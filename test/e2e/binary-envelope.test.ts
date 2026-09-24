@@ -58,6 +58,15 @@ describe('standalone binary, envelope and exit codes', () => {
     expect(JSON.parse(out.stdout)).toMatchObject({bin, version: pkg.version, contract: CONTRACT_VERSION, framework: {name: 'aclif', version: pkg.version}})
   }, 60_000)
 
+  it('help renders $BIN as the bin name in topic listings and command pages', async () => {
+    for (const argv of [['docusign', '--help'], ['docusign', 'discover', '--help']]) {
+      const out = await runBinary(argv, home, env())
+      expect(out.code, out.stderr).toBe(0)
+      expect(out.stdout).toContain(`exposed by ${bin}`)
+      expect(out.stdout).not.toContain('$BIN')
+    }
+  }, 60_000)
+
   it('E-6: an unknown flag exits 2 with a JSON error on stdout and an audit line carrying the code', async () => {
     const out = await runBinary(['salesforce', 'data', 'query', '--query', 'SELECT Id FROM Account', '--bogus'], home, env())
     expect(out.code).toBe(2)

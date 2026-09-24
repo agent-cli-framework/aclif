@@ -58,6 +58,7 @@ const files = {
       commands: {strategy: 'explicit', target: './lib/index.js', identifier: 'COMMANDS'},
       topicSeparator: ' ',
       hooks: {init: './lib/hooks/init', prerun: './lib/hooks/prerun', finally: './lib/hooks/finally'},
+      helpClass: './lib/help',
       topics: {},
     },
   }, null, 2) + '\n',
@@ -109,6 +110,7 @@ export const registry: DefinedCli['registry'] = cli.registry
   'src/hooks/init.ts': "export {default} from 'aclif/hooks/init'\n",
   'src/hooks/prerun.ts': "export {default} from 'aclif/hooks/prerun'\n",
   'src/hooks/finally.ts': "export {default} from 'aclif/hooks/finally'\n",
+  'src/help.ts': "export {default} from 'aclif/help'\n",
   'src/providers/dependency-allowlist.json': '{\n  "packages": {}\n}\n',
   'vitest.config.ts': "import {defineConfig} from 'vitest/config'\n\nexport default defineConfig({\n  test: {\n    include: ['test/**/*.test.ts'],\n    // oclif captures stdout/stderr itself; vitest's interception breaks that.\n    disableConsoleIntercept: true,\n    testTimeout: 30_000,\n    hookTimeout: 30_000,\n  },\n})\n",
   'test/conformance.test.ts': `/**

@@ -55,6 +55,10 @@
       "types": "./lib/cli/hooks/finally.d.ts",
       "default": "./lib/cli/hooks/finally.js"
     },
+    "./help": {
+      "types": "./lib/cli/help.d.ts",
+      "default": "./lib/cli/help.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -238,6 +242,7 @@
       "init": "./lib/cli/hooks/init",
       "prerun": "./lib/cli/hooks/prerun",
       "finally": "./lib/cli/hooks/finally"
-    }
+    },
+    "helpClass": "./lib/cli/help"
   }
 }

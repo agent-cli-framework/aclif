@@ -31,8 +31,10 @@ export const {COMMANDS, registry} = defineCli({
 
 `package.json` points oclif at that module (`oclif.commands` with the
 explicit strategy, `target: ./lib/index.js`, `identifier: COMMANDS`) and
-at three one-line hook files that re-export the framework's hooks. Nothing
-else in the CLI package touches the framework's internals.
+at three one-line hook files that re-export the framework's hooks.
+`oclif.helpClass` points at a fourth one-line file, `src/help.ts`, that
+re-exports `aclif/help`, which renders `$BIN` in help output. Nothing else
+in the CLI package touches the framework's internals.
 
 ## What the CLI's name controls
 
