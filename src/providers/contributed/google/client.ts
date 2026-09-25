@@ -63,13 +63,7 @@ export class GoogleWorkspaceClient {
   ): Promise<{bytes: Uint8Array; contentType: string; filename?: string}> {
     if (!fileId) throw new Error('streamFile requires a non-empty fileId')
 
-    const auth = this.authClient as {getAccessToken: () => Promise<{token?: string | null} | string>}
-    const tokenResp = await auth.getAccessToken()
-    const accessToken = typeof tokenResp === 'string' ? tokenResp : tokenResp?.token
-    if (!accessToken) {
-      throw new Error('Google auth client returned no access token — refresh likely failed')
-    }
-
+    const accessToken = await this.accessToken()
     const path = exportMime
       ? `/drive/v3/files/${encodeURIComponent(fileId)}/export?mimeType=${encodeURIComponent(exportMime)}`
       : `/drive/v3/files/${encodeURIComponent(fileId)}?alt=media`
@@ -96,6 +90,36 @@ export class GoogleWorkspaceClient {
       contentType: response.headers.get('content-type') || exportMime || 'application/octet-stream',
       filename: match ? decodeURIComponent(match[1]) : undefined,
     }
+  }
+
+  /**
+   * GET a Drive v3 metadata endpoint and return the parsed JSON. Like
+   * streamFile, this calls the REST API directly instead of the Drive SDK.
+   * Failures throw with the HTTP status in the message so the error
+   * classifier can map 401/403/404/429.
+   */
+  async driveGet<T>(path: string, params: Record<string, string>): Promise<T> {
+    const accessToken = await this.accessToken()
+    const url = `https://www.googleapis.com/drive/v3${path}?${new URLSearchParams(params).toString()}`
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {Authorization: `Bearer ${accessToken}`, Accept: 'application/json'},
+    })
+    if (!response.ok) {
+      const text = await response.text()
+      throw new Error(`Google Drive GET ${path} failed (${response.status}): ${text}`)
+    }
+    return await response.json() as T
+  }
+
+  private async accessToken(): Promise<string> {
+    const auth = this.authClient as {getAccessToken: () => Promise<{token?: string | null} | string>}
+    const tokenResp = await auth.getAccessToken()
+    const accessToken = typeof tokenResp === 'string' ? tokenResp : tokenResp?.token
+    if (!accessToken) {
+      throw new Error('Google auth client returned no access token — refresh likely failed')
+    }
+    return accessToken
   }
 
   /** Get the raw auth client for direct SDK usage */
@@ -155,6 +179,8 @@ export class GoogleServiceProxy {
 export const GOOGLE_SCOPES = [
   'https://www.googleapis.com/auth/gmail.readonly',
   'https://www.googleapis.com/auth/gmail.send',
+  // gmail.modify covers drafts.create (`gmail draft`); gmail.send does not.
+  'https://www.googleapis.com/auth/gmail.modify',
   'https://www.googleapis.com/auth/calendar',
   'https://www.googleapis.com/auth/calendar.events',
   // Drive readonly: needed to stream private Drive files. Adding this scope

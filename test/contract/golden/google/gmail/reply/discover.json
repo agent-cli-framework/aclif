@@ -3,6 +3,19 @@
   "topic": "google:gmail",
   "siblingCommands": [
     {
+      "command": "google:gmail:draft",
+      "description": "Save a Gmail message as a draft without sending it",
+      "aciMetadata": {
+        "mutability": "create",
+        "idempotent": false,
+        "reversible": true,
+        "blastRadius": "single_record",
+        "apiCallsConsumed": 1,
+        "requiresConfirmation": false,
+        "prerequisites": []
+      }
+    },
+    {
       "command": "google:gmail:get",
       "description": "Get a single Gmail message by ID",
       "aciMetadata": {
@@ -96,6 +109,10 @@
   ],
   "childTopics": [
     {
+      "topic": "google:gmail:draft",
+      "description": "Save a Gmail message as a draft without sending it"
+    },
+    {
       "topic": "google:gmail:get",
       "description": "Get a single Gmail message by ID"
     },
@@ -124,5 +141,5 @@
       "description": "Compose and send a Gmail message"
     }
   ],
-  "suggestedStart": "aclif google gmail get --schema --json"
+  "suggestedStart": "aclif google gmail draft --schema --json"
 }

@@ -48,10 +48,11 @@ export default class GoogleDiscover extends GoogleBaseCommand {
       {
         name: 'gmail',
         description: 'Gmail email operations',
-        commands: ['query', 'get', 'send', 'reply'],
+        commands: ['query', 'get', 'send', 'reply', 'draft'],
         scopes: [
           'https://www.googleapis.com/auth/gmail.readonly',
           'https://www.googleapis.com/auth/gmail.send',
+          'https://www.googleapis.com/auth/gmail.modify',
         ],
         querySyntax: 'Gmail search operators: from:, to:, subject:, is:unread, has:attachment, after:YYYY/MM/DD, before:YYYY/MM/DD, in:anywhere',
       },
@@ -64,6 +65,15 @@ export default class GoogleDiscover extends GoogleBaseCommand {
           'https://www.googleapis.com/auth/calendar.events',
         ],
         querySyntax: 'Structured flags: --time-min, --time-max (RFC3339), --query (free text search)',
+      },
+      {
+        name: 'drive',
+        description: 'Google Drive folder listing and file metadata',
+        commands: ['list', 'get', 'view-url'],
+        scopes: [
+          'https://www.googleapis.com/auth/drive.readonly',
+        ],
+        querySyntax: 'Structured flags: --folder-id, --recursive',
       },
     ]
 

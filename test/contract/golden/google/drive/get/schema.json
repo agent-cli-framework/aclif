@@ -1,6 +1,6 @@
 {
-  "command": "google:calendar:update",
-  "description": "Update a Google Calendar event",
+  "command": "google:drive:get",
+  "description": "Get the metadata of one Google Drive file",
   "flags": {
     "json": {
       "type": "boolean",
@@ -141,61 +141,19 @@
       "description": "Pre-obtained OAuth2 access token (short-lived)",
       "required": false
     },
-    "event-id": {
+    "file-id": {
       "type": "option",
-      "description": "Google Calendar event ID to update",
+      "description": "Drive file id",
       "required": true
-    },
-    "calendar-id": {
-      "type": "option",
-      "description": "Calendar ID (default: primary)",
-      "required": false,
-      "default": "primary"
-    },
-    "summary": {
-      "type": "option",
-      "description": "Updated event title",
-      "required": false
-    },
-    "start": {
-      "type": "option",
-      "description": "Updated start time (RFC3339 for timed events, YYYY-MM-DD with --all-day)",
-      "required": false
-    },
-    "end": {
-      "type": "option",
-      "description": "Updated end time (RFC3339 for timed events, YYYY-MM-DD with --all-day; exclusive for all-day)",
-      "required": false
-    },
-    "description": {
-      "type": "option",
-      "description": "Updated event description",
-      "required": false
-    },
-    "location": {
-      "type": "option",
-      "description": "Updated event location",
-      "required": false
-    },
-    "attendees": {
-      "type": "option",
-      "description": "Comma-separated attendee email addresses (replaces existing)",
-      "required": false
-    },
-    "all-day": {
-      "type": "boolean",
-      "description": "Make it an all-day event: --start and --end are YYYY-MM-DD dates (both required)",
-      "required": false,
-      "default": false
     }
   },
   "args": {},
   "aciMetadata": {
-    "mutability": "update",
+    "mutability": "read",
     "idempotent": true,
-    "reversible": true,
+    "reversible": false,
     "blastRadius": "single_record",
-    "apiCallsConsumed": 2,
+    "apiCallsConsumed": 1,
     "requiresConfirmation": false,
     "prerequisites": []
   }

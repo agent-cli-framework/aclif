@@ -15,7 +15,10 @@ import GoogleCalendarGet from './commands/calendar/get.js'
 import GoogleCalendarQuery from './commands/calendar/query.js'
 import GoogleCalendarUpdate from './commands/calendar/update.js'
 import GoogleDiscover from './commands/discover.js'
+import GoogleDriveGet from './commands/drive/get.js'
+import GoogleDriveList from './commands/drive/list.js'
 import GoogleDriveViewUrl from './commands/drive/view-url.js'
+import GoogleGmailDraft from './commands/gmail/draft.js'
 import GoogleGmailGet from './commands/gmail/get.js'
 import GoogleGmailGetAttachment from './commands/gmail/get-attachment.js'
 import GoogleGmailImport from './commands/gmail/import.js'
@@ -43,7 +46,10 @@ export const googlePlugin = defineProvider({
     'google:calendar:query': GoogleCalendarQuery,
     'google:calendar:update': GoogleCalendarUpdate,
     'google:discover': GoogleDiscover,
+    'google:drive:get': GoogleDriveGet,
+    'google:drive:list': GoogleDriveList,
     'google:drive:view-url': GoogleDriveViewUrl,
+    'google:gmail:draft': GoogleGmailDraft,
     'google:gmail:get': GoogleGmailGet,
     'google:gmail:get-attachment': GoogleGmailGetAttachment,
     'google:gmail:import': GoogleGmailImport,

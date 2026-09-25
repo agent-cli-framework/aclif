@@ -1,0 +1,25 @@
+{
+  "command": "google:gmail:draft",
+  "examples": [
+    {
+      "description": "Save a draft for a person to review and send",
+      "command": "aclif google gmail draft --to \"alice@example.com\" --subject \"Filing due Friday\" --body \"The reply brief is due Friday.\" --json",
+      "responseShape": {
+        "id": "r-5829301",
+        "messageId": "18f0abc123",
+        "threadId": "18f0abc123",
+        "labelIds": [
+          "DRAFT"
+        ]
+      }
+    },
+    {
+      "description": "Draft to several recipients with a CC",
+      "command": "aclif google gmail draft --to \"alice@example.com,bob@example.com\" --cc \"manager@example.com\" --subject \"Status\" --body \"Summary below.\" --json"
+    },
+    {
+      "description": "Preview the draft without saving it (dry run)",
+      "command": "aclif google gmail draft --to \"alice@example.com\" --subject \"Test\" --body \"Hello\" --dry-run"
+    }
+  ]
+}

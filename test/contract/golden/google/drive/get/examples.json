@@ -1,0 +1,22 @@
+{
+  "command": "google:drive:get",
+  "examples": [
+    {
+      "description": "Get a file's metadata",
+      "command": "aclif google drive get --file-id 1XyZ --json",
+      "responseShape": {
+        "id": "1XyZ",
+        "name": "complaint.pdf",
+        "mimeType": "application/pdf",
+        "modifiedTime": "2026-09-01T12:00:00.000Z",
+        "size": 48213,
+        "md5Checksum": "9e107d9d372bb6826bd81d3542a419d6",
+        "parents": [
+          "1AbCdEfGhIjK"
+        ],
+        "webViewLink": "https://drive.google.com/file/d/1XyZ/view",
+        "trashed": false
+      }
+    }
+  ]
+}

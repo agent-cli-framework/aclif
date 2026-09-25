@@ -1,0 +1,32 @@
+{
+  "command": "google:gmail:draft",
+  "responseShape": {
+    "description": "Saved draft",
+    "fields": {
+      "id": {
+        "type": "string",
+        "description": "Draft ID (used to update, send, or delete the draft)"
+      },
+      "messageId": {
+        "type": "string",
+        "description": "ID of the message inside the draft"
+      },
+      "threadId": {
+        "type": "string",
+        "description": "Thread ID"
+      },
+      "labelIds": {
+        "type": "array",
+        "description": "Labels on the draft message"
+      }
+    },
+    "example": {
+      "id": "r-5829301",
+      "messageId": "18f0abc",
+      "threadId": "18f0abc",
+      "labelIds": [
+        "DRAFT"
+      ]
+    }
+  }
+}

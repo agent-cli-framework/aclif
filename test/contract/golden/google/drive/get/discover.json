@@ -1,5 +1,5 @@
 {
-  "currentCommand": "google:drive:view-url",
+  "currentCommand": "google:drive:get",
   "topic": "google:drive",
   "siblingCommands": [
     {

@@ -1,6 +1,6 @@
 {
-  "command": "google:calendar:update",
-  "description": "Update a Google Calendar event",
+  "command": "google:gmail:draft",
+  "description": "Save a Gmail message as a draft without sending it",
   "flags": {
     "json": {
       "type": "boolean",
@@ -141,61 +141,39 @@
       "description": "Pre-obtained OAuth2 access token (short-lived)",
       "required": false
     },
-    "event-id": {
+    "to": {
       "type": "option",
-      "description": "Google Calendar event ID to update",
+      "description": "Recipient email address(es), comma-separated",
       "required": true
     },
-    "calendar-id": {
+    "subject": {
       "type": "option",
-      "description": "Calendar ID (default: primary)",
-      "required": false,
-      "default": "primary"
+      "description": "Email subject line",
+      "required": true
     },
-    "summary": {
+    "body": {
       "type": "option",
-      "description": "Updated event title",
+      "description": "Email body text",
+      "required": true
+    },
+    "cc": {
+      "type": "option",
+      "description": "CC recipient email address(es), comma-separated",
       "required": false
     },
-    "start": {
+    "bcc": {
       "type": "option",
-      "description": "Updated start time (RFC3339 for timed events, YYYY-MM-DD with --all-day)",
+      "description": "BCC recipient email address(es), comma-separated",
       "required": false
-    },
-    "end": {
-      "type": "option",
-      "description": "Updated end time (RFC3339 for timed events, YYYY-MM-DD with --all-day; exclusive for all-day)",
-      "required": false
-    },
-    "description": {
-      "type": "option",
-      "description": "Updated event description",
-      "required": false
-    },
-    "location": {
-      "type": "option",
-      "description": "Updated event location",
-      "required": false
-    },
-    "attendees": {
-      "type": "option",
-      "description": "Comma-separated attendee email addresses (replaces existing)",
-      "required": false
-    },
-    "all-day": {
-      "type": "boolean",
-      "description": "Make it an all-day event: --start and --end are YYYY-MM-DD dates (both required)",
-      "required": false,
-      "default": false
     }
   },
   "args": {},
   "aciMetadata": {
-    "mutability": "update",
-    "idempotent": true,
+    "mutability": "create",
+    "idempotent": false,
     "reversible": true,
     "blastRadius": "single_record",
-    "apiCallsConsumed": 2,
+    "apiCallsConsumed": 1,
     "requiresConfirmation": false,
     "prerequisites": []
   }

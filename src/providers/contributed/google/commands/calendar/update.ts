@@ -5,6 +5,8 @@ import {Flags} from '@oclif/core'
 import {GoogleBaseCommand} from '../../base.js'
 import type {AciMetadata, CommandExample, FlagCategorization, ResponseShape} from '../../../../../core/contract/aci.js'
 
+const ALL_DAY_DATE = /^\d{4}-\d{2}-\d{2}$/
+
 export default class CalendarUpdate extends GoogleBaseCommand {
   static override description = 'Update a Google Calendar event'
 
@@ -27,6 +29,10 @@ export default class CalendarUpdate extends GoogleBaseCommand {
     {
       description: 'Reschedule an event',
       command: '$BIN google calendar update --event-id evt123 --start "2026-04-12T14:00:00Z" --end "2026-04-12T15:00:00Z"',
+    },
+    {
+      description: 'Move an all-day event to another day (end is exclusive)',
+      command: '$BIN google calendar update --event-id evt123 --start "2026-04-14" --end "2026-04-15" --all-day',
     },
     {
       description: 'Add attendees',
@@ -56,6 +62,7 @@ export default class CalendarUpdate extends GoogleBaseCommand {
     description: ['bulk'],
     location: ['bulk'],
     attendees: ['bulk'],
+    'all-day': ['bulk'],
     json: ['output'],
     'service-account-key': ['auth'],
     'delegated-user': ['auth'],
@@ -80,10 +87,10 @@ export default class CalendarUpdate extends GoogleBaseCommand {
       description: 'Updated event title',
     }),
     start: Flags.string({
-      description: 'Updated start time (RFC3339)',
+      description: 'Updated start time (RFC3339 for timed events, YYYY-MM-DD with --all-day)',
     }),
     end: Flags.string({
-      description: 'Updated end time (RFC3339)',
+      description: 'Updated end time (RFC3339 for timed events, YYYY-MM-DD with --all-day; exclusive for all-day)',
     }),
     description: Flags.string({
       description: 'Updated event description',
@@ -94,6 +101,10 @@ export default class CalendarUpdate extends GoogleBaseCommand {
     attendees: Flags.string({
       description: 'Comma-separated attendee email addresses (replaces existing)',
     }),
+    'all-day': Flags.boolean({
+      description: 'Make it an all-day event: --start and --end are YYYY-MM-DD dates (both required)',
+      default: false,
+    }),
   }
 
   async run(): Promise<void> {
@@ -101,10 +112,23 @@ export default class CalendarUpdate extends GoogleBaseCommand {
     this.registerMutation()
     const {flags} = await this.parse(CalendarUpdate)
 
+    if (flags['all-day']) {
+      if (!flags.start || !flags.end) {
+        this.error('--all-day needs both --start and --end as YYYY-MM-DD dates.', {exit: 2})
+      }
+      if (!ALL_DAY_DATE.test(flags.start) || !ALL_DAY_DATE.test(flags.end)) {
+        this.error('With --all-day, --start and --end must be YYYY-MM-DD dates.', {exit: 2})
+      }
+    }
+
+    // A patch merges into the stored start/end, so the other form is set
+    // to null; otherwise a timed event moved to all-day (or back) would
+    // hold both date and dateTime, which the API rejects.
+    const when = (value: string) => flags['all-day'] ? {date: value, dateTime: null} : {dateTime: value, date: null}
     const updates: Record<string, unknown> = {}
     if (flags.summary) updates.summary = flags.summary
-    if (flags.start) updates.start = {dateTime: flags.start}
-    if (flags.end) updates.end = {dateTime: flags.end}
+    if (flags.start) updates.start = when(flags.start)
+    if (flags.end) updates.end = when(flags.end)
     if (flags.description) updates.description = flags.description
     if (flags.location) updates.location = flags.location
     if (flags.attendees) {

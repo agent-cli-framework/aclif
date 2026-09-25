@@ -1,0 +1,56 @@
+{
+  "command": "google:drive:get",
+  "responseShape": {
+    "description": "File metadata",
+    "fields": {
+      "id": {
+        "type": "string",
+        "description": "Drive file id"
+      },
+      "name": {
+        "type": "string",
+        "description": "File name"
+      },
+      "mimeType": {
+        "type": "string",
+        "description": "MIME type; Google Docs, Sheets, and Slides use application/vnd.google-apps.*"
+      },
+      "modifiedTime": {
+        "type": "string",
+        "description": "Last modified time (RFC 3339)"
+      },
+      "size": {
+        "type": "number",
+        "description": "Size in bytes; absent for Google-native files"
+      },
+      "md5Checksum": {
+        "type": "string",
+        "description": "MD5 of the content; absent for Google-native files"
+      },
+      "parents": {
+        "type": "array",
+        "description": "Ids of the folders that contain the file"
+      },
+      "webViewLink": {
+        "type": "string",
+        "description": "Link that opens the file in Drive"
+      },
+      "trashed": {
+        "type": "boolean",
+        "description": "Whether the file is in the trash"
+      }
+    },
+    "example": {
+      "id": "1XyZ",
+      "name": "complaint.pdf",
+      "mimeType": "application/pdf",
+      "modifiedTime": "2026-09-01T12:00:00.000Z",
+      "size": 48213,
+      "parents": [
+        "1AbCdEfGhIjK"
+      ],
+      "webViewLink": "https://drive.google.com/file/d/1XyZ/view",
+      "trashed": false
+    }
+  }
+}

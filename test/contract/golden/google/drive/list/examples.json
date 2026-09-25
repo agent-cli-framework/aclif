@@ -1,0 +1,30 @@
+{
+  "command": "google:drive:list",
+  "examples": [
+    {
+      "description": "List the files directly in a folder",
+      "command": "aclif google drive list --folder-id 1AbCdEfGhIjK --json",
+      "responseShape": {
+        "files": [
+          {
+            "id": "1XyZ",
+            "name": "complaint.pdf",
+            "mimeType": "application/pdf",
+            "modifiedTime": "2026-09-01T12:00:00.000Z",
+            "size": 48213,
+            "md5Checksum": "9e107d9d372bb6826bd81d3542a419d6",
+            "parents": [
+              "1AbCdEfGhIjK"
+            ],
+            "webViewLink": "https://drive.google.com/file/d/1XyZ/view",
+            "folderPath": ""
+          }
+        ]
+      }
+    },
+    {
+      "description": "List every file below a folder, with each file's subfolder path",
+      "command": "aclif google drive list --folder-id 1AbCdEfGhIjK --recursive --limit 1000 --json"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "command": "google:drive:get",
+  "category": "auth",
+  "flags": {
+    "service-account-key": {
+      "type": "option",
+      "description": "Google service account JSON key content",
+      "required": false
+    },
+    "delegated-user": {
+      "type": "option",
+      "description": "Email of user to impersonate via Domain-Wide Delegation",
+      "required": false
+    },
+    "gw-client-id": {
+      "type": "option",
+      "description": "Google OAuth2 client ID",
+      "required": false
+    },
+    "gw-client-secret": {
+      "type": "option",
+      "description": "Google OAuth2 client secret",
+      "required": false
+    },
+    "refresh-token": {
+      "type": "option",
+      "description": "Google OAuth2 refresh token",
+      "required": false
+    },
+    "access-token": {
+      "type": "option",
+      "description": "Pre-obtained OAuth2 access token (short-lived)",
+      "required": false
+    }
+  }
+}

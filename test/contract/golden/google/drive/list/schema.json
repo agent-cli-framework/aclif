@@ -1,6 +1,6 @@
 {
-  "command": "google:calendar:update",
-  "description": "Update a Google Calendar event",
+  "command": "google:drive:list",
+  "description": "List the files in a Google Drive folder, optionally including its subfolders",
   "flags": {
     "json": {
       "type": "boolean",
@@ -141,61 +141,36 @@
       "description": "Pre-obtained OAuth2 access token (short-lived)",
       "required": false
     },
-    "event-id": {
+    "folder-id": {
       "type": "option",
-      "description": "Google Calendar event ID to update",
+      "description": "Drive folder id to list",
       "required": true
     },
-    "calendar-id": {
-      "type": "option",
-      "description": "Calendar ID (default: primary)",
-      "required": false,
-      "default": "primary"
-    },
-    "summary": {
-      "type": "option",
-      "description": "Updated event title",
-      "required": false
-    },
-    "start": {
-      "type": "option",
-      "description": "Updated start time (RFC3339 for timed events, YYYY-MM-DD with --all-day)",
-      "required": false
-    },
-    "end": {
-      "type": "option",
-      "description": "Updated end time (RFC3339 for timed events, YYYY-MM-DD with --all-day; exclusive for all-day)",
-      "required": false
-    },
-    "description": {
-      "type": "option",
-      "description": "Updated event description",
-      "required": false
-    },
-    "location": {
-      "type": "option",
-      "description": "Updated event location",
-      "required": false
-    },
-    "attendees": {
-      "type": "option",
-      "description": "Comma-separated attendee email addresses (replaces existing)",
-      "required": false
-    },
-    "all-day": {
+    "recursive": {
       "type": "boolean",
-      "description": "Make it an all-day event: --start and --end are YYYY-MM-DD dates (both required)",
+      "description": "Walk subfolders and list their files too",
       "required": false,
       "default": false
+    },
+    "limit": {
+      "type": "option",
+      "description": "Maximum number of files to return in this page",
+      "required": false,
+      "default": 100
+    },
+    "page-token": {
+      "type": "option",
+      "description": "Opaque pageToken from a prior call's _context.pagination.nextCommand. Pass through verbatim to fetch the next page.",
+      "required": false
     }
   },
   "args": {},
   "aciMetadata": {
-    "mutability": "update",
+    "mutability": "read",
     "idempotent": true,
-    "reversible": true,
-    "blastRadius": "single_record",
-    "apiCallsConsumed": 2,
+    "reversible": false,
+    "blastRadius": "filtered_set",
+    "apiCallsConsumed": 1,
     "requiresConfirmation": false,
     "prerequisites": []
   }

@@ -6,7 +6,7 @@ export const googleMetadata: ProviderMetadata = {
   name: 'google',
   description: 'Google Workspace operations (Gmail, Calendar, Drive)',
   overview: 'Google Workspace and personal Gmail. Gmail for email, Calendar for scheduling, Drive for files. Auth via OAuth2 refresh token (personal Gmail), Service Account with Domain-Wide Delegation (Workspace orgs), or pre-obtained access token.',
-  querySyntax: 'Per-service native syntax. Gmail: search operators (from:x subject:y is:unread after:YYYY/MM/DD). Calendar: time range flags + text query. Drive: query strings (name contains "x", mimeType = "...").',
+  querySyntax: 'Per-service native syntax. Gmail: search operators (from:x subject:y is:unread after:YYYY/MM/DD). Calendar: time range flags + text query. Drive: folder listing by id (--folder-id, --recursive).',
   providerSpecificFlags: [
     '--gw-client-id + --gw-client-secret + --refresh-token — OAuth2 refresh token (personal Gmail) (or GW_CLIENT_ID, GW_CLIENT_SECRET, GW_REFRESH_TOKEN)',
     '--service-account-key + --delegated-user — Service Account with Domain-Wide Delegation (Workspace orgs) (or GW_SERVICE_ACCOUNT_KEY, GW_DELEGATED_USER)',
@@ -14,22 +14,25 @@ export const googleMetadata: ProviderMetadata = {
   ],
   topics: {
     drive: {
-      description: 'Links to Google Drive files',
-      commands: ['view-url'],
-      keyFields: ['id', 'url'],
+      description: 'List Google Drive folders, read file metadata, and link to files',
+      commands: ['list', 'get', 'view-url'],
+      keyFields: ['id', 'name', 'mimeType', 'modifiedTime', 'folderPath', 'webViewLink'],
       commonPatterns: [
+        'List a folder and its subfolders: $BIN google drive list --folder-id 1AbC --recursive --limit 1000 --json',
+        'Get file metadata: $BIN google drive get --file-id 1XyZ --json',
         'Open a Drive file: $BIN google drive view-url --file-id 1AbC --json',
       ],
     },
     gmail: {
-      description: 'Search, read, and send Gmail messages',
-      commands: ['query', 'get', 'send', 'reply', 'get-attachment', 'import', 'profile'],
+      description: 'Search, read, send, and draft Gmail messages',
+      commands: ['query', 'get', 'send', 'reply', 'draft', 'get-attachment', 'import', 'profile'],
       keyFields: ['id', 'threadId', 'from', 'to', 'subject', 'date', 'snippet'],
       commonPatterns: [
         'Search messages: $BIN google gmail query --query "from:boss@example.com is:unread" --limit 10 --json',
         'Get message: $BIN google gmail get --message-id <id> --json',
         'Send email: $BIN google gmail send --to "user@example.com" --subject "Hello" --body "..." --json',
         'Reply to thread: $BIN google gmail reply --thread-id <id> --message-id <id> --body "..." --json',
+        'Save a draft for a person to send: $BIN google gmail draft --to "user@example.com" --subject "Hello" --body "..." --json',
       ],
     },
     calendar: {

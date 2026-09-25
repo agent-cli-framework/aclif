@@ -60,6 +60,6 @@ describe('U-REG-1 registry and defineProvider', () => {
     const upstreamCommands = entries
       .filter((e) => e.tier !== 'private')
       .reduce((n, e) => n + Object.keys(e.plugin.commands).length, 0)
-    expect(upstreamCommands).toBe(56)
+    expect(upstreamCommands).toBe(59)
   })
 })

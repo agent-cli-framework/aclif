@@ -40,11 +40,11 @@
     },
     {
       "topic": "google:drive",
-      "description": "Links to Google Drive files"
+      "description": "List Google Drive folders, read file metadata, and link to files"
     },
     {
       "topic": "google:gmail",
-      "description": "Search, read, and send Gmail messages"
+      "description": "Search, read, send, and draft Gmail messages"
     },
     {
       "topic": "google:introspect",

@@ -15,6 +15,10 @@
       "command": "aclif google calendar update --event-id evt123 --start \"2026-04-12T14:00:00Z\" --end \"2026-04-12T15:00:00Z\""
     },
     {
+      "description": "Move an all-day event to another day (end is exclusive)",
+      "command": "aclif google calendar update --event-id evt123 --start \"2026-04-14\" --end \"2026-04-15\" --all-day"
+    },
+    {
       "description": "Add attendees",
       "command": "aclif google calendar update --event-id evt123 --attendees \"newperson@example.com\""
     }
