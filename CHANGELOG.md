@@ -4,9 +4,15 @@ All notable changes to this project are recorded here. The format follows [Keep 
 
 ## Unreleased
 
+## [1.4.0] - 2026-09-25
+
 - `google gmail draft` saves a message as a Gmail draft without sending it, for a person to review and send. It needs `gmail.modify` or `gmail.compose`; the service-account path now requests `gmail.modify`, which `SETUP.md` already listed for delegation.
 - `google drive list --folder-id <id> [--recursive]` lists a folder's files, walking subfolders with `--recursive`. Each file has `folderPath`, its subfolder path below the folder. Trashed files and the folders themselves are left out, and `--page-token` resumes a walk exactly where the last page stopped. `google drive get --file-id <id>` returns one file's metadata. Both need `drive.readonly`.
 - `google calendar update --all-day` takes `--start` and `--end` as YYYY-MM-DD dates, matching `calendar create`. An update now clears the other form of start and end, so an event can move between timed and all-day.
+
+### Added (from commits)
+
+- **google**: add gmail draft, drive list and get, calendar update --all-day (ac439a4)
 
 ## [1.3.2] - 2026-09-24
 
