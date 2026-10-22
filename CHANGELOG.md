@@ -4,6 +4,12 @@ All notable changes to this project are recorded here. The format follows [Keep 
 
 ## Unreleased
 
+## [1.4.1] - 2026-10-22
+
+### Fixed (from commits)
+
+- New base image with CVE patch (ee40d73)
+
 ## [1.4.0] - 2026-09-25
 
 - `google gmail draft` saves a message as a Gmail draft without sending it, for a person to review and send. It needs `gmail.modify` or `gmail.compose`; the service-account path now requests `gmail.modify`, which `SETUP.md` already listed for delegation.
